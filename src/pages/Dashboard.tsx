@@ -1,11 +1,11 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
 import { AuthModal } from '@/components/auth/AuthModal';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { BarChart, LineChart, PieChart } from '@/components/ui/chart';
+import { BarChart, LineChart, PieChart } from '@/components/ui/charts';
 import { Building2, Clock, FileText, Users, AlertTriangle, CheckCircle2, Layers, ArrowRight } from 'lucide-react';
 import { Progress } from '@/components/ui/progress';
 import { cn } from '@/lib/utils';
