@@ -1,12 +1,31 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+
+import React, { useState } from 'react';
+import { Navbar } from '@/components/Navbar';
+import { Hero } from '@/components/Hero';
+import { Features } from '@/components/Features';
+import { Footer } from '@/components/Footer';
+import { AuthModal } from '@/components/auth/AuthModal';
 
 const Index = () => {
+  const [authModalOpen, setAuthModalOpen] = useState(false);
+
+  const openAuthModal = () => {
+    setAuthModalOpen(true);
+  };
+
+  const closeAuthModal = () => {
+    setAuthModalOpen(false);
+  };
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-gray-600">Start building your amazing project here!</p>
-      </div>
+    <div className="min-h-screen flex flex-col">
+      <Navbar onAuthClick={openAuthModal} />
+      <main className="flex-grow">
+        <Hero onGetStarted={openAuthModal} />
+        <Features />
+      </main>
+      <Footer />
+      <AuthModal isOpen={authModalOpen} onClose={closeAuthModal} />
     </div>
   );
 };
