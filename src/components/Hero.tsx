@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Building2, MoveRight, BarChart3, Shield, Clock } from 'lucide-react';
+import { Building2, MoveRight, BarChart3, Shield, Clock, Hammer, Layers } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { useNavigate } from 'react-router-dom';
@@ -58,7 +58,7 @@ export function Hero({ onGetStarted }: HeroProps) {
         </div>
         
         {/* Stats and Value Propositions */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-16 animate-fade-up animate-delay-200">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mt-16 animate-fade-up animate-delay-200">
           <div 
             className={cn(
               "glass-card rounded-2xl p-6 flex flex-col items-center text-center",
@@ -66,11 +66,11 @@ export function Hero({ onGetStarted }: HeroProps) {
             )}
           >
             <div className="mb-4 p-3 bg-primary/10 rounded-full">
-              <Building2 className="w-8 h-8 text-primary" />
+              <Hammer className="w-8 h-8 text-primary" />
             </div>
-            <div className="text-3xl md:text-4xl font-bold mb-2">500+</div>
-            <div className="text-muted-foreground mb-2">Homes Built</div>
-            <p className="text-sm text-muted-foreground">Quality craftsmanship in every project we complete</p>
+            <div className="text-3xl md:text-4xl font-bold mb-2">Premium</div>
+            <div className="text-muted-foreground mb-2">Craftsmanship</div>
+            <p className="text-sm text-muted-foreground">Meticulous attention to detail in every aspect of your custom build</p>
           </div>
           
           <div 
@@ -80,11 +80,11 @@ export function Hero({ onGetStarted }: HeroProps) {
             )}
           >
             <div className="mb-4 p-3 bg-primary/10 rounded-full">
-              <BarChart3 className="w-8 h-8 text-primary" />
+              <Building2 className="w-8 h-8 text-primary" />
             </div>
-            <div className="text-3xl md:text-4xl font-bold mb-2">98%</div>
-            <div className="text-muted-foreground mb-2">Customer Satisfaction</div>
-            <p className="text-sm text-muted-foreground">Our clients love our attention to detail and quality service</p>
+            <div className="text-3xl md:text-4xl font-bold mb-2">20+ Years</div>
+            <div className="text-muted-foreground mb-2">Combined Experience</div>
+            <p className="text-sm text-muted-foreground">Our expert team brings decades of construction knowledge to your project</p>
           </div>
           
           <div 
@@ -99,6 +99,20 @@ export function Hero({ onGetStarted }: HeroProps) {
             <div className="text-3xl md:text-4xl font-bold mb-2">10 Year</div>
             <div className="text-muted-foreground mb-2">Warranty Guarantee</div>
             <p className="text-sm text-muted-foreground">Peace of mind with our industry-leading warranty coverage</p>
+          </div>
+
+          <div 
+            className={cn(
+              "glass-card rounded-2xl p-6 flex flex-col items-center text-center",
+              "hover:shadow-xl transition-all duration-300 h-full"
+            )}
+          >
+            <div className="mb-4 p-3 bg-primary/10 rounded-full">
+              <Layers className="w-8 h-8 text-primary" />
+            </div>
+            <div className="text-3xl md:text-4xl font-bold mb-2">Modern</div>
+            <div className="text-muted-foreground mb-2">Techniques</div>
+            <p className="text-sm text-muted-foreground">State-of-the-art construction methods for efficiency and quality</p>
           </div>
         </div>
       </div>
