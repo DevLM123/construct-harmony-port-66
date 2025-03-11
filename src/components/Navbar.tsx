@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { cn } from '@/lib/utils';
@@ -15,7 +16,7 @@ const links: NavLink[] = [
   { label: 'Projects', href: '/projects' },
   { label: 'Lifts', href: '/lifts' },
   { label: 'Customization', href: '/customization' },
-  { label: 'Dashboard', href: '/dashboard' }
+  { label: 'Services', href: '/dashboard' }
 ];
 
 export function Navbar({ onAuthClick }: { onAuthClick: () => void }) {
@@ -108,7 +109,7 @@ export function Navbar({ onAuthClick }: { onAuthClick: () => void }) {
               )}
             >
               <UserCircle className="w-4 h-4" />
-              <span>Sign In</span>
+              <span>Contact Us</span>
             </Button>
             
             <Button 
@@ -116,7 +117,7 @@ export function Navbar({ onAuthClick }: { onAuthClick: () => void }) {
               size="sm"
               className="hidden md:flex animate-fade-in"
             >
-              Get Started
+              Free Consultation
             </Button>
 
             {/* Mobile Menu Toggle */}
@@ -178,7 +179,7 @@ export function Navbar({ onAuthClick }: { onAuthClick: () => void }) {
               }}
               className="w-full justify-center"
             >
-              Sign In
+              Contact Us
             </Button>
             <Button 
               onClick={() => {
@@ -187,7 +188,7 @@ export function Navbar({ onAuthClick }: { onAuthClick: () => void }) {
               }}
               className="w-full justify-center"
             >
-              Get Started
+              Free Consultation
             </Button>
           </div>
         </div>

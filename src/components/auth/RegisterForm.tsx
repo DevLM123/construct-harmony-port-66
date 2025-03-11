@@ -4,24 +4,20 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Checkbox } from '@/components/ui/checkbox';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useToast } from '@/hooks/use-toast';
-import { useNavigate } from 'react-router-dom';
 
 export function RegisterForm() {
   const { toast } = useToast();
-  const navigate = useNavigate();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
     // Show success toast
     toast({
-      title: "Account created",
-      description: "Welcome to Landmark Construction Portal!",
+      title: "Consultation requested",
+      description: "A member of our team will contact you to schedule your free consultation!",
     });
-    
-    // Navigate to dashboard
-    navigate('/dashboard');
   };
 
   return (
@@ -61,44 +57,42 @@ export function RegisterForm() {
         </div>
         
         <div className="space-y-2">
-          <Label htmlFor="password">Password</Label>
+          <Label htmlFor="phone">Phone Number</Label>
           <Input
-            id="password"
-            type="password"
+            id="phone"
+            placeholder="(123) 456-7890"
+            type="tel"
             required
             className="h-11"
           />
         </div>
         
+        <div className="space-y-2">
+          <Label htmlFor="service">Interested In</Label>
+          <Select>
+            <SelectTrigger className="h-11">
+              <SelectValue placeholder="Select a service" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="home-building">Home Building</SelectItem>
+              <SelectItem value="home-elevation">Home Elevation</SelectItem>
+              <SelectItem value="lift-installation">Lift Installation</SelectItem>
+              <SelectItem value="interior-design">Interior Design</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+        
         <div className="flex items-center space-x-2">
           <Checkbox id="terms" required />
           <Label htmlFor="terms" className="text-sm font-normal">
-            I agree to the <Button variant="link" className="p-0 h-auto">Terms of Service</Button> and <Button variant="link" className="p-0 h-auto">Privacy Policy</Button>
+            I agree to be contacted about Landmark services
           </Label>
         </div>
       </div>
       
       <Button type="submit" className="w-full h-11">
-        Create Account
+        Request Consultation
       </Button>
-      
-      <div className="relative flex items-center justify-center">
-        <span className="px-2 bg-background text-xs text-muted-foreground">
-          Or continue with
-        </span>
-        <div className="absolute inset-0 flex items-center">
-          <div className="w-full border-t border-border"></div>
-        </div>
-      </div>
-      
-      <div className="grid grid-cols-2 gap-4">
-        <Button variant="outline" type="button" className="h-11">
-          Google
-        </Button>
-        <Button variant="outline" type="button" className="h-11">
-          Apple
-        </Button>
-      </div>
     </form>
   );
 }

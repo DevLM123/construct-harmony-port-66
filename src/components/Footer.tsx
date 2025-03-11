@@ -14,15 +14,15 @@ export function Footer() {
               <span className="font-semibold text-lg">Landmark</span>
             </div>
             <p className="text-muted-foreground mb-4">
-              The premium platform for property owners to manage construction projects
-              and track progress in one centralized hub.
+              Premium home building and elevation services with expert craftsmanship
+              and attention to detail for your dream home.
             </p>
           </div>
           
           <div className="space-y-4">
-            <h4 className="font-medium text-sm uppercase tracking-wider text-muted-foreground">Company</h4>
+            <h4 className="font-medium text-sm uppercase tracking-wider text-muted-foreground">Services</h4>
             <ul className="space-y-3">
-              {['About', 'Careers', 'Blog', 'Customers'].map((item) => (
+              {['Home Building', 'Home Elevation', 'Lift Installation', 'Interior Design'].map((item) => (
                 <li key={item}>
                   <Button variant="link" className="p-0 h-auto text-foreground/80 hover:text-primary font-normal">
                     {item}
@@ -33,9 +33,9 @@ export function Footer() {
           </div>
           
           <div className="space-y-4">
-            <h4 className="font-medium text-sm uppercase tracking-wider text-muted-foreground">Resources</h4>
+            <h4 className="font-medium text-sm uppercase tracking-wider text-muted-foreground">Company</h4>
             <ul className="space-y-3">
-              {['Documentation', 'Support', 'FAQ', 'Contact'].map((item) => (
+              {['About Us', 'Our Projects', 'Testimonials', 'Contact'].map((item) => (
                 <li key={item}>
                   <Button variant="link" className="p-0 h-auto text-foreground/80 hover:text-primary font-normal">
                     {item}
@@ -48,7 +48,7 @@ export function Footer() {
           <div className="space-y-4">
             <h4 className="font-medium text-sm uppercase tracking-wider text-muted-foreground">Legal</h4>
             <ul className="space-y-3">
-              {['Privacy', 'Terms', 'Security', 'Accessibility'].map((item) => (
+              {['Privacy Policy', 'Terms of Service', 'Warranty', 'FAQ'].map((item) => (
                 <li key={item}>
                   <Button variant="link" className="p-0 h-auto text-foreground/80 hover:text-primary font-normal">
                     {item}
@@ -61,7 +61,7 @@ export function Footer() {
         
         <div className="mt-12 pt-8 border-t border-border flex flex-col md:flex-row justify-between items-center">
           <p className="text-sm text-muted-foreground">
-            © {new Date().getFullYear()} Landmark. All rights reserved.
+            © {new Date().getFullYear()} Landmark Construction. All rights reserved.
           </p>
           
           <div className="flex space-x-6 mt-4 md:mt-0">
