@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { LayoutDashboard, BarChart3, Building, Rocket, Clock, Lock, MessageSquare, Smartphone } from 'lucide-react';
+import { LayoutDashboard, Home, Building, Palette, Elevator, Shield, MessageSquare, Smartphone } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 type Feature = {
@@ -11,42 +11,42 @@ type Feature = {
 
 const features: Feature[] = [
   {
-    icon: <LayoutDashboard className="w-10 h-10 text-primary" />,
-    title: "Intuitive Dashboard",
-    description: "Get a bird's-eye view of all your projects with real-time status updates and important notifications."
+    icon: <Home className="w-10 h-10 text-primary" />,
+    title: "Home Building",
+    description: "Expert home construction with premium materials and craftsmanship for your dream residence."
   },
   {
     icon: <Building className="w-10 h-10 text-primary" />,
-    title: "Project Management",
-    description: "Create and manage multiple construction projects, track tasks, and store important documents."
+    title: "Home Elevation",
+    description: "Professional home elevation services to protect your property and increase its value."
   },
   {
-    icon: <Rocket className="w-10 h-10 text-primary" />,
+    icon: <Elevator className="w-10 h-10 text-primary" />,
     title: "Lift Installation",
-    description: "Monitor elevator installations with detailed progress tracking and compliance information."
+    description: "Residential and commercial lift solutions with detailed compliance and safety standards."
   },
   {
-    icon: <BarChart3 className="w-10 h-10 text-primary" />,
-    title: "Construction Insights",
-    description: "Access interactive maps, market trends, and AI-driven recommendations for your projects."
+    icon: <Palette className="w-10 h-10 text-primary" />,
+    title: "Interior Customization",
+    description: "Extensive customization options for fixtures, finishes, cabinets, flooring, and paint colors."
   },
   {
     icon: <MessageSquare className="w-10 h-10 text-primary" />,
     title: "Seamless Communication",
-    description: "Stay connected with in-app messaging and automated status updates for all stakeholders."
+    description: "Stay connected with in-app messaging and automated status updates for your project."
   },
   {
-    icon: <Clock className="w-10 h-10 text-primary" />,
-    title: "Time-Saving Analytics",
-    description: "Generate custom reports on project progress, expenses, and projected completion times."
+    icon: <LayoutDashboard className="w-10 h-10 text-primary" />,
+    title: "Project Dashboard",
+    description: "Monitor your home building or elevation project with real-time updates and notifications."
   },
   {
     icon: <Smartphone className="w-10 h-10 text-primary" />,
     title: "Mobile Accessibility",
-    description: "Access your projects anytime, anywhere with our fully responsive web application."
+    description: "Access your project details anytime, anywhere with our fully responsive web application."
   },
   {
-    icon: <Lock className="w-10 h-10 text-primary" />,
+    icon: <Shield className="w-10 h-10 text-primary" />,
     title: "Enhanced Security",
     description: "Rest easy with end-to-end encryption and role-based access for all your sensitive data."
   }
@@ -59,9 +59,9 @@ export function Features() {
       
       <div className="container mx-auto relative z-10 max-w-6xl">
         <div className="text-center mb-16 animate-fade-up">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Powerful Features</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">Premium Services</h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Everything you need to manage your construction projects efficiently in one platform
+            Everything you need for high-quality home building, elevation, and customization
           </p>
         </div>
         

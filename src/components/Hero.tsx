@@ -21,7 +21,7 @@ export function Hero({ onGetStarted }: HeroProps) {
         <div className="flex flex-col items-center text-center mb-10 md:mb-16 animate-fade-up">
           <div className="inline-flex items-center px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6">
             <Building2 className="w-4 h-4 mr-2" />
-            <span>Construction Management Reimagined</span>
+            <span>Home Building & Elevation Services</span>
           </div>
           
           <h1 className="font-bold text-4xl md:text-6xl lg:text-7xl mb-6 leading-tight tracking-tight max-w-4xl">
@@ -30,8 +30,8 @@ export function Hero({ onGetStarted }: HeroProps) {
           </h1>
           
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl">
-            The premium platform for property owners to manage construction projects,
-            track progress, and access essential services in one place.
+            Premium home building, home elevation, and lift installation services
+            with customizable options for your dream home.
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 mt-10">
@@ -58,18 +58,18 @@ export function Hero({ onGetStarted }: HeroProps) {
           {[
             { 
               icon: <Building2 className="w-10 h-10 text-primary" />, 
-              value: "1,250+", 
-              label: "Projects Managed" 
+              value: "500+", 
+              label: "Homes Built" 
             },
             { 
               icon: <BarChart3 className="w-10 h-10 text-primary" />, 
               value: "98%", 
-              label: "Completion Rate" 
+              label: "Customer Satisfaction" 
             },
             { 
               icon: <Shield className="w-10 h-10 text-primary" />, 
-              value: "24/7", 
-              label: "Project Support" 
+              value: "10 Years", 
+              label: "Warranty" 
             },
           ].map((stat, index) => (
             <div 

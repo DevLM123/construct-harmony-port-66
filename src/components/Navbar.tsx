@@ -1,8 +1,7 @@
-
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { cn } from '@/lib/utils';
-import { Building2, Menu, X, UserCircle } from 'lucide-react';
+import { Building2, Menu, X, UserCircle, Palette } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useIsMobile } from '@/hooks/use-mobile';
 
@@ -15,6 +14,7 @@ const links: NavLink[] = [
   { label: 'Home', href: '/' },
   { label: 'Projects', href: '/projects' },
   { label: 'Lifts', href: '/lifts' },
+  { label: 'Customization', href: '/customization' },
   { label: 'Dashboard', href: '/dashboard' }
 ];
 
