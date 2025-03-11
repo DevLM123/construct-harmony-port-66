@@ -69,7 +69,10 @@ export function LineChart({
           <ChartTooltip
             content={
               <ChartTooltipContent
-                valueFormatter={valueFormatter}
+                // Pass the formatter as a prop to the content component
+                formatter={(value) => 
+                  valueFormatter ? valueFormatter(value) : value
+                }
               />
             }
           />
