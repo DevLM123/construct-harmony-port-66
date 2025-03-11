@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { LayoutDashboard, Home, Building, Palette, Building2, Shield, MessageSquare, Smartphone } from 'lucide-react';
+import { LayoutDashboard, Home, Building, Palette, Shield, MessageSquare, Smartphone, ArrowUpDown } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 type Feature = {
@@ -18,12 +18,7 @@ const features: Feature[] = [
   {
     icon: <Building className="w-10 h-10 text-primary" />,
     title: "Home Elevation",
-    description: "Professional home elevation services to protect your property from flooding and increase its value."
-  },
-  {
-    icon: <Building2 className="w-10 h-10 text-primary" />,
-    title: "Lift Installation",
-    description: "Residential and commercial lift solutions with meticulous attention to compliance and safety standards."
+    description: "Professional home elevation services to protect your property from flooding, including lift installations and structural raising to increase your home's safety and value."
   },
   {
     icon: <Palette className="w-10 h-10 text-primary" />,
@@ -44,6 +39,11 @@ const features: Feature[] = [
     icon: <Smartphone className="w-10 h-10 text-primary" />,
     title: "Responsive Service",
     description: "Quick response times and accessible team members to address your questions and concerns."
+  },
+  {
+    icon: <ArrowUpDown className="w-10 h-10 text-primary" />,
+    title: "Elevation Solutions",
+    description: "Specialized techniques and equipment to safely raise your home above flood levels with minimal disruption."
   },
   {
     icon: <Shield className="w-10 h-10 text-primary" />,

@@ -76,7 +76,6 @@ export function RegisterForm() {
             <SelectContent>
               <SelectItem value="home-building">Home Building</SelectItem>
               <SelectItem value="home-elevation">Home Elevation</SelectItem>
-              <SelectItem value="lift-installation">Lift Installation</SelectItem>
               <SelectItem value="interior-design">Interior Design</SelectItem>
             </SelectContent>
           </Select>
