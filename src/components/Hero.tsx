@@ -1,14 +1,43 @@
 
 import React from 'react';
-import { Building2, BarChart3, Shield, MoveRight } from 'lucide-react';
+import { Building2, MoveRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import { useNavigate } from 'react-router-dom';
 
 type HeroProps = {
   onGetStarted: () => void;
 };
 
+// Define the feature type for before/after images
+type Feature = {
+  beforeImage: string;
+  afterImage: string;
+  title: string;
+};
+
+// Sample features data
+const features: Feature[] = [
+  {
+    beforeImage: "https://images.unsplash.com/photo-1488972685288-c3fd157d7c7a",
+    afterImage: "https://images.unsplash.com/photo-1613490493576-7fde63acd811",
+    title: "Custom Home Building"
+  },
+  {
+    beforeImage: "https://images.unsplash.com/photo-1487958449943-2429e8be8625",
+    afterImage: "https://images.unsplash.com/photo-1613977257365-aaae5a9817ff",
+    title: "Home Elevation"
+  },
+  {
+    beforeImage: "https://images.unsplash.com/photo-1577493340887-b7bfff550145",
+    afterImage: "https://images.unsplash.com/photo-1721322800607-8c38375eef04",
+    title: "Interior Customization"
+  }
+];
+
 export function Hero({ onGetStarted }: HeroProps) {
+  const navigate = useNavigate();
+  
   return (
     <section className="relative min-h-screen flex flex-col justify-center overflow-hidden bg-hero-pattern pt-20 pb-16 px-4">
       <div className="absolute inset-0 bg-gradient-radial from-transparent to-background z-0"></div>
@@ -53,37 +82,32 @@ export function Hero({ onGetStarted }: HeroProps) {
           </div>
         </div>
         
-        {/* Stats */}
+        {/* Before/After Images replacing Stats */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-16 animate-fade-up animate-delay-200">
-          {[
-            { 
-              icon: <Building2 className="w-10 h-10 text-primary" />, 
-              value: "500+", 
-              label: "Homes Built" 
-            },
-            { 
-              icon: <BarChart3 className="w-10 h-10 text-primary" />, 
-              value: "98%", 
-              label: "Customer Satisfaction" 
-            },
-            { 
-              icon: <Shield className="w-10 h-10 text-primary" />, 
-              value: "10 Years", 
-              label: "Warranty" 
-            },
-          ].map((stat, index) => (
+          {features.map((feature, index) => (
             <div 
               key={index} 
               className={cn(
-                "glass-card rounded-2xl p-6 flex flex-col items-center text-center",
+                "glass-card rounded-2xl p-4 overflow-hidden cursor-pointer group",
                 "hover:shadow-xl transition-all duration-300 h-full"
               )}
+              onClick={() => navigate('/projects')}
             >
-              <div className="mb-4">
-                {stat.icon}
+              <div className="relative h-44 md:h-36 lg:h-40 mb-3 overflow-hidden rounded-lg">
+                <img 
+                  src={feature.beforeImage} 
+                  alt={`${feature.title} before`}
+                  className="absolute inset-0 w-full h-full object-cover transition-opacity duration-500 group-hover:opacity-0"
+                />
+                <img 
+                  src={feature.afterImage} 
+                  alt={`${feature.title} after`}
+                  className="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
               </div>
-              <div className="text-3xl md:text-4xl font-bold mb-2">{stat.value}</div>
-              <div className="text-muted-foreground">{stat.label}</div>
+              
+              <h3 className="text-base md:text-lg font-semibold text-center">{feature.title}</h3>
             </div>
           ))}
         </div>
