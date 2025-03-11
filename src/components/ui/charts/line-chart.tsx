@@ -59,7 +59,7 @@ export function LineChart({
           />
           <YAxis
             tickFormatter={(value) => 
-              valueFormatter ? valueFormatter(value) : value
+              valueFormatter ? valueFormatter(Number(value)) : value
             }
             tickLine={false}
             axisLine={false}
@@ -71,7 +71,7 @@ export function LineChart({
               <ChartTooltipContent
                 // Pass the formatter as a prop to the content component
                 formatter={(value) => 
-                  valueFormatter ? valueFormatter(value) : value
+                  valueFormatter && typeof value === 'number' ? valueFormatter(value) : value
                 }
               />
             }
