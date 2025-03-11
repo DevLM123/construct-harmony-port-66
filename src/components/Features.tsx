@@ -37,29 +37,29 @@ export function Features() {
   const navigate = useNavigate();
 
   return (
-    <section className="py-24 px-4 relative overflow-hidden bg-secondary/50" id="features">
+    <section className="py-16 md:py-24 px-4 relative overflow-hidden bg-secondary/50" id="features">
       <div className="absolute inset-0 bg-gradient-radial from-transparent to-secondary z-0"></div>
       
       <div className="container mx-auto relative z-10 max-w-6xl">
-        <div className="text-center mb-16 animate-fade-up">
+        <div className="text-center mb-12 animate-fade-up">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">Our Services</h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Comprehensive construction services for your home building, elevation, and customization needs
           </p>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-4 lg:gap-8">
           {features.map((feature, index) => (
             <div 
               key={index}
               className={cn(
-                "glass-card rounded-2xl p-6 transition-all hover:shadow-lg cursor-pointer group",
+                "glass-card rounded-2xl p-4 md:p-5 lg:p-6 transition-all hover:shadow-lg cursor-pointer group",
                 "animate-fade-up"
               )}
               style={{ animationDelay: `${index * 100}ms` }}
               onClick={() => navigate('/projects')}
             >
-              <div className="relative h-64 mb-6 overflow-hidden rounded-lg">
+              <div className="relative h-48 md:h-40 lg:h-52 mb-4 overflow-hidden rounded-lg">
                 <img 
                   src={feature.beforeImage} 
                   alt={`${feature.title} before`}
@@ -73,8 +73,8 @@ export function Features() {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
               </div>
               
-              <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
-              <p className="text-muted-foreground mb-4">{feature.description}</p>
+              <h3 className="text-lg md:text-xl font-semibold mb-2">{feature.title}</h3>
+              <p className="text-muted-foreground text-sm mb-4 line-clamp-3">{feature.description}</p>
               
               <Button variant="outline" className="w-full justify-between group-hover:bg-primary group-hover:text-primary-foreground">
                 <span>View Projects</span>
