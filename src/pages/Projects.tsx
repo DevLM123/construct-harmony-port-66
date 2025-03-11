@@ -7,83 +7,77 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/com
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
-import { Progress } from '@/components/ui/progress';
-import { Search, Plus, ArrowRight, MapPin, Calendar, Clock, Users, Building2 } from 'lucide-react';
+import { Search, ArrowRight, MapPin, FlipHorizontal } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
-// Sample project data
+// Sample before and after projects data
 const projects = [
   {
     id: 1,
-    name: 'Alpine Residence',
-    description: 'Luxury residential home with modern amenities',
-    location: 'Boulder, CO',
-    progress: 75,
-    status: 'In Progress',
-    dueDate: 'Aug 15, 2023',
-    team: 8,
-    image: 'https://images.unsplash.com/photo-1613490493576-7fde63acd811?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80'
+    name: 'Bayshore Residence',
+    description: 'Complete home elevation to protect against flooding',
+    location: 'Tampa, FL',
+    completionDate: 'March 2023',
+    elevationHeight: '12 feet',
+    beforeImage: 'https://images.unsplash.com/photo-1600585154526-990dced4db0d',
+    afterImage: 'https://images.unsplash.com/photo-1613490493576-7fde63acd811'
   },
   {
     id: 2,
-    name: 'Skyline Tower',
-    description: 'Mixed-use high-rise with commercial space and apartments',
-    location: 'Denver, CO',
-    progress: 45,
-    status: 'In Progress',
-    dueDate: 'Sep 22, 2023',
-    team: 15,
-    image: 'https://images.unsplash.com/photo-1486744328743-c1a306cf6b4e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80'
+    name: 'Coastal Heights',
+    description: 'Waterfront property elevation with structural reinforcement',
+    location: 'Miami Beach, FL',
+    completionDate: 'June 2023',
+    elevationHeight: '15 feet',
+    beforeImage: 'https://images.unsplash.com/photo-1487958449943-2429e8be8625',
+    afterImage: 'https://images.unsplash.com/photo-1613977257365-aaae5a9817ff'
   },
   {
     id: 3,
-    name: 'Lakefront Villa',
-    description: 'Premium waterfront property with private dock',
-    location: 'Chicago, IL',
-    progress: 90,
-    status: 'Final Review',
-    dueDate: 'Jul 10, 2023',
-    team: 6,
-    image: 'https://images.unsplash.com/photo-1600585154526-990dced4db0d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80'
+    name: 'Palm Harbor Estate',
+    description: 'Historic home elevation with foundation strengthening',
+    location: 'Naples, FL',
+    completionDate: 'September 2023',
+    elevationHeight: '10 feet',
+    beforeImage: 'https://images.unsplash.com/photo-1488972685288-c3fd157d7c7a',
+    afterImage: 'https://images.unsplash.com/photo-1625602812206-5ec545ca1231'
   },
   {
     id: 4,
-    name: 'Urban Heights',
-    description: 'Modern apartment complex in the heart of the city',
-    location: 'Seattle, WA',
-    progress: 25,
-    status: 'Early Stage',
-    dueDate: 'Oct 30, 2023',
-    team: 10,
-    image: 'https://images.unsplash.com/photo-1577493340887-b7bfff550145?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80'
+    name: 'Oceanview Bungalow',
+    description: 'Beachfront bungalow elevated to maximize ocean views',
+    location: 'Key West, FL',
+    completionDate: 'December 2023',
+    elevationHeight: '14 feet',
+    beforeImage: 'https://images.unsplash.com/photo-1577493340887-b7bfff550145',
+    afterImage: 'https://images.unsplash.com/photo-1721322800607-8c38375eef04'
   },
   {
     id: 5,
-    name: 'Harbor Point',
-    description: 'Coastal condominium development with ocean views',
-    location: 'San Diego, CA',
-    progress: 60,
-    status: 'In Progress',
-    dueDate: 'Nov 15, 2023',
-    team: 12,
-    image: 'https://images.unsplash.com/photo-1613977257365-aaae5a9817ff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80'
+    name: 'Riverfront Cottage',
+    description: 'Riverside property elevated to prevent seasonal flooding',
+    location: 'Jacksonville, FL',
+    completionDate: 'February 2024',
+    elevationHeight: '11 feet',
+    beforeImage: 'https://images.unsplash.com/photo-1486744328743-c1a306cf6b4e',
+    afterImage: 'https://images.unsplash.com/photo-1577493340887-b7bfff550145'
   },
   {
     id: 6,
-    name: 'Parkview Terrace',
-    description: 'Residential development adjacent to central park',
-    location: 'Austin, TX',
-    progress: 15,
-    status: 'Planning',
-    dueDate: 'Dec 05, 2023',
-    team: 9,
-    image: 'https://images.unsplash.com/photo-1625602812206-5ec545ca1231?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80'
+    name: 'Gulf Breeze Villa',
+    description: 'Luxury villa with complete elevation and structural updates',
+    location: 'Pensacola, FL',
+    completionDate: 'April 2024',
+    elevationHeight: '16 feet',
+    beforeImage: 'https://images.unsplash.com/photo-1600585154526-990dced4db0d',
+    afterImage: 'https://images.unsplash.com/photo-1613490493576-7fde63acd811'
   },
 ];
 
 const Projects = () => {
   const [authModalOpen, setAuthModalOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const [showBefore, setShowBefore] = useState({});
 
   const openAuthModal = () => {
     setAuthModalOpen(true);
@@ -91,6 +85,13 @@ const Projects = () => {
 
   const closeAuthModal = () => {
     setAuthModalOpen(false);
+  };
+
+  const toggleBeforeAfter = (id) => {
+    setShowBefore(prev => ({
+      ...prev,
+      [id]: !prev[id]
+    }));
   };
 
   const filteredProjects = projects.filter(project => 
@@ -106,9 +107,9 @@ const Projects = () => {
         <div className="container mx-auto max-w-7xl">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
             <div>
-              <h1 className="text-3xl font-bold mb-2 animate-fade-up">Projects</h1>
+              <h1 className="text-3xl font-bold mb-2 animate-fade-up">Before & After Projects</h1>
               <p className="text-muted-foreground animate-fade-up animate-delay-100">
-                Manage and track all your construction projects in one place
+                Explore our completed home elevation projects across Florida
               </p>
             </div>
             
@@ -122,9 +123,8 @@ const Projects = () => {
                   onChange={(e) => setSearchQuery(e.target.value)}
                 />
               </div>
-              <Button>
-                <Plus className="h-4 w-4 mr-2" />
-                New Project
+              <Button onClick={openAuthModal}>
+                Request Consultation
               </Button>
             </div>
           </div>
@@ -132,9 +132,9 @@ const Projects = () => {
           <Tabs defaultValue="all" className="animate-fade-up animate-delay-300">
             <TabsList className="mb-6">
               <TabsTrigger value="all">All Projects</TabsTrigger>
-              <TabsTrigger value="active">Active</TabsTrigger>
-              <TabsTrigger value="completed">Completed</TabsTrigger>
-              <TabsTrigger value="planning">Planning</TabsTrigger>
+              <TabsTrigger value="tampa">Tampa</TabsTrigger>
+              <TabsTrigger value="miami">Miami</TabsTrigger>
+              <TabsTrigger value="other">Other Regions</TabsTrigger>
             </TabsList>
             
             <TabsContent value="all" className="m-0">
@@ -145,23 +145,29 @@ const Projects = () => {
                     className="overflow-hidden hover:shadow-md transition-all duration-300 animate-fade-up"
                     style={{ animationDelay: `${(index % 3) * 100 + 400}ms` }}
                   >
-                    <div className="relative h-48 overflow-hidden">
+                    <div className="relative h-64 overflow-hidden">
                       <img 
-                        src={project.image} 
-                        alt={project.name} 
+                        src={showBefore[project.id] ? project.beforeImage : project.afterImage} 
+                        alt={showBefore[project.id] ? `${project.name} before` : `${project.name} after`} 
                         className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-                      <div className="absolute bottom-4 left-4 right-4">
+                      <div className="absolute bottom-4 left-4 right-4 flex justify-between items-center">
                         <span className={cn(
                           "text-xs font-medium px-2.5 py-1 rounded-full text-white",
-                          project.status === 'In Progress' && "bg-blue-500/80 backdrop-blur-sm",
-                          project.status === 'Final Review' && "bg-green-500/80 backdrop-blur-sm",
-                          project.status === 'Early Stage' && "bg-amber-500/80 backdrop-blur-sm",
-                          project.status === 'Planning' && "bg-purple-500/80 backdrop-blur-sm",
+                          showBefore[project.id] ? "bg-amber-500/80 backdrop-blur-sm" : "bg-green-500/80 backdrop-blur-sm",
                         )}>
-                          {project.status}
+                          {showBefore[project.id] ? "Before" : "After"}
                         </span>
+                        <Button 
+                          variant="outline" 
+                          size="sm" 
+                          className="bg-black/30 backdrop-blur-sm border-white/20 text-white hover:bg-black/50 hover:text-white"
+                          onClick={() => toggleBeforeAfter(project.id)}
+                        >
+                          <FlipHorizontal className="h-4 w-4 mr-1" />
+                          Flip
+                        </Button>
                       </div>
                     </div>
                     
@@ -177,33 +183,19 @@ const Projects = () => {
                         {project.description}
                       </p>
                       
-                      <div className="mb-4">
-                        <div className="flex justify-between text-xs mb-1">
-                          <span>Progress</span>
-                          <span className="font-medium">{project.progress}%</span>
+                      <div className="grid grid-cols-2 gap-2 mb-4">
+                        <div className="flex flex-col p-2 rounded-lg bg-muted/50">
+                          <span className="text-xs text-muted-foreground">Completion</span>
+                          <span className="text-sm font-medium">{project.completionDate}</span>
                         </div>
-                        <Progress value={project.progress} className="h-1.5" />
-                      </div>
-                      
-                      <div className="grid grid-cols-3 gap-2 mb-4">
-                        <div className="flex flex-col items-center justify-center p-2 rounded-lg bg-muted/50">
-                          <Calendar className="h-4 w-4 text-muted-foreground mb-1" />
-                          <span className="text-xs text-center line-clamp-1">
-                            {project.dueDate.split(' ')[0]}
-                          </span>
-                        </div>
-                        <div className="flex flex-col items-center justify-center p-2 rounded-lg bg-muted/50">
-                          <Users className="h-4 w-4 text-muted-foreground mb-1" />
-                          <span className="text-xs text-center">{project.team}</span>
-                        </div>
-                        <div className="flex flex-col items-center justify-center p-2 rounded-lg bg-muted/50">
-                          <Building2 className="h-4 w-4 text-muted-foreground mb-1" />
-                          <span className="text-xs text-center">Details</span>
+                        <div className="flex flex-col p-2 rounded-lg bg-muted/50">
+                          <span className="text-xs text-muted-foreground">Elevation</span>
+                          <span className="text-sm font-medium">{project.elevationHeight}</span>
                         </div>
                       </div>
                       
-                      <Button variant="outline" className="w-full justify-between">
-                        <span>View Project</span>
+                      <Button variant="outline" className="w-full justify-between" onClick={openAuthModal}>
+                        <span>Request Similar Project</span>
                         <ArrowRight className="h-4 w-4" />
                       </Button>
                     </CardContent>
@@ -215,29 +207,41 @@ const Projects = () => {
                 <div className="text-center py-16">
                   <h3 className="text-lg font-medium mb-2">No projects found</h3>
                   <p className="text-muted-foreground mb-6">Try adjusting your search or filters</p>
-                  <Button>Create New Project</Button>
+                  <Button onClick={openAuthModal}>Request Consultation</Button>
                 </div>
               )}
             </TabsContent>
             
-            <TabsContent value="active" className="m-0">
-              <div className="text-center py-16">
-                <h3 className="text-lg font-medium mb-2">Active Projects</h3>
-                <p className="text-muted-foreground">This tab would show only active projects</p>
+            <TabsContent value="tampa" className="m-0">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {filteredProjects.filter(p => p.location.includes('Tampa')).map((project, index) => (
+                  // Same card structure as above
+                  <Card key={project.id} className="overflow-hidden hover:shadow-md transition-all duration-300">
+                    {/* ... Card content structure same as above */}
+                  </Card>
+                ))}
               </div>
             </TabsContent>
             
-            <TabsContent value="completed" className="m-0">
-              <div className="text-center py-16">
-                <h3 className="text-lg font-medium mb-2">Completed Projects</h3>
-                <p className="text-muted-foreground">This tab would show only completed projects</p>
+            <TabsContent value="miami" className="m-0">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {filteredProjects.filter(p => p.location.includes('Miami')).map((project, index) => (
+                  // Same card structure as above
+                  <Card key={project.id} className="overflow-hidden hover:shadow-md transition-all duration-300">
+                    {/* ... Card content structure same as above */}
+                  </Card>
+                ))}
               </div>
             </TabsContent>
             
-            <TabsContent value="planning" className="m-0">
-              <div className="text-center py-16">
-                <h3 className="text-lg font-medium mb-2">Planning Projects</h3>
-                <p className="text-muted-foreground">This tab would show only projects in planning phase</p>
+            <TabsContent value="other" className="m-0">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {filteredProjects.filter(p => !p.location.includes('Tampa') && !p.location.includes('Miami')).map((project, index) => (
+                  // Same card structure as above
+                  <Card key={project.id} className="overflow-hidden hover:shadow-md transition-all duration-300">
+                    {/* ... Card content structure same as above */}
+                  </Card>
+                ))}
               </div>
             </TabsContent>
           </Tabs>
