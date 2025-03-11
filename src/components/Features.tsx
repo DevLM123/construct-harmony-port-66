@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { LayoutDashboard, Home, Building, Palette, Elevator, Shield, MessageSquare, Smartphone } from 'lucide-react';
+import { LayoutDashboard, Home, Building, Palette, Building2, Shield, MessageSquare, Smartphone } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 type Feature = {
@@ -21,7 +21,7 @@ const features: Feature[] = [
     description: "Professional home elevation services to protect your property and increase its value."
   },
   {
-    icon: <Elevator className="w-10 h-10 text-primary" />,
+    icon: <Building2 className="w-10 h-10 text-primary" />,
     title: "Lift Installation",
     description: "Residential and commercial lift solutions with detailed compliance and safety standards."
   },
