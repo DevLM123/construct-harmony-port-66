@@ -4,8 +4,12 @@ import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
 import ServiceCard from '@/components/services/ServiceCard';
 import { Trash, ArrowUp, Home, Lightbulb } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'sonner';
 
 const Services = () => {
+  const navigate = useNavigate();
+
   const servicesList = [
     {
       icon: Trash,
@@ -29,6 +33,19 @@ const Services = () => {
     }
   ];
 
+  const handleLearnMore = (serviceTitle: string) => {
+    // For now, we'll show a toast notification
+    toast.success(`You selected: ${serviceTitle}`, {
+      description: "We'll contact you with more information soon.",
+      duration: 3000
+    });
+    
+    // For the Elevation service, we can navigate to the dedicated Lifts page
+    if (serviceTitle === "Elevation (Lifting)") {
+      setTimeout(() => navigate('/lifts'), 1000);
+    }
+  };
+
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar onAuthClick={() => {}} />
@@ -49,6 +66,7 @@ const Services = () => {
                 icon={service.icon}
                 title={service.title}
                 description={service.description}
+                onLearnMore={() => handleLearnMore(service.title)}
               />
             ))}
           </div>
