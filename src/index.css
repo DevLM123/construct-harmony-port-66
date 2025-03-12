@@ -16,12 +16,12 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222 47% 11%;
 
-    /* Primary color - dark blue from logo */
-    --primary: 220 70% 35%;
+    /* Primary color - dark blue/slate from logo */
+    --primary: 210 50% 16%;
     --primary-foreground: 210 40% 98%;
 
-    /* Darker, more readable gold */
-    --gold: 35 40% 60%;
+    /* Gold from logo */
+    --gold: 41 100% 60%;
     --gold-foreground: 210 40% 10%;
 
     --secondary: 220 20% 96%;
@@ -30,8 +30,8 @@
     --muted: 220 40% 96%;
     --muted-foreground: 215 16% 47%;
 
-    /* Updated accent to a more visible gold */
-    --accent: 35 40% 85%;
+    /* Updated accent to gold from logo */
+    --accent: 41 100% 60%;
     --accent-foreground: 222 47% 11%;
 
     --destructive: 0 84% 60%;
@@ -63,12 +63,12 @@
     --popover: 222 47% 11%;
     --popover-foreground: 210 40% 98%;
 
-    /* Primary color - dark blue from logo */
-    --primary: 220 70% 35%;
+    /* Primary color - dark blue/slate from logo */
+    --primary: 210 50% 16%;
     --primary-foreground: 210 40% 98%;
 
-    /* Darker, more readable gold for dark mode */
-    --gold: 35 40% 55%;
+    /* Gold from logo for dark mode */
+    --gold: 41 100% 60%;
     --gold-foreground: 210 40% 10%;
 
     --secondary: 217 33% 18%;
@@ -77,8 +77,8 @@
     --muted: 217 33% 18%;
     --muted-foreground: 215 20% 65%;
 
-    /* Updated accent to a more visible gold */
-    --accent: 35 40% 45%;
+    /* Updated accent to gold from logo */
+    --accent: 41 100% 60%;
     --accent-foreground: 210 40% 98%;
 
     --destructive: 0 63% 31%;
@@ -144,19 +144,19 @@
   }
   
   .text-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary to-blue-800;
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-[#1e2832] to-[#2d3b48];
   }
   
   .gold-accent {
-    @apply text-amber-700;
+    @apply text-amber-600;
   }
 
   .gold-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-amber-700 to-amber-600;
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-amber-600 to-amber-500;
   }
   
   .border-gold {
-    @apply border border-amber-200;
+    @apply border border-amber-500;
   }
 
   .animate-delay-100 {
