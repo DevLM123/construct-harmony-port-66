@@ -5,6 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
+import { Package } from 'lucide-react';
 
 export function LoginForm() {
   const { toast } = useToast();
@@ -14,13 +15,24 @@ export function LoginForm() {
     
     // Show success toast
     toast({
-      title: "Message sent",
-      description: "We'll get back to you within 24 hours!",
+      title: "Package submitted",
+      description: "Our team will review your selections and provide an estimate within 48 hours!",
     });
   };
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6 animate-fade-up">
+      <div className="flex items-center justify-center mb-4">
+        <div className="p-3 bg-primary/10 rounded-full">
+          <Package className="w-6 h-6 text-primary" />
+        </div>
+      </div>
+
+      <p className="text-center text-muted-foreground mb-4">
+        Review your home customization selections and submit for an estimate.
+        Our team will use this information to prepare initial construction plans.
+      </p>
+
       <div className="space-y-4">
         <div className="space-y-2">
           <Label htmlFor="name">Name</Label>
@@ -54,18 +66,17 @@ export function LoginForm() {
         </div>
         
         <div className="space-y-2">
-          <Label htmlFor="message">Message</Label>
+          <Label htmlFor="message">Special Instructions</Label>
           <Textarea
             id="message"
-            placeholder="How can we help you?"
+            placeholder="Any additional details or special requirements?"
             rows={4}
-            required
           />
         </div>
       </div>
       
       <Button type="submit" className="w-full h-11">
-        Send Message
+        Submit Build Package
       </Button>
     </form>
   );

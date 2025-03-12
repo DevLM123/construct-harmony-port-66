@@ -22,14 +22,14 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
       <DialogContent className="sm:max-w-[425px] rounded-xl p-0 overflow-hidden">
         <DialogHeader className="pt-6 px-6">
           <DialogTitle className="text-2xl font-semibold text-center">
-            {activeTab === 'login' ? 'Contact Us' : 'Request Consultation'}
+            {activeTab === 'login' ? 'Your Build Package' : 'Request Consultation'}
           </DialogTitle>
         </DialogHeader>
         
         <Tabs defaultValue="login" value={activeTab} onValueChange={handleTabChange} className="w-full">
           <TabsList className="w-full grid grid-cols-2 mb-6 rounded-none border-b">
             <TabsTrigger value="login" className="rounded-none data-[state=active]:border-b-2 data-[state=active]:border-primary">
-              Contact Us
+              Build Package
             </TabsTrigger>
             <TabsTrigger value="register" className="rounded-none data-[state=active]:border-b-2 data-[state=active]:border-primary">
               Free Consultation

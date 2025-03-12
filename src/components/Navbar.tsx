@@ -1,7 +1,8 @@
+
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { cn } from '@/lib/utils';
-import { Building2, Menu, X, UserCircle } from 'lucide-react';
+import { Building2, Menu, X, Package } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useIsMobile } from '@/hooks/use-mobile';
 
@@ -106,8 +107,8 @@ export function Navbar({ onAuthClick }: { onAuthClick: () => void }) {
                   : "border-muted/50 hover:border-primary/50"
               )}
             >
-              <UserCircle className="w-4 h-4" />
-              <span>Contact Us</span>
+              <Package className="w-4 h-4" />
+              <span>Build Package</span>
             </Button>
             
             <Button 
@@ -177,7 +178,8 @@ export function Navbar({ onAuthClick }: { onAuthClick: () => void }) {
               }}
               className="w-full justify-center"
             >
-              Contact Us
+              <Package className="w-4 h-4 mr-2" />
+              Build Package
             </Button>
             <Button 
               onClick={() => {
