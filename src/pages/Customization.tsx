@@ -19,7 +19,7 @@ const customizationOptions = {
   cabinets: [
     { id: 1, name: 'Shaker Style', description: 'Clean lines with recessed panel doors', image: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80' },
     { id: 2, name: 'Flat Panel', description: 'Minimalist design with smooth doors', image: 'https://images.unsplash.com/photo-1556911220-e15b29be8c8f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80' },
-    { id: 3, name: 'Glass Front', description: 'Elegant cabinets with glass panel inserts', image: 'https://images.unsplash.com/photo-1600585152220-90363fe7e115?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80' },
+    { id: 3, name: 'Glass Front', description: 'Elegant cabinets with glass panel inserts', image: 'https://images.unsplash.com/photo-1556228149-d8f523f77b5a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80' },
     { id: 4, name: 'Wood Grain', description: 'Natural wood grain finish with rich texture', image: 'https://images.unsplash.com/photo-1604709177225-055f99402ea3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80' }
   ],
   flooring: [
