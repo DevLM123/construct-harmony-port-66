@@ -14,8 +14,8 @@ type NavLink = {
 const links: NavLink[] = [
   { label: 'Home', href: '/' },
   { label: 'Projects', href: '/projects' },
-  { label: 'Customization', href: '/customization' },
-  { label: 'Services', href: '/dashboard' }
+  { label: 'Services', href: '/services' },
+  { label: 'Customization', href: '/customization' }
 ];
 
 export function Navbar({ onAuthClick }: { onAuthClick: () => void }) {
