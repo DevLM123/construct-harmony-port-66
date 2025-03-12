@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { cn } from '@/lib/utils';
@@ -62,9 +63,9 @@ export function Navbar({ onAuthClick }: { onAuthClick: () => void }) {
           <div className="flex items-center">
             <button 
               onClick={() => navigate('/')}
-              className="flex items-center gap-2 text-primary font-medium text-lg transition-all hover:opacity-80"
+              className="flex items-center gap-2 font-medium text-lg transition-all hover:opacity-80"
             >
-              <Building2 className="w-6 h-6" />
+              <Building2 className="w-6 h-6 text-primary" />
               <div className={cn(
                 "font-semibold transition-all duration-300",
                 isScrolled ? "text-foreground" : "text-foreground"
