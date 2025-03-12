@@ -15,21 +15,21 @@ type Feature = {
 
 const features: Feature[] = [
   {
-    icon: <Building2 className="w-8 h-8 text-amber-600" />,
+    icon: <Building2 className="w-8 h-8 text-amber-500" />,
     beforeImage: "https://images.unsplash.com/photo-1488972685288-c3fd157d7c7a",
     afterImage: "https://images.unsplash.com/photo-1613490493576-7fde63acd811",
     title: "Custom Home Building",
     description: "Expert home construction with premium materials and master craftsmanship for your dream residence."
   },
   {
-    icon: <Home className="w-8 h-8 text-amber-600" />,
+    icon: <Home className="w-8 h-8 text-amber-500" />,
     beforeImage: "https://images.unsplash.com/photo-1487958449943-2429e8be8625",
     afterImage: "https://images.unsplash.com/photo-1613977257365-aaae5a9817ff",
     title: "Home Elevation",
     description: "Professional home elevation services to protect your property from flooding and increase your home's safety and value."
   },
   {
-    icon: <Landmark className="w-8 h-8 text-amber-600" />,
+    icon: <Landmark className="w-8 h-8 text-amber-500" />,
     beforeImage: "https://images.unsplash.com/photo-1577493340887-b7bfff550145",
     afterImage: "https://images.unsplash.com/photo-1721322800607-8c38375eef04",
     title: "Interior Customization",
@@ -58,17 +58,17 @@ export function Features() {
               key={index}
               className={cn(
                 "glass-card rounded-2xl p-4 md:p-5 lg:p-6 transition-all hover:shadow-lg cursor-pointer group",
-                "animate-fade-up border-amber-600/20"
+                "animate-fade-up border-amber-500/20"
               )}
               style={{ animationDelay: `${index * 100}ms` }}
               onClick={() => navigate('/projects')}
             >
               <div className="flex justify-between items-start mb-4">
-                <div className="bg-gradient-to-r from-amber-600 to-amber-500 p-3 rounded-xl">
+                <div className="bg-gradient-to-r from-amber-400 to-amber-300 p-3 rounded-xl">
                   {feature.icon}
                 </div>
                 <div className="p-2 bg-[#1e2832]/10 rounded-full">
-                  <ArrowRight className="w-4 h-4 text-[#1e2832] group-hover:text-amber-600 transition-colors" />
+                  <ArrowRight className="w-4 h-4 text-[#1e2832] group-hover:text-amber-500 transition-colors" />
                 </div>
               </div>
               
@@ -89,7 +89,7 @@ export function Features() {
               <h3 className="text-lg md:text-xl font-semibold mb-2">{feature.title}</h3>
               <p className="text-muted-foreground text-sm mb-4 line-clamp-3">{feature.description}</p>
               
-              <Button variant="outline" className="w-full justify-between group-hover:bg-amber-600 group-hover:text-white border-amber-600/30">
+              <Button variant="outline" className="w-full justify-between group-hover:bg-amber-400 group-hover:text-white border-amber-400/30">
                 <span>View Projects</span>
                 <ArrowRight className="w-4 h-4" />
               </Button>
