@@ -55,7 +55,7 @@ export function Navbar({ onAuthClick }: { onAuthClick: () => void }) {
         className={cn(
           'fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out py-3',
           isScrolled 
-            ? 'bg-white/80 backdrop-blur-md shadow-sm border-b border-border/50' 
+            ? 'bg-white/80 backdrop-blur-md shadow-sm border-b border-amber-100/50' 
             : 'bg-transparent'
         )}
       >
@@ -71,7 +71,7 @@ export function Navbar({ onAuthClick }: { onAuthClick: () => void }) {
                 isScrolled ? "text-foreground" : "text-foreground"
               )}>
                 <span className="text-primary">Landmark</span> <span className="text-foreground">Home</span>
-                <div className="text-sm text-muted-foreground -mt-1">CONSTRUCTION</div>
+                <div className="text-sm text-amber-600 -mt-1">CONSTRUCTION</div>
               </div>
             </button>
           </div>
@@ -84,7 +84,7 @@ export function Navbar({ onAuthClick }: { onAuthClick: () => void }) {
                 className={cn(
                   "px-4 py-2 rounded-full text-sm font-medium transition-all",
                   location.pathname === link.href
-                    ? "text-primary bg-primary/10"
+                    ? "text-primary bg-primary/10 border-amber-200/50 border"
                     : "text-muted-foreground hover:text-foreground hover:bg-secondary"
                 )}
               >
@@ -101,8 +101,8 @@ export function Navbar({ onAuthClick }: { onAuthClick: () => void }) {
               className={cn(
                 "hidden md:flex items-center gap-2 transition-all duration-300",
                 isScrolled 
-                  ? "border-muted hover:border-primary/50" 
-                  : "border-muted/50 hover:border-primary/50"
+                  ? "border-amber-200 hover:border-primary/50" 
+                  : "border-amber-200/50 hover:border-primary/50"
               )}
             >
               <Package className="w-4 h-4" />
@@ -112,7 +112,7 @@ export function Navbar({ onAuthClick }: { onAuthClick: () => void }) {
             <Button 
               onClick={onAuthClick}
               size="sm"
-              className="hidden md:flex animate-fade-in"
+              className="hidden md:flex animate-fade-in bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-700 hover:to-blue-900 border border-amber-200/30"
             >
               Free Consultation
             </Button>
@@ -156,7 +156,7 @@ export function Navbar({ onAuthClick }: { onAuthClick: () => void }) {
                 className={cn(
                   "py-3 px-4 text-base font-medium rounded-lg transition-all",
                   location.pathname === link.href
-                    ? "bg-primary/10 text-primary"
+                    ? "bg-primary/10 text-primary border border-amber-200/30"
                     : "text-foreground hover:bg-muted"
                 )}
               >
@@ -172,7 +172,7 @@ export function Navbar({ onAuthClick }: { onAuthClick: () => void }) {
                 onAuthClick();
                 setMobileMenuOpen(false);
               }}
-              className="w-full justify-center"
+              className="w-full justify-center border-amber-200"
             >
               <Package className="w-4 h-4 mr-2" />
               Build Package
@@ -182,7 +182,7 @@ export function Navbar({ onAuthClick }: { onAuthClick: () => void }) {
                 onAuthClick();
                 setMobileMenuOpen(false);
               }}
-              className="w-full justify-center"
+              className="w-full justify-center bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-700 hover:to-blue-900 border border-amber-200/30"
             >
               Free Consultation
             </Button>

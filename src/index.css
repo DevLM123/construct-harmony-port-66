@@ -1,4 +1,3 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
 @tailwind base;
@@ -20,13 +19,17 @@
     --primary: 220 70% 35%;
     --primary-foreground: 210 40% 98%;
 
+    /* Gold accent colors */
+    --gold: 43 80% 80%;
+    --gold-foreground: 210 40% 10%;
+
     --secondary: 220 20% 96%;
     --secondary-foreground: 222 47% 11%;
 
     --muted: 220 40% 96%;
     --muted-foreground: 215 16% 47%;
 
-    --accent: 220 40% 96%;
+    --accent: 43 80% 90%;
     --accent-foreground: 222 47% 11%;
 
     --destructive: 0 84% 60%;
@@ -62,13 +65,17 @@
     --primary: 220 70% 35%;
     --primary-foreground: 210 40% 98%;
 
+    /* Gold accent colors */
+    --gold: 43 80% 65%;
+    --gold-foreground: 210 40% 10%;
+
     --secondary: 217 33% 18%;
     --secondary-foreground: 210 40% 98%;
 
     --muted: 217 33% 18%;
     --muted-foreground: 215 20% 65%;
 
-    --accent: 217 33% 18%;
+    --accent: 43 60% 50%;
     --accent-foreground: 210 40% 98%;
 
     --destructive: 0 63% 31%;
@@ -137,6 +144,18 @@
     @apply bg-clip-text text-transparent bg-gradient-to-r from-primary to-blue-800;
   }
   
+  .gold-accent {
+    @apply text-amber-600;
+  }
+
+  .gold-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-amber-500 to-yellow-400;
+  }
+  
+  .border-gold {
+    @apply border border-amber-200;
+  }
+
   .animate-delay-100 {
     animation-delay: 100ms;
   }
