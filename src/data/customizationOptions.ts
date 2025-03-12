@@ -23,7 +23,7 @@ export const customizationOptions: CustomizationData = {
     { id: 4, name: 'Wood Grain', description: 'Natural wood grain finish with rich texture', image: 'https://images.unsplash.com/photo-1604709177225-055f99402ea3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80' }
   ],
   flooring: [
-    { id: 1, name: 'Hardwood', description: 'Classic oak, maple, or walnut hardwood flooring', image: 'https://images.unsplash.com/photo-1577724562772-f0b50a0a0802?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80' },
+    { id: 1, name: 'Hardwood', description: 'Classic oak, maple, or walnut hardwood flooring', image: 'https://images.unsplash.com/photo-1622021142947-da7dedc7c39a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80' },
     { id: 2, name: 'Luxury Vinyl', description: 'Durable water-resistant vinyl with wood or stone look', image: 'https://images.unsplash.com/photo-1589407625241-d172a0ac3349?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80' },
     { id: 3, name: 'Tile', description: 'Ceramic or porcelain tile in various patterns', image: 'https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80' },
     { id: 4, name: 'Engineered Wood', description: 'Stable engineered wood with premium top layer', image: 'https://images.unsplash.com/photo-1609587292244-217150db8d22?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80' }
