@@ -18,11 +18,11 @@ export function Hero({ onGetStarted }: HeroProps) {
       
       {/* Animated background elements */}
       <div className="absolute top-20 right-20 w-64 h-64 bg-primary/5 rounded-full filter blur-3xl animate-pulse-subtle"></div>
-      <div className="absolute bottom-20 left-20 w-72 h-72 bg-[#d1c7b8]/10 rounded-full filter blur-3xl animate-pulse-subtle animate-delay-500"></div>
+      <div className="absolute bottom-20 left-20 w-72 h-72 bg-amber-700/10 rounded-full filter blur-3xl animate-pulse-subtle animate-delay-500"></div>
       
       <div className="container mx-auto relative z-10 max-w-6xl">
         <div className="flex flex-col items-center text-center mb-10 md:mb-16 animate-fade-up">
-          <div className="inline-flex items-center px-3 py-1 rounded-full bg-[#f6f4ef] text-[#bbb3a5] text-sm font-medium mb-6 border border-[#e9e5dc]">
+          <div className="inline-flex items-center px-3 py-1 rounded-full bg-amber-50 text-amber-800 text-sm font-medium mb-6 border border-amber-200/50">
             <Building2 className="w-4 h-4 mr-2" />
             <span>Premium Construction Services</span>
           </div>
@@ -41,7 +41,7 @@ export function Hero({ onGetStarted }: HeroProps) {
             <Button 
               size="lg" 
               onClick={onGetStarted}
-              className="gap-2 text-base px-8 animate-fade-in bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-700 hover:to-blue-900 border border-[#e9e5dc]/30"
+              className="gap-2 text-base px-8 animate-fade-in bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-700 hover:to-blue-900 border border-amber-200/30"
             >
               <span>Get Started</span>
               <MoveRight className="w-4 h-4" />
@@ -49,7 +49,7 @@ export function Hero({ onGetStarted }: HeroProps) {
             <Button 
               variant="outline" 
               size="lg"
-              className="text-base px-8 animate-fade-in animate-delay-100 border-[#e9e5dc] hover:bg-[#f8f7f4]"
+              className="text-base px-8 animate-fade-in animate-delay-100 border-amber-200 hover:bg-amber-50"
               onClick={() => navigate('/projects')}
             >
               Our Services
@@ -62,21 +62,21 @@ export function Hero({ onGetStarted }: HeroProps) {
           <div 
             className={cn(
               "glass-card rounded-2xl p-6 flex flex-col items-center text-center",
-              "hover:shadow-xl transition-all duration-300 h-full border-[#e9e5dc]"
+              "hover:shadow-xl transition-all duration-300 h-full border-amber-200"
             )}
           >
-            <div className="mb-4 p-3 bg-[#f6f4ef] rounded-full">
-              <Hammer className="w-8 h-8 text-[#bbb3a5]" />
+            <div className="mb-4 p-3 bg-amber-50 rounded-full">
+              <Hammer className="w-8 h-8 text-amber-700" />
             </div>
             <div className="text-3xl md:text-4xl font-bold mb-2">Premium</div>
-            <div className="text-[#bbb3a5] mb-2">Craftsmanship</div>
+            <div className="text-amber-800 mb-2">Craftsmanship</div>
             <p className="text-sm text-muted-foreground">Meticulous attention to detail in every aspect of your custom build</p>
           </div>
           
           <div 
             className={cn(
               "glass-card rounded-2xl p-6 flex flex-col items-center text-center",
-              "hover:shadow-xl transition-all duration-300 h-full border-[#e9e5dc]"
+              "hover:shadow-xl transition-all duration-300 h-full border-amber-200"
             )}
           >
             <div className="mb-4 p-3 bg-primary/10 rounded-full">
@@ -90,21 +90,21 @@ export function Hero({ onGetStarted }: HeroProps) {
           <div 
             className={cn(
               "glass-card rounded-2xl p-6 flex flex-col items-center text-center",
-              "hover:shadow-xl transition-all duration-300 h-full border-[#e9e5dc]"
+              "hover:shadow-xl transition-all duration-300 h-full border-amber-200"
             )}
           >
-            <div className="mb-4 p-3 bg-[#f6f4ef] rounded-full">
-              <Shield className="w-8 h-8 text-[#bbb3a5]" />
+            <div className="mb-4 p-3 bg-amber-50 rounded-full">
+              <Shield className="w-8 h-8 text-amber-700" />
             </div>
             <div className="text-3xl md:text-4xl font-bold mb-2">10 Year</div>
-            <div className="text-[#bbb3a5] mb-2">Warranty Guarantee</div>
+            <div className="text-amber-800 mb-2">Warranty Guarantee</div>
             <p className="text-sm text-muted-foreground">Peace of mind with our industry-leading warranty coverage</p>
           </div>
 
           <div 
             className={cn(
               "glass-card rounded-2xl p-6 flex flex-col items-center text-center",
-              "hover:shadow-xl transition-all duration-300 h-full border-[#e9e5dc]"
+              "hover:shadow-xl transition-all duration-300 h-full border-amber-200"
             )}
           >
             <div className="mb-4 p-3 bg-primary/10 rounded-full">

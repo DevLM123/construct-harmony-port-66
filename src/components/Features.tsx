@@ -76,7 +76,7 @@ export function Features() {
               <h3 className="text-lg md:text-xl font-semibold mb-2">{feature.title}</h3>
               <p className="text-muted-foreground text-sm mb-4 line-clamp-3">{feature.description}</p>
               
-              <Button variant="outline" className="w-full justify-between group-hover:bg-primary group-hover:text-primary-foreground border-[#e9e5dc]">
+              <Button variant="outline" className="w-full justify-between group-hover:bg-primary group-hover:text-primary-foreground border-amber-200/50">
                 <span>View Projects</span>
                 <ArrowRight className="w-4 h-4" />
               </Button>
