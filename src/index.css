@@ -19,8 +19,8 @@
     --primary: 220 70% 35%;
     --primary-foreground: 210 40% 98%;
 
-    /* Gold accent colors */
-    --gold: 43 80% 80%;
+    /* Refined gold accent colors - more elegant, less mustard */
+    --gold: 36 60% 65%;
     --gold-foreground: 210 40% 10%;
 
     --secondary: 220 20% 96%;
@@ -29,7 +29,8 @@
     --muted: 220 40% 96%;
     --muted-foreground: 215 16% 47%;
 
-    --accent: 43 80% 90%;
+    /* Updated accent to more refined gold */
+    --accent: 36 60% 90%;
     --accent-foreground: 222 47% 11%;
 
     --destructive: 0 84% 60%;
@@ -65,8 +66,8 @@
     --primary: 220 70% 35%;
     --primary-foreground: 210 40% 98%;
 
-    /* Gold accent colors */
-    --gold: 43 80% 65%;
+    /* Refined gold accent colors - more elegant, less mustard */
+    --gold: 36 60% 55%;
     --gold-foreground: 210 40% 10%;
 
     --secondary: 217 33% 18%;
@@ -75,7 +76,8 @@
     --muted: 217 33% 18%;
     --muted-foreground: 215 20% 65%;
 
-    --accent: 43 60% 50%;
+    /* Updated accent to more refined gold */
+    --accent: 36 60% 45%;
     --accent-foreground: 210 40% 98%;
 
     --destructive: 0 63% 31%;
@@ -145,15 +147,15 @@
   }
   
   .gold-accent {
-    @apply text-amber-600;
+    @apply text-[#c6ad8f];
   }
 
   .gold-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-amber-500 to-yellow-400;
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-[#d4b78f] to-[#c6ad8f];
   }
   
   .border-gold {
-    @apply border border-amber-200;
+    @apply border border-[#e9d9c2];
   }
 
   .animate-delay-100 {
