@@ -11,7 +11,10 @@ export function Footer() {
           <div className="col-span-1 md:col-span-1">
             <div className="flex items-center gap-2 mb-4">
               <Building2 className="h-6 w-6 text-primary" />
-              <span className="font-semibold text-lg">Landmark</span>
+              <div className="font-semibold">
+                <span className="text-primary">Landmark</span> <span className="text-foreground">Home</span>
+                <div className="text-sm text-muted-foreground -mt-1">CONSTRUCTION</div>
+              </div>
             </div>
             <p className="text-muted-foreground mb-4">
               Premium home building and elevation services with expert craftsmanship
@@ -61,7 +64,7 @@ export function Footer() {
         
         <div className="mt-12 pt-8 border-t border-border flex flex-col md:flex-row justify-between items-center">
           <p className="text-sm text-muted-foreground">
-            © {new Date().getFullYear()} Landmark Construction. All rights reserved.
+            © {new Date().getFullYear()} Landmark Home Construction. All rights reserved.
           </p>
           
           <div className="flex space-x-6 mt-4 md:mt-0">

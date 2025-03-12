@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { cn } from '@/lib/utils';
@@ -35,11 +34,9 @@ export function Navbar({ onAuthClick }: { onAuthClick: () => void }) {
   }, []);
 
   useEffect(() => {
-    // Close mobile menu when route changes
     setMobileMenuOpen(false);
   }, [location.pathname]);
 
-  // Prevent scroll when mobile menu is open
   useEffect(() => {
     if (mobileMenuOpen) {
       document.body.style.overflow = 'hidden';
@@ -68,16 +65,16 @@ export function Navbar({ onAuthClick }: { onAuthClick: () => void }) {
               className="flex items-center gap-2 text-primary font-medium text-lg transition-all hover:opacity-80"
             >
               <Building2 className="w-6 h-6" />
-              <span className={cn(
+              <div className={cn(
                 "font-semibold transition-all duration-300",
                 isScrolled ? "text-foreground" : "text-foreground"
               )}>
-                Landmark
-              </span>
+                <span className="text-primary">Landmark</span> <span className="text-foreground">Home</span>
+                <div className="text-sm text-muted-foreground -mt-1">CONSTRUCTION</div>
+              </div>
             </button>
           </div>
 
-          {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-1">
             {links.map((link) => (
               <button
@@ -119,7 +116,6 @@ export function Navbar({ onAuthClick }: { onAuthClick: () => void }) {
               Free Consultation
             </Button>
 
-            {/* Mobile Menu Toggle */}
             <Button 
               variant="ghost" 
               size="icon"
@@ -132,7 +128,6 @@ export function Navbar({ onAuthClick }: { onAuthClick: () => void }) {
         </div>
       </header>
 
-      {/* Mobile Menu */}
       <div 
         className={cn(
           "fixed inset-0 z-50 bg-background/95 backdrop-blur-lg transition-all duration-300 md:hidden",
