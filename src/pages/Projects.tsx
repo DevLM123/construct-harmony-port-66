@@ -10,7 +10,7 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { Search, ArrowRight, MapPin, FlipHorizontal } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
-// Sample before and after projects data
+// Updated projects data with only west coast Florida cities
 const projects = [
   {
     id: 1,
@@ -26,7 +26,7 @@ const projects = [
     id: 2,
     name: 'Coastal Heights',
     description: 'Waterfront property elevation with structural reinforcement',
-    location: 'Miami Beach, FL',
+    location: 'Clearwater, FL',
     completionDate: 'June 2023',
     elevationHeight: '15 feet',
     beforeImage: 'https://images.unsplash.com/photo-1487958449943-2429e8be8625',
@@ -46,7 +46,7 @@ const projects = [
     id: 4,
     name: 'Oceanview Bungalow',
     description: 'Beachfront bungalow elevated to maximize ocean views',
-    location: 'Key West, FL',
+    location: 'St. Petersburg, FL',
     completionDate: 'December 2023',
     elevationHeight: '14 feet',
     beforeImage: 'https://images.unsplash.com/photo-1577493340887-b7bfff550145',
@@ -56,7 +56,7 @@ const projects = [
     id: 5,
     name: 'Riverfront Cottage',
     description: 'Riverside property elevated to prevent seasonal flooding',
-    location: 'Jacksonville, FL',
+    location: 'Sarasota, FL',
     completionDate: 'February 2024',
     elevationHeight: '11 feet',
     beforeImage: 'https://images.unsplash.com/photo-1486744328743-c1a306cf6b4e',
@@ -66,7 +66,7 @@ const projects = [
     id: 6,
     name: 'Gulf Breeze Villa',
     description: 'Luxury villa with complete elevation and structural updates',
-    location: 'Pensacola, FL',
+    location: 'Fort Myers, FL',
     completionDate: 'April 2024',
     elevationHeight: '16 feet',
     beforeImage: 'https://images.unsplash.com/photo-1600585154526-990dced4db0d',
@@ -109,7 +109,7 @@ const Projects = () => {
             <div>
               <h1 className="text-3xl font-bold mb-2 animate-fade-up">Before & After Projects</h1>
               <p className="text-muted-foreground animate-fade-up animate-delay-100">
-                Explore our completed home elevation projects across Florida
+                Explore our completed home elevation projects across Florida's west coast
               </p>
             </div>
             
@@ -133,7 +133,7 @@ const Projects = () => {
             <TabsList className="mb-6">
               <TabsTrigger value="all">All Projects</TabsTrigger>
               <TabsTrigger value="tampa">Tampa</TabsTrigger>
-              <TabsTrigger value="miami">Miami</TabsTrigger>
+              <TabsTrigger value="naples">Naples</TabsTrigger>
               <TabsTrigger value="other">Other Regions</TabsTrigger>
             </TabsList>
             
@@ -223,9 +223,9 @@ const Projects = () => {
               </div>
             </TabsContent>
             
-            <TabsContent value="miami" className="m-0">
+            <TabsContent value="naples" className="m-0">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {filteredProjects.filter(p => p.location.includes('Miami')).map((project, index) => (
+                {filteredProjects.filter(p => p.location.includes('Naples')).map((project, index) => (
                   // Same card structure as above
                   <Card key={project.id} className="overflow-hidden hover:shadow-md transition-all duration-300">
                     {/* ... Card content structure same as above */}
@@ -236,7 +236,7 @@ const Projects = () => {
             
             <TabsContent value="other" className="m-0">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {filteredProjects.filter(p => !p.location.includes('Tampa') && !p.location.includes('Miami')).map((project, index) => (
+                {filteredProjects.filter(p => !p.location.includes('Tampa') && !p.location.includes('Naples')).map((project, index) => (
                   // Same card structure as above
                   <Card key={project.id} className="overflow-hidden hover:shadow-md transition-all duration-300">
                     {/* ... Card content structure same as above */}
