@@ -30,8 +30,10 @@ const formSchema = z.object({
   service: z.string({
     required_error: "Please select a service.",
   }),
-  terms: z.literal(true, {
-    errorMap: () => ({ message: "You must agree to be contacted" })
+  terms: z.boolean({
+    required_error: "You must agree to be contacted",
+  }).refine(val => val === true, {
+    message: "You must agree to be contacted",
   })
 });
 
