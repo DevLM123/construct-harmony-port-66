@@ -8,8 +8,10 @@ import { AuthModal } from '@/components/auth/AuthModal';
 
 const Index = () => {
   const [authModalOpen, setAuthModalOpen] = useState(false);
+  const [authModalTab, setAuthModalTab] = useState<'login' | 'register'>('login');
 
-  const openAuthModal = () => {
+  const openAuthModal = (tab: 'login' | 'register' = 'login') => {
+    setAuthModalTab(tab);
     setAuthModalOpen(true);
   };
 
@@ -25,7 +27,7 @@ const Index = () => {
         <Features />
       </main>
       <Footer />
-      <AuthModal isOpen={authModalOpen} onClose={closeAuthModal} />
+      <AuthModal isOpen={authModalOpen} onClose={closeAuthModal} defaultTab={authModalTab} />
     </div>
   );
 };

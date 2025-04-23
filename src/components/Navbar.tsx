@@ -18,7 +18,7 @@ const links: NavLink[] = [
   { label: 'Customization', href: '/customization' }
 ];
 
-export function Navbar({ onAuthClick }: { onAuthClick: () => void }) {
+export function Navbar({ onAuthClick }: { onAuthClick: (tab?: 'login' | 'register') => void }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const navigate = useNavigate();
@@ -97,7 +97,7 @@ export function Navbar({ onAuthClick }: { onAuthClick: () => void }) {
             <Button 
               variant="outline" 
               size="sm"
-              onClick={onAuthClick}
+              onClick={() => onAuthClick('login')}
               className={cn(
                 "hidden md:flex items-center gap-2 transition-all duration-300",
                 isScrolled 
@@ -110,7 +110,7 @@ export function Navbar({ onAuthClick }: { onAuthClick: () => void }) {
             </Button>
             
             <Button 
-              onClick={onAuthClick}
+              onClick={() => onAuthClick('register')}
               size="sm"
               className="hidden md:flex animate-fade-in bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-700 hover:to-blue-900 border border-[#e9e5dc]/30"
             >
@@ -169,7 +169,7 @@ export function Navbar({ onAuthClick }: { onAuthClick: () => void }) {
             <Button 
               variant="outline" 
               onClick={() => {
-                onAuthClick();
+                onAuthClick('login');
                 setMobileMenuOpen(false);
               }}
               className="w-full justify-center border-[#e9e5dc]"
@@ -179,7 +179,7 @@ export function Navbar({ onAuthClick }: { onAuthClick: () => void }) {
             </Button>
             <Button 
               onClick={() => {
-                onAuthClick();
+                onAuthClick('register');
                 setMobileMenuOpen(false);
               }}
               className="w-full justify-center bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-700 hover:to-blue-900 border border-[#e9e5dc]/30"

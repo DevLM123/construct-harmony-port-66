@@ -1,14 +1,25 @@
-
-import React from 'react';
+import React, { useState } from 'react';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
 import ServiceCard from '@/components/services/ServiceCard';
 import { Trash, ArrowUp, Home, Lightbulb } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
+import { AuthModal } from '@/components/auth/AuthModal';
 
 const Services = () => {
   const navigate = useNavigate();
+  const [authModalOpen, setAuthModalOpen] = useState(false);
+  const [authModalTab, setAuthModalTab] = useState<'login' | 'register'>('login');
+
+  const openAuthModal = (tab: 'login' | 'register' = 'login') => {
+    setAuthModalTab(tab);
+    setAuthModalOpen(true);
+  };
+
+  const closeAuthModal = () => {
+    setAuthModalOpen(false);
+  };
 
   const servicesList = [
     {
@@ -34,13 +45,11 @@ const Services = () => {
   ];
 
   const handleLearnMore = (serviceTitle: string) => {
-    // For now, we'll show a toast notification
     toast.success(`You selected: ${serviceTitle}`, {
       description: "We'll contact you with more information soon.",
       duration: 3000
     });
     
-    // For the Elevation service, we can navigate to the dedicated Lifts page
     if (serviceTitle === "Elevation (Lifting)") {
       setTimeout(() => navigate('/lifts'), 1000);
     }
@@ -48,7 +57,7 @@ const Services = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Navbar onAuthClick={() => {}} />
+      <Navbar onAuthClick={openAuthModal} />
       <div className="flex-grow pt-20">
         <div className="container mx-auto px-4 py-12">
           <div className="max-w-3xl mx-auto text-center mb-12">
@@ -79,10 +88,14 @@ const Services = () => {
                 Contact us today for a free consultation and quote.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center mt-6">
-                <button className="bg-primary text-white px-6 py-3 rounded-md font-medium hover:bg-primary/90 transition-colors">
+                <button 
+                  onClick={() => openAuthModal('login')} 
+                  className="bg-primary text-white px-6 py-3 rounded-md font-medium hover:bg-primary/90 transition-colors">
                   Request a Quote
                 </button>
-                <button className="bg-secondary text-secondary-foreground px-6 py-3 rounded-md font-medium hover:bg-secondary/80 transition-colors">
+                <button 
+                  onClick={() => openAuthModal('register')}
+                  className="bg-secondary text-secondary-foreground px-6 py-3 rounded-md font-medium hover:bg-secondary/80 transition-colors">
                   Contact Us
                 </button>
               </div>
@@ -91,6 +104,7 @@ const Services = () => {
         </div>
       </div>
       <Footer />
+      <AuthModal isOpen={authModalOpen} onClose={closeAuthModal} defaultTab={authModalTab} />
     </div>
   );
 };

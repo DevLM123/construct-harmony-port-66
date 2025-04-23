@@ -8,10 +8,11 @@ import { RegisterForm } from './RegisterForm';
 type AuthModalProps = {
   isOpen: boolean;
   onClose: () => void;
+  defaultTab?: 'login' | 'register';
 };
 
-export function AuthModal({ isOpen, onClose }: AuthModalProps) {
-  const [activeTab, setActiveTab] = useState<string>('login');
+export function AuthModal({ isOpen, onClose, defaultTab = 'login' }: AuthModalProps) {
+  const [activeTab, setActiveTab] = useState<string>(defaultTab);
 
   const handleTabChange = (value: string) => {
     setActiveTab(value);
@@ -26,7 +27,7 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
           </DialogTitle>
         </DialogHeader>
         
-        <Tabs defaultValue="login" value={activeTab} onValueChange={handleTabChange} className="w-full">
+        <Tabs defaultValue={defaultTab} value={activeTab} onValueChange={handleTabChange} className="w-full">
           <TabsList className="w-full grid grid-cols-2 mb-6 rounded-none border-b">
             <TabsTrigger value="login" className="rounded-none data-[state=active]:border-b-2 data-[state=active]:border-primary">
               Build Package

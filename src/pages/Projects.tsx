@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
@@ -10,7 +9,6 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { Search, ArrowRight, MapPin, FlipHorizontal } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
-// Updated projects data with only west coast Florida cities
 const projects = [
   {
     id: 1,
@@ -76,10 +74,12 @@ const projects = [
 
 const Projects = () => {
   const [authModalOpen, setAuthModalOpen] = useState(false);
+  const [authModalTab, setAuthModalTab] = useState<'login' | 'register'>('login');
   const [searchQuery, setSearchQuery] = useState('');
   const [showBefore, setShowBefore] = useState({});
 
-  const openAuthModal = () => {
+  const openAuthModal = (tab: 'login' | 'register' = 'login') => {
+    setAuthModalTab(tab);
     setAuthModalOpen(true);
   };
 
@@ -123,7 +123,7 @@ const Projects = () => {
                   onChange={(e) => setSearchQuery(e.target.value)}
                 />
               </div>
-              <Button onClick={openAuthModal}>
+              <Button onClick={() => openAuthModal('register')}>
                 Request Consultation
               </Button>
             </div>
@@ -194,7 +194,7 @@ const Projects = () => {
                         </div>
                       </div>
                       
-                      <Button variant="outline" className="w-full justify-between" onClick={openAuthModal}>
+                      <Button variant="outline" className="w-full justify-between" onClick={() => openAuthModal('register')}>
                         <span>Request Similar Project</span>
                         <ArrowRight className="h-4 w-4" />
                       </Button>
@@ -207,7 +207,7 @@ const Projects = () => {
                 <div className="text-center py-16">
                   <h3 className="text-lg font-medium mb-2">No projects found</h3>
                   <p className="text-muted-foreground mb-6">Try adjusting your search or filters</p>
-                  <Button onClick={openAuthModal}>Request Consultation</Button>
+                  <Button onClick={() => openAuthModal('register')}>Request Consultation</Button>
                 </div>
               )}
             </TabsContent>
@@ -215,9 +215,61 @@ const Projects = () => {
             <TabsContent value="tampa" className="m-0">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {filteredProjects.filter(p => p.location.includes('Tampa')).map((project, index) => (
-                  // Same card structure as above
                   <Card key={project.id} className="overflow-hidden hover:shadow-md transition-all duration-300">
-                    {/* ... Card content structure same as above */}
+                    <div className="relative h-64 overflow-hidden">
+                      <img 
+                        src={showBefore[project.id] ? project.beforeImage : project.afterImage} 
+                        alt={showBefore[project.id] ? `${project.name} before` : `${project.name} after`} 
+                        className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                      <div className="absolute bottom-4 left-4 right-4 flex justify-between items-center">
+                        <span className={cn(
+                          "text-xs font-medium px-2.5 py-1 rounded-full text-white",
+                          showBefore[project.id] ? "bg-amber-500/80 backdrop-blur-sm" : "bg-green-500/80 backdrop-blur-sm",
+                        )}>
+                          {showBefore[project.id] ? "Before" : "After"}
+                        </span>
+                        <Button 
+                          variant="outline" 
+                          size="sm" 
+                          className="bg-black/30 backdrop-blur-sm border-white/20 text-white hover:bg-black/50 hover:text-white"
+                          onClick={() => toggleBeforeAfter(project.id)}
+                        >
+                          <FlipHorizontal className="h-4 w-4 mr-1" />
+                          Flip
+                        </Button>
+                      </div>
+                    </div>
+                    
+                    <CardContent className="p-6">
+                      <h3 className="text-xl font-semibold mb-1">{project.name}</h3>
+                      
+                      <div className="flex items-center text-muted-foreground text-sm mb-3">
+                        <MapPin className="h-3 w-3 mr-1" /> 
+                        <span>{project.location}</span>
+                      </div>
+                      
+                      <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
+                        {project.description}
+                      </p>
+                      
+                      <div className="grid grid-cols-2 gap-2 mb-4">
+                        <div className="flex flex-col p-2 rounded-lg bg-muted/50">
+                          <span className="text-xs text-muted-foreground">Completion</span>
+                          <span className="text-sm font-medium">{project.completionDate}</span>
+                        </div>
+                        <div className="flex flex-col p-2 rounded-lg bg-muted/50">
+                          <span className="text-xs text-muted-foreground">Elevation</span>
+                          <span className="text-sm font-medium">{project.elevationHeight}</span>
+                        </div>
+                      </div>
+                      
+                      <Button variant="outline" className="w-full justify-between" onClick={() => openAuthModal('register')}>
+                        <span>Request Similar Project</span>
+                        <ArrowRight className="h-4 w-4" />
+                      </Button>
+                    </CardContent>
                   </Card>
                 ))}
               </div>
@@ -226,9 +278,61 @@ const Projects = () => {
             <TabsContent value="naples" className="m-0">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {filteredProjects.filter(p => p.location.includes('Naples')).map((project, index) => (
-                  // Same card structure as above
                   <Card key={project.id} className="overflow-hidden hover:shadow-md transition-all duration-300">
-                    {/* ... Card content structure same as above */}
+                    <div className="relative h-64 overflow-hidden">
+                      <img 
+                        src={showBefore[project.id] ? project.beforeImage : project.afterImage} 
+                        alt={showBefore[project.id] ? `${project.name} before` : `${project.name} after`} 
+                        className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                      <div className="absolute bottom-4 left-4 right-4 flex justify-between items-center">
+                        <span className={cn(
+                          "text-xs font-medium px-2.5 py-1 rounded-full text-white",
+                          showBefore[project.id] ? "bg-amber-500/80 backdrop-blur-sm" : "bg-green-500/80 backdrop-blur-sm",
+                        )}>
+                          {showBefore[project.id] ? "Before" : "After"}
+                        </span>
+                        <Button 
+                          variant="outline" 
+                          size="sm" 
+                          className="bg-black/30 backdrop-blur-sm border-white/20 text-white hover:bg-black/50 hover:text-white"
+                          onClick={() => toggleBeforeAfter(project.id)}
+                        >
+                          <FlipHorizontal className="h-4 w-4 mr-1" />
+                          Flip
+                        </Button>
+                      </div>
+                    </div>
+                    
+                    <CardContent className="p-6">
+                      <h3 className="text-xl font-semibold mb-1">{project.name}</h3>
+                      
+                      <div className="flex items-center text-muted-foreground text-sm mb-3">
+                        <MapPin className="h-3 w-3 mr-1" /> 
+                        <span>{project.location}</span>
+                      </div>
+                      
+                      <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
+                        {project.description}
+                      </p>
+                      
+                      <div className="grid grid-cols-2 gap-2 mb-4">
+                        <div className="flex flex-col p-2 rounded-lg bg-muted/50">
+                          <span className="text-xs text-muted-foreground">Completion</span>
+                          <span className="text-sm font-medium">{project.completionDate}</span>
+                        </div>
+                        <div className="flex flex-col p-2 rounded-lg bg-muted/50">
+                          <span className="text-xs text-muted-foreground">Elevation</span>
+                          <span className="text-sm font-medium">{project.elevationHeight}</span>
+                        </div>
+                      </div>
+                      
+                      <Button variant="outline" className="w-full justify-between" onClick={() => openAuthModal('register')}>
+                        <span>Request Similar Project</span>
+                        <ArrowRight className="h-4 w-4" />
+                      </Button>
+                    </CardContent>
                   </Card>
                 ))}
               </div>
@@ -237,9 +341,61 @@ const Projects = () => {
             <TabsContent value="other" className="m-0">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {filteredProjects.filter(p => !p.location.includes('Tampa') && !p.location.includes('Naples')).map((project, index) => (
-                  // Same card structure as above
                   <Card key={project.id} className="overflow-hidden hover:shadow-md transition-all duration-300">
-                    {/* ... Card content structure same as above */}
+                    <div className="relative h-64 overflow-hidden">
+                      <img 
+                        src={showBefore[project.id] ? project.beforeImage : project.afterImage} 
+                        alt={showBefore[project.id] ? `${project.name} before` : `${project.name} after`} 
+                        className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                      <div className="absolute bottom-4 left-4 right-4 flex justify-between items-center">
+                        <span className={cn(
+                          "text-xs font-medium px-2.5 py-1 rounded-full text-white",
+                          showBefore[project.id] ? "bg-amber-500/80 backdrop-blur-sm" : "bg-green-500/80 backdrop-blur-sm",
+                        )}>
+                          {showBefore[project.id] ? "Before" : "After"}
+                        </span>
+                        <Button 
+                          variant="outline" 
+                          size="sm" 
+                          className="bg-black/30 backdrop-blur-sm border-white/20 text-white hover:bg-black/50 hover:text-white"
+                          onClick={() => toggleBeforeAfter(project.id)}
+                        >
+                          <FlipHorizontal className="h-4 w-4 mr-1" />
+                          Flip
+                        </Button>
+                      </div>
+                    </div>
+                    
+                    <CardContent className="p-6">
+                      <h3 className="text-xl font-semibold mb-1">{project.name}</h3>
+                      
+                      <div className="flex items-center text-muted-foreground text-sm mb-3">
+                        <MapPin className="h-3 w-3 mr-1" /> 
+                        <span>{project.location}</span>
+                      </div>
+                      
+                      <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
+                        {project.description}
+                      </p>
+                      
+                      <div className="grid grid-cols-2 gap-2 mb-4">
+                        <div className="flex flex-col p-2 rounded-lg bg-muted/50">
+                          <span className="text-xs text-muted-foreground">Completion</span>
+                          <span className="text-sm font-medium">{project.completionDate}</span>
+                        </div>
+                        <div className="flex flex-col p-2 rounded-lg bg-muted/50">
+                          <span className="text-xs text-muted-foreground">Elevation</span>
+                          <span className="text-sm font-medium">{project.elevationHeight}</span>
+                        </div>
+                      </div>
+                      
+                      <Button variant="outline" className="w-full justify-between" onClick={() => openAuthModal('register')}>
+                        <span>Request Similar Project</span>
+                        <ArrowRight className="h-4 w-4" />
+                      </Button>
+                    </CardContent>
                   </Card>
                 ))}
               </div>
@@ -249,7 +405,7 @@ const Projects = () => {
       </main>
       
       <Footer />
-      <AuthModal isOpen={authModalOpen} onClose={closeAuthModal} />
+      <AuthModal isOpen={authModalOpen} onClose={closeAuthModal} defaultTab={authModalTab} />
     </div>
   );
 };
