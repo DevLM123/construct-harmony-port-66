@@ -27,8 +27,8 @@ const formSchema = z.object({
   }).refine((val) => /^[0-9()\-\s]+$/.test(val), {
     message: "Phone number can only contain digits, spaces, and these characters: () -"
   }),
-  service: z.string({
-    required_error: "Please select a service.",
+  service: z.string().min(1, {
+    message: "Please select a service.",
   }),
   terms: z.boolean({
     required_error: "You must agree to be contacted",
@@ -52,6 +52,7 @@ export function RegisterForm() {
       service: "",
       terms: false
     },
+    mode: "onSubmit" // Add this to ensure validation happens on submit
   });
 
   const handleSubmit = (values: FormValues) => {
@@ -150,7 +151,7 @@ export function RegisterForm() {
             render={({ field }) => (
               <FormItem className="space-y-2">
                 <FormLabel>Interested In</FormLabel>
-                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <Select onValueChange={field.onChange} value={field.value}>
                   <FormControl>
                     <SelectTrigger className="h-11">
                       <SelectValue placeholder="Select a service" />
