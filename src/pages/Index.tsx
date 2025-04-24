@@ -5,6 +5,7 @@ import { Hero } from '@/components/Hero';
 import { Features } from '@/components/Features';
 import { Footer } from '@/components/Footer';
 import { AuthModal } from '@/components/auth/AuthModal';
+import { ExportButton } from '@/components/ExportButton';
 
 const Index = () => {
   const [authModalOpen, setAuthModalOpen] = useState(false);
@@ -24,6 +25,9 @@ const Index = () => {
       <Navbar onAuthClick={openAuthModal} />
       <main className="flex-grow">
         <Hero onGetStarted={openAuthModal} />
+        <div className="container mx-auto px-4 py-8">
+          <ExportButton />
+        </div>
         <Features />
       </main>
       <Footer />

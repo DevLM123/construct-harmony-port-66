@@ -1,0 +1,72 @@
+
+import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+import { Resend } from "npm:resend@2.0.0";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2.38.4";
+import * as XLSX from 'npm:xlsx@0.18.5';
+
+const corsHeaders = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+};
+
+const supabaseUrl = 'https://ipncjsbjvdepjsowdhkj.supabase.co';
+const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? '';
+const resend = new Resend(Deno.env.get('RESEND_API_KEY'));
+
+serve(async (req) => {
+  if (req.method === 'OPTIONS') {
+    return new Response(null, { headers: corsHeaders });
+  }
+
+  try {
+    const { email } = await req.json();
+    
+    // Initialize Supabase client
+    const supabase = createClient(supabaseUrl, supabaseServiceKey);
+    
+    // Fetch consultation requests
+    const { data: consultations, error } = await supabase
+      .from('consultation_requests')
+      .select('*')
+      .order('created_at', { ascending: false });
+
+    if (error) throw error;
+
+    // Create workbook and worksheet
+    const wb = XLSX.utils.book_new();
+    const ws = XLSX.utils.json_to_sheet(consultations);
+    XLSX.utils.book_append_sheet(wb, ws, "Consultation Requests");
+
+    // Convert to buffer
+    const excelBuffer = XLSX.write(wb, { type: "buffer", bookType: "xlsx" });
+    const base64Excel = btoa(String.fromCharCode(...new Uint8Array(excelBuffer)));
+
+    // Send email with attachment
+    const { data, error: emailError } = await resend.emails.send({
+      from: 'Landmark Construction <onboarding@resend.dev>',
+      to: [email],
+      subject: 'Consultation Requests Export',
+      html: '<p>Please find attached the consultation requests export.</p>',
+      attachments: [{
+        filename: 'consultation-requests.xlsx',
+        content: base64Excel,
+      }],
+    });
+
+    if (emailError) throw emailError;
+
+    return new Response(
+      JSON.stringify({ message: 'Export sent successfully' }),
+      { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+    );
+  } catch (error) {
+    console.error('Error:', error);
+    return new Response(
+      JSON.stringify({ error: error.message }),
+      { 
+        status: 500, 
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+      }
+    );
+  }
+});
