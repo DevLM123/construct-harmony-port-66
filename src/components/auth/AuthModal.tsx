@@ -25,6 +25,10 @@ export function AuthModal({ isOpen, onClose, defaultTab = 'login' }: AuthModalPr
     setActiveTab(value);
   };
 
+  const handleRegisterSubmitSuccess = () => {
+    onClose();
+  };
+
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-[425px] rounded-xl p-0 overflow-hidden">
@@ -49,7 +53,7 @@ export function AuthModal({ isOpen, onClose, defaultTab = 'login' }: AuthModalPr
           </TabsContent>
           
           <TabsContent value="register" className="m-0 p-6 pt-2">
-            <RegisterForm />
+            <RegisterForm onSubmitSuccess={handleRegisterSubmitSuccess} />
           </TabsContent>
         </Tabs>
       </DialogContent>

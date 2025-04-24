@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -9,7 +10,6 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
-import { AlertCircle } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 
 const formSchema = z.object({
@@ -39,7 +39,11 @@ const formSchema = z.object({
 
 type FormValues = z.infer<typeof formSchema>;
 
-export function RegisterForm() {
+interface RegisterFormProps {
+  onSubmitSuccess?: () => void;
+}
+
+export function RegisterForm({ onSubmitSuccess }: RegisterFormProps) {
   const { toast } = useToast();
 
   const form = useForm<FormValues>({
@@ -75,6 +79,9 @@ export function RegisterForm() {
       });
 
       form.reset();
+      
+      // Call the onSubmitSuccess callback if provided
+      onSubmitSuccess && onSubmitSuccess();
     } catch (error) {
       console.error('Error submitting form:', error);
       toast({
