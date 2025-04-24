@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
 import { useForm } from 'react-hook-form';
@@ -17,6 +17,7 @@ interface RegisterFormProps {
 
 export function RegisterForm({ onSubmitSuccess }: RegisterFormProps) {
   const { toast } = useToast();
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const form = useForm<ConsultationFormValues>({
     resolver: zodResolver(consultationFormSchema),
@@ -32,26 +33,44 @@ export function RegisterForm({ onSubmitSuccess }: RegisterFormProps) {
   });
 
   const handleSubmit = async (values: ConsultationFormValues) => {
+    setIsSubmitting(true);
     try {
+      console.log("Submitting form with values:", values);
+      
       // Insert into database
       const { data: consultation, error: dbError } = await supabase
         .from('consultation_requests')
-        .insert([{
+        .insert({
           first_name: values.firstName,
           last_name: values.lastName,
           email: values.email,
           phone: values.phone,
           service: values.service
-        }])
+        })
         .select()
         .single();
 
-      if (dbError) throw dbError;
+      if (dbError) {
+        console.error('Error inserting into database:', dbError);
+        throw dbError;
+      }
+      
+      console.log("Successfully inserted data:", consultation);
 
-      // Trigger immediate notification
-      await supabase.functions.invoke('notify-consultation', {
-        body: { data: consultation }
-      });
+      try {
+        // Trigger immediate notification
+        const { error: funcError } = await supabase.functions.invoke('notify-consultation', {
+          body: { data: consultation }
+        });
+        
+        if (funcError) {
+          console.error('Error invoking function:', funcError);
+          // Don't throw here, we still want to show success even if notification fails
+        }
+      } catch (functionError) {
+        console.error('Exception in function invocation:', functionError);
+        // Don't throw here, we still want to show success even if notification fails
+      }
 
       toast({
         title: "Consultation requested",
@@ -67,6 +86,8 @@ export function RegisterForm({ onSubmitSuccess }: RegisterFormProps) {
         description: "There was a problem submitting your request. Please try again.",
         variant: "destructive"
       });
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -79,8 +100,12 @@ export function RegisterForm({ onSubmitSuccess }: RegisterFormProps) {
           <ServiceAndTerms form={form} />
         </div>
         
-        <Button type="submit" className="w-full h-11">
-          Request Consultation
+        <Button 
+          type="submit" 
+          className="w-full h-11"
+          disabled={isSubmitting}
+        >
+          {isSubmitting ? "Submitting..." : "Request Consultation"}
         </Button>
       </form>
     </Form>

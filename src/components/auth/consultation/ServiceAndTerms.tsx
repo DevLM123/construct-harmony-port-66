@@ -26,9 +26,10 @@ export function ServiceAndTerms({ form }: ServiceAndTermsProps) {
                 </SelectTrigger>
               </FormControl>
               <SelectContent>
-                <SelectItem value="home-building">Home Building</SelectItem>
-                <SelectItem value="home-elevation">Home Elevation</SelectItem>
-                <SelectItem value="interior-design">Interior Design</SelectItem>
+                <SelectItem value="tear-down-remodeling">Tear Down & Remodeling</SelectItem>
+                <SelectItem value="elevation-lifting">Elevation (Lifting)</SelectItem>
+                <SelectItem value="new-home-construction">New Home Construction</SelectItem>
+                <SelectItem value="energy-efficient-upgrades">Energy-Efficient Upgrades</SelectItem>
               </SelectContent>
             </Select>
             <FormMessage />
