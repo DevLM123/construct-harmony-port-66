@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -11,6 +10,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { AlertCircle } from 'lucide-react';
+import { supabase } from '@/integrations/supabase/client';
 
 const formSchema = z.object({
   firstName: z.string().min(2, {
@@ -52,17 +52,37 @@ export function RegisterForm() {
       service: "",
       terms: false
     },
-    mode: "onSubmit" // Add this to ensure validation happens on submit
+    mode: "onSubmit"
   });
 
-  const handleSubmit = (values: FormValues) => {
-    console.log(values);
-    
-    // Show success toast
-    toast({
-      title: "Consultation requested",
-      description: "A member of our team will contact you to schedule your free consultation!",
-    });
+  const handleSubmit = async (values: FormValues) => {
+    try {
+      const { error } = await supabase
+        .from('consultation_requests')
+        .insert([{
+          first_name: values.firstName,
+          last_name: values.lastName,
+          email: values.email,
+          phone: values.phone,
+          service: values.service
+        }]);
+
+      if (error) throw error;
+
+      toast({
+        title: "Consultation requested",
+        description: "A member of our team will contact you to schedule your free consultation!",
+      });
+
+      form.reset();
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      toast({
+        title: "Error",
+        description: "There was a problem submitting your request. Please try again.",
+        variant: "destructive"
+      });
+    }
   };
 
   return (
