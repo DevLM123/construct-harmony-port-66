@@ -1,3 +1,4 @@
+
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { Resend } from "npm:resend@2.0.0";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.38.4";
@@ -12,14 +13,15 @@ const supabaseUrl = 'https://ipncjsbjvdepjsowdhkj.supabase.co';
 const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? '';
 const resend = new Resend(Deno.env.get('RESEND_API_KEY'));
 
+// Hardcoded email for daily export
+const EXPORT_EMAIL = 'Dev@landmarkconstruction.org';
+
 serve(async (req) => {
   if (req.method === 'OPTIONS') {
     return new Response(null, { headers: corsHeaders });
   }
 
   try {
-    const { email } = await req.json();
-    
     // Initialize Supabase client
     const supabase = createClient(supabaseUrl, supabaseServiceKey);
     
@@ -45,9 +47,9 @@ serve(async (req) => {
     // Send email with attachment
     const { data, error: emailError } = await resend.emails.send({
       from: 'Landmark Construction <onboarding@resend.dev>',
-      to: [email],
-      subject: 'Consultation Requests Export',
-      html: '<p>Please find attached the consultation requests export.</p>',
+      to: [EXPORT_EMAIL],
+      subject: 'Daily Consultation Requests Export',
+      html: '<p>Please find attached the daily consultation requests export.</p>',
       attachments: [{
         filename: 'consultation-requests.xlsx',
         content: base64Excel,
