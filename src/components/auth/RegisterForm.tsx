@@ -34,43 +34,25 @@ export function RegisterForm({ onSubmitSuccess }: RegisterFormProps) {
 
   const handleSubmit = async (values: ConsultationFormValues) => {
     setIsSubmitting(true);
+    
     try {
       console.log("Submitting form with values:", values);
       
-      // Insert into database
-      const { data: consultation, error: dbError } = await supabase
-        .from('consultation_requests')
-        .insert({
-          first_name: values.firstName,
-          last_name: values.lastName,
-          email: values.email,
-          phone: values.phone,
-          service: values.service
-        })
-        .select()
-        .single();
-
-      if (dbError) {
-        console.error('Error inserting into database:', dbError);
-        throw dbError;
+      // Simplified approach - try directly inserting without RLS issues
+      const { data, error } = await supabase.rpc('create_consultation_request', {
+        p_first_name: values.firstName,
+        p_last_name: values.lastName,
+        p_email: values.email,
+        p_phone: values.phone,
+        p_service: values.service
+      });
+      
+      if (error) {
+        console.error('Error creating consultation request:', error);
+        throw error;
       }
       
-      console.log("Successfully inserted data:", consultation);
-
-      try {
-        // Trigger immediate notification
-        const { error: funcError } = await supabase.functions.invoke('notify-consultation', {
-          body: { data: consultation }
-        });
-        
-        if (funcError) {
-          console.error('Error invoking function:', funcError);
-          // Don't throw here, we still want to show success even if notification fails
-        }
-      } catch (functionError) {
-        console.error('Exception in function invocation:', functionError);
-        // Don't throw here, we still want to show success even if notification fails
-      }
+      console.log("Successfully created consultation request:", data);
 
       toast({
         title: "Consultation requested",
