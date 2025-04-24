@@ -8,12 +8,13 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 };
 
-const resend = new Resend(Deno.env.get('RESEND_API_KEY'));
+const resend = new Resend('re_EeqqA9wq_N3oDz1wCyK5T2gNbAX4RF5Xa');
 const supabaseUrl = 'https://ipncjsbjvdepjsowdhkj.supabase.co';
 const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? '';
 
-// Email address for all notifications
-const RECIPIENT_EMAIL = 'Dev@landmarkconstruction.org';
+// Email configuration
+const SENDER_EMAIL = 'onboarding@resend.dev';
+const RECIPIENT_EMAIL = 'dev@landmarkconstruction.org';
 
 serve(async (req) => {
   if (req.method === 'OPTIONS') {
@@ -29,9 +30,9 @@ serve(async (req) => {
     console.log('Received consultation data:', consultation);
 
     try {
-      // Send immediate notification email with careful error handling
+      // Send immediate notification email
       const { data: emailData, error: emailError } = await resend.emails.send({
-        from: 'onboarding@resend.dev',
+        from: SENDER_EMAIL,
         to: [RECIPIENT_EMAIL],
         subject: 'Free Consultation Request',
         html: `
@@ -57,11 +58,7 @@ serve(async (req) => {
           .eq('phone', consultation.phone);
           
         return new Response(
-          JSON.stringify({ 
-            message: 'Consultation saved but email notification failed',
-            details: emailError,
-            note: "To use Resend's free tier with the default sender, verify your email at Resend.com"
-          }),
+          JSON.stringify({ message: 'Consultation saved but email notification failed', details: emailError }),
           { status: 200, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
         );
       }
@@ -81,13 +78,8 @@ serve(async (req) => {
       );
     } catch (emailSendingError) {
       console.error('Email exception:', emailSendingError);
-      
       return new Response(
-        JSON.stringify({ 
-          message: 'Email sending exception occurred', 
-          error: emailSendingError.message,
-          note: "Resend's free tier requires email domain verification for custom senders"
-        }),
+        JSON.stringify({ message: 'Email sending exception occurred', error: emailSendingError.message }),
         { status: 200, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
