@@ -54,7 +54,7 @@ export function RegisterForm({ onSubmitSuccess }: RegisterFormProps) {
       console.log("Successfully created consultation request:", data);
 
       // Trigger notification function
-      const { error: notifyError } = await supabase.functions.invoke('notify-consultation', {
+      const { data: notifyData, error: notifyError } = await supabase.functions.invoke('notify-consultation', {
         body: JSON.stringify({ 
           first_name: values.firstName,
           last_name: values.lastName,
@@ -66,12 +66,27 @@ export function RegisterForm({ onSubmitSuccess }: RegisterFormProps) {
       
       if (notifyError) {
         console.error('Notification function error:', notifyError);
+        // Still show success message since the consultation was created
+        toast({
+          title: "Consultation requested",
+          description: "Your request was saved, but there was an issue with the email notification.",
+        });
+      } else {
+        console.log('Notification function response:', notifyData);
+        
+        // Show appropriate message based on email status
+        if (notifyData && notifyData.message === 'Notification sent successfully') {
+          toast({
+            title: "Consultation requested",
+            description: "A member of our team will contact you to schedule your free consultation!",
+          });
+        } else {
+          toast({
+            title: "Consultation requested",
+            description: "Your request was saved successfully. Our team will contact you soon.",
+          });
+        }
       }
-
-      toast({
-        title: "Consultation requested",
-        description: "A member of our team will contact you to schedule your free consultation!",
-      });
 
       form.reset();
       onSubmitSuccess?.();
