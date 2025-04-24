@@ -13,8 +13,8 @@ const supabaseUrl = 'https://ipncjsbjvdepjsowdhkj.supabase.co';
 const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? '';
 const resend = new Resend(Deno.env.get('RESEND_API_KEY'));
 
-// Hardcoded email for daily export
-const EXPORT_EMAIL = 'Dev@landmarkconstruction.org';
+// Email address for all notifications
+const RECIPIENT_EMAIL = 'Dev@landmarkconstruction.org';
 
 serve(async (req) => {
   if (req.method === 'OPTIONS') {
@@ -57,7 +57,7 @@ serve(async (req) => {
     // Send email with attachment
     const { data, error: emailError } = await resend.emails.send({
       from: 'onboarding@resend.dev', // Use the default Resend sender for testing
-      to: [EXPORT_EMAIL],
+      to: [RECIPIENT_EMAIL],
       subject: 'Daily Consultation Requests Export',
       html: '<p>Please find attached the daily consultation requests export.</p>',
       attachments: [{

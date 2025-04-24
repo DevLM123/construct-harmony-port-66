@@ -12,8 +12,8 @@ const resend = new Resend(Deno.env.get('RESEND_API_KEY'));
 const supabaseUrl = 'https://ipncjsbjvdepjsowdhkj.supabase.co';
 const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? '';
 
-// Hardcoded email for notifications
-const NOTIFICATION_EMAIL = 'Dev@landmarkconstruction.org';
+// Email address for all notifications
+const RECIPIENT_EMAIL = 'Dev@landmarkconstruction.org';
 
 serve(async (req) => {
   if (req.method === 'OPTIONS') {
@@ -31,7 +31,7 @@ serve(async (req) => {
     // Send immediate notification email
     const { data: emailData, error: emailError } = await resend.emails.send({
       from: 'onboarding@resend.dev', // Use the default Resend sender for testing
-      to: [NOTIFICATION_EMAIL], 
+      to: [RECIPIENT_EMAIL], 
       subject: 'Free Consultation Request',
       html: `
         <h2>New Consultation Request</h2>
