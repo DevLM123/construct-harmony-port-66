@@ -50,7 +50,16 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      create_consultation_request: {
+        Args: {
+          p_first_name: string
+          p_last_name: string
+          p_email: string
+          p_phone: string
+          p_service: string
+        }
+        Returns: string
+      }
     }
     Enums: {
       [_ in never]: never

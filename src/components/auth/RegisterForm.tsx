@@ -38,7 +38,6 @@ export function RegisterForm({ onSubmitSuccess }: RegisterFormProps) {
     try {
       console.log("Submitting form with values:", values);
       
-      // Simplified approach - try directly inserting without RLS issues
       const { data, error } = await supabase.rpc('create_consultation_request', {
         p_first_name: values.firstName,
         p_last_name: values.lastName,
@@ -53,6 +52,21 @@ export function RegisterForm({ onSubmitSuccess }: RegisterFormProps) {
       }
       
       console.log("Successfully created consultation request:", data);
+
+      // Trigger notification function
+      const { error: notifyError } = await supabase.functions.invoke('notify-consultation', {
+        body: JSON.stringify({ 
+          first_name: values.firstName,
+          last_name: values.lastName,
+          email: values.email,
+          phone: values.phone,
+          service: values.service
+        })
+      });
+      
+      if (notifyError) {
+        console.error('Notification function error:', notifyError);
+      }
 
       toast({
         title: "Consultation requested",

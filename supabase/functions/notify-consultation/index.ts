@@ -1,3 +1,4 @@
+
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.38.4";
 import { Resend } from "npm:resend@2.0.0";
@@ -19,9 +20,11 @@ serve(async (req) => {
   try {
     const supabase = createClient(supabaseUrl, supabaseServiceKey);
     
-    // Get consultation data from request
-    const { data: consultation } = await req.json();
+    // Parse consultation data from request body
+    const consultation = await req.json();
     
+    console.log('Received consultation data:', consultation);
+
     // Send immediate notification email
     const { error: emailError } = await resend.emails.send({
       from: 'Landmark Construction <onboarding@resend.dev>',
@@ -36,15 +39,10 @@ serve(async (req) => {
       `,
     });
 
-    if (emailError) throw emailError;
-
-    // Mark notification as sent
-    const { error: updateError } = await supabase
-      .from('consultation_requests')
-      .update({ notification_sent: true })
-      .eq('id', consultation.id);
-
-    if (updateError) throw updateError;
+    if (emailError) {
+      console.error('Email sending error:', emailError);
+      throw emailError;
+    }
 
     return new Response(
       JSON.stringify({ message: 'Notification sent successfully' }),
