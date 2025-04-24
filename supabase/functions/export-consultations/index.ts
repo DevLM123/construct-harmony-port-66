@@ -35,6 +35,16 @@ serve(async (req) => {
 
     if (error) throw error;
 
+    // If no new consultations, don't send email
+    if (!consultations || consultations.length === 0) {
+      return new Response(
+        JSON.stringify({ message: 'No new consultation requests to export' }),
+        { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
+    console.log(`Found ${consultations.length} consultations to export`);
+
     // Create workbook and worksheet
     const wb = XLSX.utils.book_new();
     const ws = XLSX.utils.json_to_sheet(consultations);
@@ -46,7 +56,7 @@ serve(async (req) => {
 
     // Send email with attachment
     const { data, error: emailError } = await resend.emails.send({
-      from: 'Landmark Construction <onboarding@resend.dev>',
+      from: 'onboarding@resend.dev', // Use the default Resend sender for testing
       to: [EXPORT_EMAIL],
       subject: 'Daily Consultation Requests Export',
       html: '<p>Please find attached the daily consultation requests export.</p>',
@@ -56,14 +66,23 @@ serve(async (req) => {
       }],
     });
 
-    if (emailError) throw emailError;
+    if (emailError) {
+      console.error('Email sending error:', emailError);
+      throw emailError;
+    }
+
+    console.log('Export email sent successfully:', data);
 
     // After sending the email, mark records as exported
-    if (!error && consultations) {
-      await supabase
+    if (consultations && consultations.length > 0) {
+      const { error: updateError } = await supabase
         .from('consultation_requests')
         .update({ exported_in_daily: true })
         .in('id', consultations.map(c => c.id));
+      
+      if (updateError) {
+        console.error('Error marking consultations as exported:', updateError);
+      }
     }
 
     return new Response(
@@ -81,4 +100,3 @@ serve(async (req) => {
     );
   }
 });
-

@@ -29,8 +29,8 @@ serve(async (req) => {
     console.log('Received consultation data:', consultation);
 
     // Send immediate notification email
-    const { error: emailError } = await resend.emails.send({
-      from: 'Landmark Construction <onboarding@resend.dev>',
+    const { data: emailData, error: emailError } = await resend.emails.send({
+      from: 'onboarding@resend.dev', // Use the default Resend sender for testing
       to: [NOTIFICATION_EMAIL], 
       subject: 'Free Consultation Request',
       html: `
@@ -47,6 +47,8 @@ serve(async (req) => {
       throw emailError;
     }
 
+    console.log('Email sent successfully:', emailData);
+
     return new Response(
       JSON.stringify({ message: 'Notification sent successfully' }),
       { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
@@ -59,4 +61,3 @@ serve(async (req) => {
     );
   }
 });
-
