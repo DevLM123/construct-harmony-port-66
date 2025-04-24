@@ -12,6 +12,9 @@ const resend = new Resend(Deno.env.get('RESEND_API_KEY'));
 const supabaseUrl = 'https://ipncjsbjvdepjsowdhkj.supabase.co';
 const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? '';
 
+// Hardcoded email for notifications
+const NOTIFICATION_EMAIL = 'Dev@landmarkconstruction.org';
+
 serve(async (req) => {
   if (req.method === 'OPTIONS') {
     return new Response(null, { headers: corsHeaders });
@@ -28,7 +31,7 @@ serve(async (req) => {
     // Send immediate notification email
     const { error: emailError } = await resend.emails.send({
       from: 'Landmark Construction <onboarding@resend.dev>',
-      to: ['your-email@example.com'], // Replace with your email in the Supabase Edge Function settings
+      to: [NOTIFICATION_EMAIL], 
       subject: 'Free Consultation Request',
       html: `
         <h2>New Consultation Request</h2>
@@ -56,3 +59,4 @@ serve(async (req) => {
     );
   }
 });
+
