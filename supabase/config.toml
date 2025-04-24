@@ -1,1 +1,6 @@
-project_id = "ipncjsbjvdepjsowdhkj"
+
+[functions.notify-consultation]
+verify_jwt = false
+
+[functions.export-consultations]
+verify_jwt = false

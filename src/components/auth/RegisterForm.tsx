@@ -33,7 +33,8 @@ export function RegisterForm({ onSubmitSuccess }: RegisterFormProps) {
 
   const handleSubmit = async (values: ConsultationFormValues) => {
     try {
-      const { error } = await supabase
+      // Insert into database
+      const { data: consultation, error: dbError } = await supabase
         .from('consultation_requests')
         .insert([{
           first_name: values.firstName,
@@ -41,9 +42,16 @@ export function RegisterForm({ onSubmitSuccess }: RegisterFormProps) {
           email: values.email,
           phone: values.phone,
           service: values.service
-        }]);
+        }])
+        .select()
+        .single();
 
-      if (error) throw error;
+      if (dbError) throw dbError;
+
+      // Trigger immediate notification
+      await supabase.functions.invoke('notify-consultation', {
+        body: { data: consultation }
+      });
 
       toast({
         title: "Consultation requested",

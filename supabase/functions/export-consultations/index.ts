@@ -1,4 +1,3 @@
-
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { Resend } from "npm:resend@2.0.0";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.38.4";
@@ -28,6 +27,8 @@ serve(async (req) => {
     const { data: consultations, error } = await supabase
       .from('consultation_requests')
       .select('*')
+      .eq('exported_in_daily', false)
+      .gte('created_at', new Date(new Date().setHours(0,0,0,0)).toISOString())
       .order('created_at', { ascending: false });
 
     if (error) throw error;
@@ -54,6 +55,14 @@ serve(async (req) => {
     });
 
     if (emailError) throw emailError;
+
+    // After sending the email, mark records as exported
+    if (!error && consultations) {
+      await supabase
+        .from('consultation_requests')
+        .update({ exported_in_daily: true })
+        .in('id', consultations.map(c => c.id));
+    }
 
     return new Response(
       JSON.stringify({ message: 'Export sent successfully' }),

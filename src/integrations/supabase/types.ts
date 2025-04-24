@@ -13,27 +13,33 @@ export type Database = {
         Row: {
           created_at: string
           email: string
+          exported_in_daily: boolean | null
           first_name: string
           id: string
           last_name: string
+          notification_sent: boolean | null
           phone: string
           service: string
         }
         Insert: {
           created_at?: string
           email: string
+          exported_in_daily?: boolean | null
           first_name: string
           id?: string
           last_name: string
+          notification_sent?: boolean | null
           phone: string
           service: string
         }
         Update: {
           created_at?: string
           email?: string
+          exported_in_daily?: boolean | null
           first_name?: string
           id?: string
           last_name?: string
+          notification_sent?: boolean | null
           phone?: string
           service?: string
         }
