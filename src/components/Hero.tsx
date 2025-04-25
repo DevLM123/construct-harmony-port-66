@@ -1,48 +1,121 @@
 
-import React, { useState } from 'react';
+import React from 'react';
+import { Building2, MoveRight, BarChart3, Shield, Clock, Hammer, Layers } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { BankResourcesDialog } from '@/components/services/BankResourcesDialog';
+import { cn } from '@/lib/utils';
+import { useNavigate } from 'react-router-dom';
 
 type HeroProps = {
-  onGetStarted: (tab?: 'login' | 'register') => void;
+  onGetStarted: () => void;
 };
 
 export function Hero({ onGetStarted }: HeroProps) {
-  const [bankResourcesOpen, setBankResourcesOpen] = useState(false);
-
+  const navigate = useNavigate();
+  
   return (
-    <div className="relative min-h-[85vh] flex items-center justify-center bg-gradient-to-b from-muted/50 to-muted">
-      <div className="absolute inset-0 bg-grid-white/50 bg-grid-pattern" />
-      <div className="container px-4 md:px-6 relative z-10">
-        <div className="flex flex-col items-center gap-4 text-center">
-          <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-gray-900 to-gray-600">
-            Building Dreams,
-            <br />
-            One Home at a Time
+    <section className="relative min-h-screen flex flex-col justify-center overflow-hidden bg-hero-pattern pt-20 pb-16 px-4">
+      <div className="absolute inset-0 bg-gradient-radial from-transparent to-background z-0"></div>
+      
+      {/* Animated background elements */}
+      <div className="absolute top-20 right-20 w-64 h-64 bg-primary/5 rounded-full filter blur-3xl animate-pulse-subtle"></div>
+      <div className="absolute bottom-20 left-20 w-72 h-72 bg-amber-700/10 rounded-full filter blur-3xl animate-pulse-subtle animate-delay-500"></div>
+      
+      <div className="container mx-auto relative z-10 max-w-6xl">
+        <div className="flex flex-col items-center text-center mb-10 md:mb-16 animate-fade-up">
+          <div className="inline-flex items-center px-3 py-1 rounded-full bg-amber-50 text-amber-800 text-sm font-medium mb-6 border border-amber-200/50">
+            <Building2 className="w-4 h-4 mr-2" />
+            <span>Premium Construction Services</span>
+          </div>
+          
+          <h1 className="font-bold text-4xl md:text-6xl lg:text-7xl mb-6 leading-tight tracking-tight max-w-4xl">
+            Build Your Dream Home with 
+            <span className="text-gradient"> Landmark</span>
           </h1>
-          <p className="max-w-[42rem] text-muted-foreground sm:text-xl text-balance">
-            Experience excellence in home renovation, elevation, and construction services. Our expert team brings your vision to life with precision and care.
+          
+          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl">
+            Expert home building, elevation, and lift installation services
+            with premium craftsmanship and attention to detail.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 min-[400px]:gap-6">
-            <Button
-              onClick={() => onGetStarted('register')}
-              size="lg"
-              className="bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-700 hover:to-blue-900"
+          
+          <div className="flex flex-col sm:flex-row gap-4 mt-10">
+            <Button 
+              size="lg" 
+              onClick={onGetStarted}
+              className="gap-2 text-base px-8 animate-fade-in bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-700 hover:to-blue-900 border border-amber-200/30"
             >
-              Free Consultation
+              <span>Get Started</span>
+              <MoveRight className="w-4 h-4" />
             </Button>
-            <Button
-              onClick={() => setBankResourcesOpen(true)}
-              variant="secondary"
+            <Button 
+              variant="outline" 
               size="lg"
+              className="text-base px-8 animate-fade-in animate-delay-100 border-amber-200 hover:bg-amber-50"
+              onClick={() => navigate('/projects')}
             >
-              Resources
+              Our Services
             </Button>
           </div>
         </div>
+        
+        {/* Stats and Value Propositions */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mt-16 animate-fade-up animate-delay-200">
+          <div 
+            className={cn(
+              "glass-card rounded-2xl p-6 flex flex-col items-center text-center",
+              "hover:shadow-xl transition-all duration-300 h-full border-amber-200"
+            )}
+          >
+            <div className="mb-4 p-3 bg-amber-50 rounded-full">
+              <Hammer className="w-8 h-8 text-amber-700" />
+            </div>
+            <div className="text-3xl md:text-4xl font-bold mb-2">Premium</div>
+            <div className="text-amber-800 mb-2">Craftsmanship</div>
+            <p className="text-sm text-muted-foreground">Meticulous attention to detail in every aspect of your custom build</p>
+          </div>
+          
+          <div 
+            className={cn(
+              "glass-card rounded-2xl p-6 flex flex-col items-center text-center",
+              "hover:shadow-xl transition-all duration-300 h-full border-amber-200"
+            )}
+          >
+            <div className="mb-4 p-3 bg-primary/10 rounded-full">
+              <Building2 className="w-8 h-8 text-primary" />
+            </div>
+            <div className="text-3xl md:text-4xl font-bold mb-2">20+ Years</div>
+            <div className="text-muted-foreground mb-2">Combined Experience</div>
+            <p className="text-sm text-muted-foreground">Our expert team brings decades of construction knowledge to your project</p>
+          </div>
+          
+          <div 
+            className={cn(
+              "glass-card rounded-2xl p-6 flex flex-col items-center text-center",
+              "hover:shadow-xl transition-all duration-300 h-full border-amber-200"
+            )}
+          >
+            <div className="mb-4 p-3 bg-amber-50 rounded-full">
+              <Shield className="w-8 h-8 text-amber-700" />
+            </div>
+            <div className="text-3xl md:text-4xl font-bold mb-2">10 Year</div>
+            <div className="text-amber-800 mb-2">Warranty Guarantee</div>
+            <p className="text-sm text-muted-foreground">Peace of mind with our industry-leading warranty coverage</p>
+          </div>
+
+          <div 
+            className={cn(
+              "glass-card rounded-2xl p-6 flex flex-col items-center text-center",
+              "hover:shadow-xl transition-all duration-300 h-full border-amber-200"
+            )}
+          >
+            <div className="mb-4 p-3 bg-primary/10 rounded-full">
+              <Layers className="w-8 h-8 text-primary" />
+            </div>
+            <div className="text-3xl md:text-4xl font-bold mb-2">Modern</div>
+            <div className="text-muted-foreground mb-2">Techniques</div>
+            <p className="text-sm text-muted-foreground">State-of-the-art construction methods for efficiency and quality</p>
+          </div>
+        </div>
       </div>
-      <BankResourcesDialog isOpen={bankResourcesOpen} onClose={() => setBankResourcesOpen(false)} />
-    </div>
+    </section>
   );
 }
-
