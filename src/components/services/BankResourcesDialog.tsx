@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Bank } from 'lucide-react';
+import { Landmark, Building } from 'lucide-react';
 import {
   Dialog,
   DialogContent,
@@ -38,7 +38,7 @@ export function BankResourcesDialog({ isOpen, onClose }: BankResourcesDialogProp
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
-            <Bank className="h-5 w-5" />
+            <Building className="h-5 w-5" />
             <span>Financing Resources</span>
           </DialogTitle>
         </DialogHeader>
