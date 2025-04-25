@@ -1,7 +1,8 @@
+
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { cn } from '@/lib/utils';
-import { Building2, Menu, X, Package, Bank } from 'lucide-react';
+import { Building2, Menu, X, Package, Building } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { BankResourcesDialog } from '@/components/services/BankResourcesDialog';
@@ -137,7 +138,7 @@ export function Navbar({ onAuthClick }: { onAuthClick: (tab?: 'login' | 'registe
                   : "border-[#e9e5dc]/50 hover:border-primary/50"
               )}
             >
-              <Bank className="w-4 h-4" />
+              <Building className="w-4 h-4" />
               <span>Resources</span>
             </Button>
             

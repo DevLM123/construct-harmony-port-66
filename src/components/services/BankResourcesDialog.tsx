@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Landmark, Building } from 'lucide-react';
+import { Building } from 'lucide-react';
 import {
   Dialog,
   DialogContent,
