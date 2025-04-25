@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
@@ -7,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 import { AuthModal } from '@/components/auth/AuthModal';
 import { BankResourcesDialog } from '@/components/services/BankResourcesDialog';
+import { Button } from '@/components/ui/button';
 
 const Services = () => {
   const navigate = useNavigate();
@@ -95,11 +97,12 @@ const Services = () => {
                   className="bg-primary text-white px-6 py-3 rounded-md font-medium hover:bg-primary/90 transition-colors">
                   Request a Quote
                 </button>
-                <button 
+                <Button 
                   onClick={() => setBankResourcesOpen(true)}
-                  className="bg-secondary text-secondary-foreground px-6 py-3 rounded-md font-medium hover:bg-secondary/80 transition-colors">
+                  variant="secondary"
+                  className="px-6 py-3">
                   Resources
-                </button>
+                </Button>
                 <button 
                   onClick={() => openAuthModal('register')}
                   className="bg-secondary text-secondary-foreground px-6 py-3 rounded-md font-medium hover:bg-secondary/80 transition-colors">
