@@ -14,9 +14,9 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
 
 type BuildSummaryProps = {
-  selectedOptions: Record<string, { material: string; color: string }>;
-  isVisible: boolean;
-};
+    selectedOptions: Record<string, Record<string, { color: string }>>;
+    isVisible: boolean;
+  };
 
 export const BuildSummary = ({
   selectedOptions,
@@ -25,29 +25,33 @@ export const BuildSummary = ({
   const navigate = useNavigate();
 
   const calculateTotalPrice = () => {
-    return Object.entries(selectedOptions).reduce((total, [category, selection]) => {
-      const categoryData = buildPackageOptions[category as keyof typeof buildPackageOptions];
-      if (!categoryData) return total;
-
-      const material = categoryData.materials.find(m => m.name === selection.material);
-      if (!material) return total;
-
-      const colorOption = material.colors.find(c => c.name === selection.color);
-      const materialPrice = material.price;
-      const colorPrice = colorOption?.price || 0;
-
-      return total + materialPrice + colorPrice;
-    }, 0);
+    let total = 0;
+    for (const category in selectedOptions) {
+      for (const material in selectedOptions[category]) {
+        const categoryData = buildPackageOptions[category as keyof typeof buildPackageOptions];
+        const mat = categoryData?.materials.find(m => m.name === material);
+        const colorOption = mat?.colors.find(c => c.name === selectedOptions[category][material].color);
+        total += (mat?.price || 0) + (colorOption?.price || 0);
+      }
+    }
+    return total;
   };
 
-  const getCategoryDetails = (category: string, selection: { material: string; color: string }) => {
+  const getCategoryDetails = (category: string, selection: Record<string, { color: string }>) => {
     const categoryData = buildPackageOptions[category as keyof typeof buildPackageOptions];
-    const material = categoryData?.materials.find(m => m.name === selection.material);
-    const colorOption = material?.colors.find(c => c.name === selection.color);
+    let totalPrice = 0;
+    const items: { material: string; color: string; price: number }[] = [];
+    for (const material in selection) {
+      const mat = categoryData?.materials.find(m => m.name === material);
+      const colorOption = mat?.colors.find(c => c.name === selection[material].color);
+      const price = (mat?.price || 0) + (colorOption?.price || 0);
+      totalPrice += price;
+      items.push({ material, color: selection[material].color, price });
+    }
 
     return {
-      materialPrice: material?.price || 0,
-      colorPrice: colorOption?.price || 0,
+      totalPrice,
+      items,
       title: categoryData?.title || category
     };
   };
@@ -77,29 +81,18 @@ export const BuildSummary = ({
                   </div>
                 );
               }
-              
+
               const details = getCategoryDetails(category, selection);
               return (
                 <div key={category} className="border-b pb-3">
                   <h3 className="font-medium capitalize">{details.title}</h3>
                   <div className="text-sm mt-1 space-y-1">
-                    <div className="flex justify-between">
-                      <p>{selection.material}</p>
-                      <p className="font-medium">
-                        ${details.materialPrice.toLocaleString()}
-                      </p>
-                    </div>
-                    {details.colorPrice > 0 ? (
-                      <div className="flex justify-between text-muted-foreground">
-                        <p>• {selection.color}</p>
-                        <p>+${details.colorPrice}</p>
+                    {details.items.map((item, index) => (
+                      <div key={index} className="flex justify-between">
+                        <p>{item.material} - {item.color}</p>
+                        <p className="font-medium">${item.price.toLocaleString()}</p>
                       </div>
-                    ) : (
-                      <div className="flex justify-between text-muted-foreground">
-                        <p>• {selection.color}</p>
-                        <p><Check className="h-3 w-3" /></p>
-                      </div>
-                    )}
+                    ))}
                   </div>
                 </div>
               );

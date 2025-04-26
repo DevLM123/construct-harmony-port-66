@@ -13,7 +13,7 @@ export const BuildPackageConfigurator = () => {
   }));
 
   const [selectedOptions, setSelectedOptions] = useState<
-    Record<string, { material: string; color: string }>
+    Record<string, Record<string, { color: string }>>
   >({});
 
   const [activeCategory, setActiveCategory] = useState("roof");
@@ -29,7 +29,10 @@ export const BuildPackageConfigurator = () => {
   ) => {
     setSelectedOptions((prev) => ({
       ...prev,
-      [category]: { material, color },
+      [category]: {
+        ...prev[category],
+        [material]: { color },
+      },
     }));
   };
 
