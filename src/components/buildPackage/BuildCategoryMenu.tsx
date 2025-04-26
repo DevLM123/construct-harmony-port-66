@@ -27,7 +27,7 @@ export const BuildCategoryMenu = ({
   }, [activeCategory]);
 
   return (
-    <div className="sticky top-0 z-50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b">
+    <div className="sticky top-0 z-50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b shadow-sm">
       <div ref={menuRef} className="container mx-auto">
         <ScrollArea className="w-full px-2">
           <div className="flex gap-2 py-4">

@@ -14,11 +14,7 @@ export const BuildPackageConfigurator = () => {
 
   const [selectedOptions, setSelectedOptions] = useState<
     Record<string, { material: string; color: string }>
-  >({
-    roof: { material: "Timberland Natural", color: "Charcoal" },
-    floor: { material: "Merola Tile", color: "Arte White" },
-    countertop: { material: "Granite", color: "Rigel White" },
-  });
+  >({});
 
   const [activeCategory, setActiveCategory] = useState("roof");
   const [showSummary, setShowSummary] = useState(false);

@@ -67,7 +67,17 @@ export const BuildSummary = ({
       <CardContent className="pb-3">
         <ScrollArea className="h-[min(50vh,300px)] pr-4">
           <div className="space-y-4">
-            {Object.entries(selectedOptions).map(([category, selection]) => {
+            {Object.entries(buildPackageOptions).map(([category, categoryData]) => {
+              const selection = selectedOptions[category];
+              if (!selection) {
+                return (
+                  <div key={category} className="border-b pb-3">
+                    <h3 className="font-medium capitalize">{categoryData.title}</h3>
+                    <p className="text-sm text-muted-foreground">No selection made</p>
+                  </div>
+                );
+              }
+              
               const details = getCategoryDetails(category, selection);
               return (
                 <div key={category} className="border-b pb-3">

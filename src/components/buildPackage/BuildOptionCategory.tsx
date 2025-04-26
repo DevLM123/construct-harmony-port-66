@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Check } from 'lucide-react';
@@ -31,7 +30,7 @@ export const BuildOptionCategory = ({
   onSelect,
 }: BuildOptionCategoryProps) => {
   return (
-    <div className="grid gap-6 md:grid-cols-2">
+    <div className="grid grid-cols-1 gap-6"> {/* Changed to one column */}
       {options.materials.map((material) => (
         <Card 
           key={material.name} 
