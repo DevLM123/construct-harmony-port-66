@@ -7,7 +7,7 @@ import {
   TabsTrigger 
 } from '@/components/ui/tabs';
 import { BuildOptionCategory } from '@/components/buildPackage/BuildOptionCategory';
-import { BuildSummary } from '@/components/buildPackage/BuildSummary';
+import { BuildPreview } from '@/components/buildPackage/BuildPreview';
 import { buildPackageOptions } from '@/data/buildPackageOptions';
 
 export const BuildPackageConfigurator = () => {
@@ -33,8 +33,14 @@ export const BuildPackageConfigurator = () => {
         </p>
       </div>
 
-      <div className="grid md:grid-cols-3 gap-8">
-        <div className="md:col-span-2">
+      <div className="grid md:grid-cols-2 gap-8">
+        {/* Preview Section on the Left */}
+        <div className="order-2 md:order-1">
+          <BuildPreview selectedOptions={selectedOptions} />
+        </div>
+
+        {/* Material Selectors on the Right */}
+        <div className="order-1 md:order-2">
           <Tabs defaultValue="roof" className="w-full">
             <TabsList className="grid grid-cols-3 mb-8">
               <TabsTrigger value="roof">Roof</TabsTrigger>
@@ -54,10 +60,6 @@ export const BuildPackageConfigurator = () => {
               </TabsContent>
             ))}
           </Tabs>
-        </div>
-        
-        <div>
-          <BuildSummary selectedOptions={selectedOptions} />
         </div>
       </div>
     </div>
