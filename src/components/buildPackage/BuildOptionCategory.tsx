@@ -1,8 +1,7 @@
 
 import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
-import { Label } from '@/components/ui/label';
+import { Check } from 'lucide-react';
 
 type BuildOptionCategoryProps = {
   category: string;
@@ -32,55 +31,57 @@ export const BuildOptionCategory = ({
   onSelect,
 }: BuildOptionCategoryProps) => {
   return (
-    <div className="space-y-6">
+    <div className="grid gap-6 md:grid-cols-2">
       {options.materials.map((material) => (
-        <Card key={material.name} className={selectedMaterial === material.name ? "border-2 border-primary" : ""}>
-          <CardContent className="p-4">
-            <div className="flex items-start justify-between">
-              <RadioGroup
-                value={selectedMaterial}
-                onValueChange={(value) => onSelect(category, value, material.colors[0].name)}
-                className="flex-1"
-              >
-                <div className="flex items-center space-x-2">
-                  <RadioGroupItem value={material.name} id={`${category}-${material.name}`} />
-                  <Label htmlFor={`${category}-${material.name}`} className="font-medium text-base">
-                    {material.name}
-                  </Label>
-                </div>
-                <p className="mt-1 text-sm text-muted-foreground">{material.description}</p>
-              </RadioGroup>
-              
-              <div className="text-right">
-                <span className="font-semibold text-lg">${material.price.toLocaleString()}</span>
+        <Card 
+          key={material.name} 
+          className={`transition-all hover:shadow-lg cursor-pointer ${
+            selectedMaterial === material.name ? "ring-2 ring-primary" : ""
+          }`}
+          onClick={() => onSelect(category, material.name, material.colors[0].name)}
+        >
+          <CardContent className="p-6">
+            <div className="flex justify-between items-start mb-4">
+              <div>
+                <h3 className="font-semibold text-lg">{material.name}</h3>
+                <p className="text-sm text-muted-foreground mt-1">{material.description}</p>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="font-semibold">${material.price.toLocaleString()}</span>
+                {selectedMaterial === material.name && (
+                  <Check className="h-5 w-5 text-primary" />
+                )}
               </div>
             </div>
-            
-            {selectedMaterial === material.name && (
-              <div className="mt-4">
-                <p className="text-sm font-medium mb-2">Colors:</p>
-                <div className="flex flex-wrap gap-3">
-                  {material.colors.map((color) => (
-                    <div key={color.name} className="flex flex-col items-center gap-1">
-                      <button
-                        onClick={() => onSelect(category, material.name, color.name)}
-                        className={`w-10 h-10 rounded-full border-2 transition-all ${
-                          selectedColor === color.name ? 'ring-2 ring-primary ring-offset-2' : ''
-                        }`}
-                        style={{ backgroundColor: color.hex }}
-                        title={color.name}
-                      />
-                      <div className="flex flex-col items-center">
-                        <span className="text-xs">{color.name}</span>
-                        {color.price > 0 && (
-                          <span className="text-xs text-muted-foreground">+${color.price}</span>
-                        )}
-                      </div>
+
+            <div className="mt-6">
+              <p className="text-sm font-medium mb-3">Available Colors:</p>
+              <div className="grid grid-cols-5 gap-2">
+                {material.colors.map((color) => (
+                  <button
+                    key={color.name}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onSelect(category, material.name, color.name);
+                    }}
+                    className="group relative"
+                  >
+                    <div
+                      className={`w-full aspect-square rounded-md transition-all ${
+                        selectedMaterial === material.name && selectedColor === color.name
+                          ? "ring-2 ring-primary ring-offset-2"
+                          : "hover:ring-2 hover:ring-primary/50 hover:ring-offset-2"
+                      }`}
+                      style={{ backgroundColor: color.hex }}
+                    />
+                    <div className="opacity-0 group-hover:opacity-100 absolute -bottom-6 left-1/2 -translate-x-1/2 whitespace-nowrap text-xs bg-popover px-2 py-1 rounded shadow-sm">
+                      {color.name}
+                      {color.price > 0 && ` (+$${color.price})`}
                     </div>
-                  ))}
-                </div>
+                  </button>
+                ))}
               </div>
-            )}
+            </div>
           </CardContent>
         </Card>
       ))}
