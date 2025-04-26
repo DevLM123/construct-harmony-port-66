@@ -1,4 +1,3 @@
-
 import React, { useRef, useEffect } from 'react';
 import { cn } from '@/lib/utils';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -16,12 +15,12 @@ export const BuildCategoryMenu = ({
 }: BuildCategoryMenuProps) => {
   const menuRef = useRef<HTMLDivElement>(null);
   const activeItemRef = useRef<HTMLButtonElement>(null);
-  
+
   useEffect(() => {
     if (activeItemRef.current && menuRef.current) {
       const container = menuRef.current;
       const activeItem = activeItemRef.current;
-      
+
       const scrollPosition = activeItem.offsetLeft - (container.clientWidth / 2) + (activeItem.clientWidth / 2);
       container.scrollTo({ left: scrollPosition, behavior: 'smooth' });
     }
@@ -30,7 +29,7 @@ export const BuildCategoryMenu = ({
   return (
     <div ref={menuRef} className="pb-3 border-b">
       <ScrollArea className="w-full px-2">
-        <div className="flex space-x-2 py-3">
+        <div className="flex overflow-x-auto gap-2 pb-2 border-b sticky top-[72px] bg-background/80 backdrop-blur-md z-40 shadow-sm">
           {categories.map((category) => (
             <button
               key={category.id}
