@@ -24,41 +24,40 @@ export const BuildSummary = ({
 }: BuildSummaryProps) => {
   const navigate = useNavigate();
 
+  const calculateTotalPrice = () => {
+    return Object.entries(selectedOptions).reduce((total, [category, selection]) => {
+      const categoryData = buildPackageOptions[category as keyof typeof buildPackageOptions];
+      if (!categoryData) return total;
+
+      const material = categoryData.materials.find(m => m.name === selection.material);
+      if (!material) return total;
+
+      const colorOption = material.colors.find(c => c.name === selection.color);
+      const materialPrice = material.price;
+      const colorPrice = colorOption?.price || 0;
+
+      return total + materialPrice + colorPrice;
+    }, 0);
+  };
+
+  const getCategoryDetails = (category: string, selection: { material: string; color: string }) => {
+    const categoryData = buildPackageOptions[category as keyof typeof buildPackageOptions];
+    const material = categoryData?.materials.find(m => m.name === selection.material);
+    const colorOption = material?.colors.find(c => c.name === selection.color);
+
+    return {
+      materialPrice: material?.price || 0,
+      colorPrice: colorOption?.price || 0,
+      title: categoryData?.title || category
+    };
+  };
+
   const handleSubmit = () => {
     navigate("/customization", { state: { buildPackage: selectedOptions } });
   };
 
-  const calculatePrice = () => {
-    let total = 0;
-
-    Object.entries(selectedOptions).forEach(
-      ([category, { material, color }]) => {
-        const categoryData =
-          buildPackageOptions[category as keyof typeof buildPackageOptions];
-        const materialData = categoryData.materials.find(
-          (m) => m.name === material,
-        );
-
-        if (materialData) {
-          total += materialData.price;
-
-          const colorData = materialData.colors.find((c) => c.name === color);
-          if (colorData) {
-            total += colorData.price;
-          }
-        }
-      },
-    );
-
-    return total;
-  };
-
-  const totalPrice = calculatePrice();
-
   return (
-    <Card
-      className={cn("border-t-2 border-primary/20", !isVisible && "hidden")}
-    >
+    <Card className={cn("border-t-2 border-primary/20", !isVisible && "hidden")}>
       <CardHeader className="pb-2">
         <CardTitle className="flex items-center gap-2">
           <Package className="h-5 w-5" />
@@ -68,58 +67,38 @@ export const BuildSummary = ({
       <CardContent className="pb-3">
         <ScrollArea className="h-[min(50vh,300px)] pr-4">
           <div className="space-y-4">
-            {Object.entries(selectedOptions).map(
-              ([category, { material, color }]) => {
-                const categoryData =
-                  buildPackageOptions[
-                    category as keyof typeof buildPackageOptions
-                  ];
-                const materialData = categoryData.materials.find(
-                  (m) => m.name === material,
-                );
-                const materialPrice = materialData?.price || 0;
-                const colorData = materialData?.colors.find(
-                  (c) => c.name === color,
-                );
-                const colorPrice = colorData?.price || 0;
-                const totalItemPrice = materialPrice + colorPrice;
-
-                return (
-                  <div key={category} className="border-b pb-3">
-                    <h3 className="font-medium capitalize">
-                      {categoryData.title}
-                    </h3>
-                    <div className="text-sm mt-1 space-y-1">
-                      <div className="flex justify-between">
-                        <p>{material}</p>
-                        <p className="font-medium">
-                          ${materialPrice.toLocaleString()}
-                        </p>
-                      </div>
-                      {colorPrice > 0 && (
-                        <div className="flex justify-between text-muted-foreground">
-                          <p>• {color}</p>
-                          <p>+${colorPrice}</p>
-                        </div>
-                      )}
-                      {colorPrice === 0 && (
-                        <div className="flex justify-between text-muted-foreground">
-                          <p>• {color}</p>
-                          <p>
-                            <Check className="h-3 w-3" />
-                          </p>
-                        </div>
-                      )}
+            {Object.entries(selectedOptions).map(([category, selection]) => {
+              const details = getCategoryDetails(category, selection);
+              return (
+                <div key={category} className="border-b pb-3">
+                  <h3 className="font-medium capitalize">{details.title}</h3>
+                  <div className="text-sm mt-1 space-y-1">
+                    <div className="flex justify-between">
+                      <p>{selection.material}</p>
+                      <p className="font-medium">
+                        ${details.materialPrice.toLocaleString()}
+                      </p>
                     </div>
+                    {details.colorPrice > 0 ? (
+                      <div className="flex justify-between text-muted-foreground">
+                        <p>• {selection.color}</p>
+                        <p>+${details.colorPrice}</p>
+                      </div>
+                    ) : (
+                      <div className="flex justify-between text-muted-foreground">
+                        <p>• {selection.color}</p>
+                        <p><Check className="h-3 w-3" /></p>
+                      </div>
+                    )}
                   </div>
-                );
-              },
-            )}
+                </div>
+              );
+            })}
 
             <div className="pt-2">
               <div className="flex justify-between font-semibold text-lg">
                 <p>Total</p>
-                <p>${totalPrice.toLocaleString()}</p>
+                <p>${calculateTotalPrice().toLocaleString()}</p>
               </div>
             </div>
           </div>
