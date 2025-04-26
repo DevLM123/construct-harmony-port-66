@@ -1,13 +1,15 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
 import { BuildPackageConfigurator } from '@/components/buildPackage/BuildPackageConfigurator';
 import { AuthModal } from '@/components/auth/AuthModal';
+import { useToast } from '@/hooks/use-toast';
 
 const BuildPackage = () => {
   const [authModalOpen, setAuthModalOpen] = useState(false);
   const [authModalTab, setAuthModalTab] = useState<'login' | 'register'>('login');
+  const { toast } = useToast();
 
   const openAuthModal = (tab: 'login' | 'register' = 'login') => {
     setAuthModalTab(tab);
@@ -17,6 +19,14 @@ const BuildPackage = () => {
   const closeAuthModal = () => {
     setAuthModalOpen(false);
   };
+  
+  useEffect(() => {
+    toast({
+      title: "Build Package Started",
+      description: "Scroll down to view all material options and see your summary",
+      duration: 5000,
+    });
+  }, [toast]);
 
   return (
     <div className="min-h-screen flex flex-col">
