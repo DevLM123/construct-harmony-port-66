@@ -88,14 +88,7 @@ export const BuildPackageConfigurator = () => {
         </p>
       </div>
 
-      {/* Scrollable Category Menu */}
-      <BuildCategoryMenu 
-        categories={categories} 
-        activeCategory={activeCategory}
-        onCategoryChange={handleCategoryChange}
-      />
-
-      <div className="grid md:grid-cols-2 gap-8 mt-6">
+      <div className="grid md:grid-cols-[1fr,480px] gap-8">
         {/* Preview Section on the Left */}
         <div className="order-2 md:order-1">
           <BuildPreview 
@@ -104,9 +97,15 @@ export const BuildPackageConfigurator = () => {
           />
         </div>
 
-        {/* Material Selectors on the Right */}
+        {/* Material Selection Section on the Right */}
         <div className="order-1 md:order-2">
-          <div className="space-y-16">
+          <BuildCategoryMenu 
+            categories={categories} 
+            activeCategory={activeCategory}
+            onCategoryChange={handleCategoryChange}
+          />
+          
+          <div className="space-y-16 mt-6">
             {Object.entries(buildPackageOptions).map(([category, options]) => (
               <div 
                 key={category}
@@ -125,12 +124,17 @@ export const BuildPackageConfigurator = () => {
               </div>
             ))}
           </div>
-        </div>
-      </div>
 
-      {/* Fixed Summary at the Bottom */}
-      <div className="fixed bottom-6 left-0 right-0 px-4 max-w-md mx-auto z-40">
-        <BuildSummary selectedOptions={selectedOptions} isVisible={showSummary} />
+          {/* Summary at the bottom of the right column */}
+          {showSummary && (
+            <div className="mt-8">
+              <BuildSummary 
+                selectedOptions={selectedOptions} 
+                isVisible={true}
+              />
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

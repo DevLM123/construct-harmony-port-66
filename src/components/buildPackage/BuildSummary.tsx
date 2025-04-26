@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Package, Check } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -19,7 +18,6 @@ export const BuildSummary = ({ selectedOptions, isVisible }: BuildSummaryProps) 
     navigate('/customization', { state: { buildPackage: selectedOptions } });
   };
 
-  // Calculate total price
   const calculatePrice = () => {
     let total = 0;
     
@@ -43,7 +41,7 @@ export const BuildSummary = ({ selectedOptions, isVisible }: BuildSummaryProps) 
   const totalPrice = calculatePrice();
 
   return (
-    <Card className={`sticky bottom-6 transition-all duration-300 shadow-lg ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10 pointer-events-none'}`}>
+    <Card className={cn("border-t-2 border-primary/20", !isVisible && "hidden")}>
       <CardHeader className="pb-2">
         <CardTitle className="flex items-center gap-2">
           <Package className="h-5 w-5" />

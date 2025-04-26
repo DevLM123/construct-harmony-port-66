@@ -22,19 +22,15 @@ export const BuildCategoryMenu = ({
       const container = menuRef.current;
       const activeItem = activeItemRef.current;
       
-      // Scroll into view with offset
       const scrollPosition = activeItem.offsetLeft - (container.clientWidth / 2) + (activeItem.clientWidth / 2);
       container.scrollTo({ left: scrollPosition, behavior: 'smooth' });
     }
   }, [activeCategory]);
 
   return (
-    <div 
-      ref={menuRef}
-      className="sticky top-20 z-10 pb-3 bg-white/95 backdrop-blur-sm border-b"
-    >
-      <ScrollArea orientation="horizontal" className="w-full">
-        <div className="flex space-x-2 px-2 py-3">
+    <div ref={menuRef} className="pb-3 border-b">
+      <ScrollArea className="w-full px-2">
+        <div className="flex space-x-2 py-3">
           {categories.map((category) => (
             <button
               key={category.id}
