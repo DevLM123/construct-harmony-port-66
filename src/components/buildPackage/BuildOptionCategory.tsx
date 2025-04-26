@@ -17,8 +17,7 @@ type BuildOptionCategoryProps = {
       }[];
     }[];
   };
-  selectedMaterial: string;
-  selectedColor: string;
+  selectedOptions: Record<string, Record<string, { color: string }>>;
   onSelect: (category: string, material: string, color: string) => void;
 };
 
@@ -30,60 +29,76 @@ export const BuildOptionCategory = ({
   onSelect,
 }: BuildOptionCategoryProps) => {
   return (
-    <div className="grid grid-cols-1 gap-6"> {/* Changed to one column */}
-      {options.materials.map((material) => (
-        <Card 
-          key={material.name} 
-          className={`transition-all hover:shadow-lg cursor-pointer ${
-            selectedMaterial === material.name ? "ring-2 ring-primary" : ""
-          }`}
-          onClick={() => onSelect(category, material.name, material.colors[0].name)}
-        >
-          <CardContent className="p-6">
-            <div className="flex justify-between items-start mb-4">
-              <div>
-                <h3 className="font-semibold text-lg">{material.name}</h3>
-                <p className="text-sm text-muted-foreground mt-1">{material.description}</p>
-              </div>
-              <div className="flex items-center gap-2">
+    <div className="grid grid-cols-1 gap-6">
+      {options.materials.map((material) => {
+        const isSelected = selectedOptions[category]?.[material.name] !== undefined;
+        const selectedColorForMaterial = selectedOptions[category]?.[material.name]?.color;
+        
+        return (
+          <Card 
+            key={material.name} 
+            className={`transition-all hover:shadow-lg cursor-pointer ${
+              isSelected ? "ring-2 ring-primary bg-primary/5" : ""
+            }`}
+            onClick={() => onSelect(category, material.name, material.colors[0].name)}
+          >
+            <CardContent className="p-6">
+              <div className="flex justify-between items-start mb-4">
+                <div>
+                  <div className="flex items-center gap-2">
+                    <h3 className="font-semibold text-lg">{material.name}</h3>
+                    {isSelected && (
+                      <Check className="h-5 w-5 text-primary" />
+                    )}
+                  </div>
+                  <p className="text-sm text-muted-foreground mt-1">{material.description}</p>
+                </div>
                 <span className="font-semibold">${material.price.toLocaleString()}</span>
-                {selectedMaterial === material.name && (
-                  <Check className="h-5 w-5 text-primary" />
-                )}
               </div>
-            </div>
 
-            <div className="mt-6">
-              <p className="text-sm font-medium mb-3">Available Colors:</p>
-              <div className="grid grid-cols-5 gap-2">
-                {material.colors.map((color) => (
-                  <button
-                    key={color.name}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      onSelect(category, material.name, color.name);
-                    }}
-                    className="group relative"
-                  >
-                    <div
-                      className={`w-full aspect-square rounded-md transition-all ${
-                        selectedMaterial === material.name && selectedColor === color.name
-                          ? "ring-2 ring-primary ring-offset-2"
-                          : "hover:ring-2 hover:ring-primary/50 hover:ring-offset-2"
-                      }`}
-                      style={{ backgroundColor: color.hex }}
-                    />
-                    <div className="opacity-0 group-hover:opacity-100 absolute -bottom-6 left-1/2 -translate-x-1/2 whitespace-nowrap text-xs bg-popover px-2 py-1 rounded shadow-sm">
-                      {color.name}
-                      {color.price > 0 && ` (+$${color.price})`}
-                    </div>
-                  </button>
-                ))}
+              <div className="mt-6">
+                <p className="text-sm font-medium mb-3">Available Colors:</p>
+                <div className="grid grid-cols-5 gap-2">
+                  {material.colors.map((color) => {
+                    const isColorSelected = isSelected && selectedColorForMaterial === color.name;
+                    
+                    return (
+                      <button
+                        key={color.name}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          onSelect(category, material.name, color.name);
+                        }}
+                        className="group relative"
+                      >
+                        <div className="relative">
+                          <div
+                            className={`w-full aspect-square rounded-md transition-all ${
+                              isColorSelected
+                                ? "ring-2 ring-primary ring-offset-2"
+                                : "hover:ring-2 hover:ring-primary/50 hover:ring-offset-2"
+                            }`}
+                            style={{ backgroundColor: color.hex }}
+                          />
+                          {isColorSelected && (
+                            <div className="absolute -top-1 -right-1 bg-primary rounded-full p-0.5">
+                              <Check className="h-3 w-3 text-white" />
+                            </div>
+                          )}
+                        </div>
+                        <div className="opacity-0 group-hover:opacity-100 absolute -bottom-6 left-1/2 -translate-x-1/2 whitespace-nowrap text-xs bg-popover px-2 py-1 rounded shadow-sm">
+                          {color.name}
+                          {color.price > 0 && ` (+$${color.price})`}
+                        </div>
+                      </button>
+                    );
+                  })}
+                </div>
               </div>
-            </div>
-          </CardContent>
-        </Card>
-      ))}
+            </CardContent>
+          </Card>
+        );
+      })}
     </div>
   );
 };

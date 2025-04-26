@@ -129,8 +129,7 @@ export const BuildPackageConfigurator = () => {
                 <BuildOptionCategory
                   category={category}
                   options={options}
-                  selectedMaterial={selectedOptions[category]?.material}
-                  selectedColor={selectedOptions[category]?.color}
+                  selectedOptions={selectedOptions}
                   onSelect={handleOptionSelect}
                 />
               </div>
