@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { cn } from '@/lib/utils';
@@ -64,6 +63,8 @@ export function Navbar({ onAuthClick }: { onAuthClick: (tab?: 'login' | 'registe
     navigate('/build-package');
   };
 
+  const isOnBuildPackagePage = location.pathname === '/build-package';
+
   return (
     <>
       <header
@@ -109,20 +110,22 @@ export function Navbar({ onAuthClick }: { onAuthClick: (tab?: 'login' | 'registe
           </nav>
 
           <div className="flex items-center gap-2">
-            <Button 
-              variant="outline" 
-              size="sm"
-              onClick={handleBuildPackageClick}
-              className={cn(
-                "hidden md:flex items-center gap-2 transition-all duration-300",
-                isScrolled 
-                  ? "border-[#e9e5dc] hover:border-primary/50" 
-                  : "border-[#e9e5dc]/50 hover:border-primary/50"
-              )}
-            >
-              <Package className="w-4 h-4" />
-              <span>Build Package</span>
-            </Button>
+            {!isOnBuildPackagePage && (
+              <Button 
+                variant="outline" 
+                size="sm"
+                onClick={handleBuildPackageClick}
+                className={cn(
+                  "hidden md:flex items-center gap-2 transition-all duration-300",
+                  isScrolled 
+                    ? "border-[#e9e5dc] hover:border-primary/50" 
+                    : "border-[#e9e5dc]/50 hover:border-primary/50"
+                )}
+              >
+                <Package className="w-4 h-4" />
+                <span>Build Package</span>
+              </Button>
+            )}
             
             <Button 
               onClick={() => onAuthClick('register')}
