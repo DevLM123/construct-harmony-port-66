@@ -16,7 +16,8 @@ const links: NavLink[] = [
   { label: 'Home', href: '/' },
   { label: 'Projects', href: '/projects' },
   { label: 'Services', href: '/services' },
-  { label: 'Customization', href: '/customization' }
+  { label: 'Customization', href: '/customization' },
+  { label: 'Build Package', href: '/build-package' },
 ];
 
 export function Navbar({ onAuthClick }: { onAuthClick: (tab?: 'login' | 'register') => void }) {
@@ -59,6 +60,10 @@ export function Navbar({ onAuthClick }: { onAuthClick: (tab?: 'login' | 'registe
     setBankResourcesOpen(false);
   };
 
+  const handleBuildPackageClick = () => {
+    navigate('/build-package');
+  };
+
   return (
     <>
       <header
@@ -87,7 +92,7 @@ export function Navbar({ onAuthClick }: { onAuthClick: (tab?: 'login' | 'registe
           </div>
 
           <nav className="hidden md:flex items-center space-x-1">
-            {links.map((link) => (
+            {links.filter(link => link.label !== 'Build Package').map((link) => (
               <button
                 key={link.label}
                 onClick={() => navigate(link.href)}
@@ -107,7 +112,7 @@ export function Navbar({ onAuthClick }: { onAuthClick: (tab?: 'login' | 'registe
             <Button 
               variant="outline" 
               size="sm"
-              onClick={() => onAuthClick('login')}
+              onClick={handleBuildPackageClick}
               className={cn(
                 "hidden md:flex items-center gap-2 transition-all duration-300",
                 isScrolled 
@@ -194,7 +199,7 @@ export function Navbar({ onAuthClick }: { onAuthClick: (tab?: 'login' | 'registe
             <Button 
               variant="outline" 
               onClick={() => {
-                onAuthClick('login');
+                navigate('/build-package');
                 setMobileMenuOpen(false);
               }}
               className="w-full justify-center border-[#e9e5dc]"

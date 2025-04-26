@@ -6,9 +6,11 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
 import { Package } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 export function LoginForm() {
   const { toast } = useToast();
+  const navigate = useNavigate();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -18,6 +20,9 @@ export function LoginForm() {
       title: "Package submitted",
       description: "Our team will review your selections and provide an estimate within 48 hours!",
     });
+
+    // Navigate to build package page
+    navigate('/build-package');
   };
 
   return (
@@ -76,7 +81,7 @@ export function LoginForm() {
       </div>
       
       <Button type="submit" className="w-full h-11">
-        Submit Build Package
+        Continue To Build Package
       </Button>
     </form>
   );
