@@ -88,7 +88,7 @@ export const BuildPackageConfigurator = () => {
 
   return (
     <div className="container mx-auto px-4 pb-32">
-      <div className="mb-8">
+      <div className="mb-8 text-center">
         <h1 className="text-3xl font-bold mb-2">
           Build Your Custom Home Package
         </h1>
