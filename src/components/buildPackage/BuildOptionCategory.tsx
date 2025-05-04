@@ -20,7 +20,7 @@ type BuildOptionCategoryProps = {
       }[];
     }[];
   };
-  selectedOptions: Record<string, Record<string, { color: string }>>;
+  selectedOptions: Record<string, { material: string; color: string }>;
   onSelect: (category: string, material: string, color: string) => void;
 };
 
@@ -33,8 +33,8 @@ export const BuildOptionCategory = ({
   return (
     <div className="grid grid-cols-1 gap-6">
       {options.materials.map((material) => {
-        const isSelected = selectedOptions[category]?.[material.name] !== undefined;
-        const selectedColorForMaterial = selectedOptions[category]?.[material.name]?.color;
+        const isSelected = selectedOptions[category]?.material === material.name;
+        const selectedColor = selectedOptions[category]?.color;
         
         return (
           <Card 
@@ -61,11 +61,11 @@ export const BuildOptionCategory = ({
                 <p className="text-sm font-medium mb-3">Available Options:</p>
                 <RadioGroup 
                   className="grid grid-cols-2 md:grid-cols-4 gap-3"
-                  value={selectedColorForMaterial || ""}
+                  value={isSelected && selectedColor ? selectedColor : ""}
                   onValueChange={(value) => onSelect(category, material.name, value)}
                 >
                   {material.colors.map((color) => {
-                    const isColorSelected = isSelected && selectedColorForMaterial === color.name;
+                    const isColorSelected = isSelected && selectedColor === color.name;
                     
                     return (
                       <label

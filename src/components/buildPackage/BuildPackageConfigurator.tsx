@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from "react";
 import { buildPackageOptions } from "@/data/buildPackageOptions";
 import { BuildOptionCategory } from "@/components/buildPackage/BuildOptionCategory";
@@ -14,7 +13,7 @@ export const BuildPackageConfigurator = () => {
   }));
 
   const [selectedOptions, setSelectedOptions] = useState<
-    Record<string, Record<string, { color: string }>>
+    Record<string, { material: string; color: string }>
   >({});
 
   const [activeCategory, setActiveCategory] = useState("kitchen");
@@ -33,13 +32,8 @@ export const BuildPackageConfigurator = () => {
       // Create a copy of the previous state
       const newState = { ...prev };
       
-      // If this category doesn't exist yet, create it
-      if (!newState[category]) {
-        newState[category] = {};
-      }
-      
-      // Update the selection
-      newState[category][material] = { color };
+      // Update the selection for this category
+      newState[category] = { material, color };
       
       return newState;
     });

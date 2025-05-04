@@ -16,7 +16,7 @@ import { cn } from "@/lib/utils";
 import { Textarea } from "@/components/ui/textarea";
 
 type BuildSummaryProps = {
-  selectedOptions: Record<string, Record<string, { color: string }>>;
+  selectedOptions: Record<string, { material: string; color: string }>;
   isVisible: boolean;
   specialNotes: string;
   onNotesChange: (notes: string) => void;
@@ -29,27 +29,6 @@ export const BuildSummary = ({
   onNotesChange,
 }: BuildSummaryProps) => {
   const navigate = useNavigate();
-
-  const getCategoryDetails = (
-    category: string,
-    selection: Record<string, { color: string }>,
-  ) => {
-    const categoryData =
-      buildPackageOptions[category as keyof typeof buildPackageOptions];
-    const items: { material: string; color: string }[] = [];
-    
-    for (const material in selection) {
-      items.push({ 
-        material, 
-        color: selection[material].color 
-      });
-    }
-
-    return {
-      items,
-      title: categoryData?.title || category,
-    };
-  };
 
   const handleSubmit = () => {
     navigate("/customization", { 
@@ -89,18 +68,15 @@ export const BuildSummary = ({
                   );
                 }
 
-                const details = getCategoryDetails(category, selection);
                 return (
                   <div key={category} className="border-b pb-3">
-                    <h4 className="font-medium capitalize">{details.title}</h4>
+                    <h4 className="font-medium capitalize">{categoryData.title}</h4>
                     <div className="text-sm mt-1 space-y-1">
-                      {details.items.map((item, index) => (
-                        <div key={index} className="flex items-center">
-                          <p>
-                            {item.material} - {item.color}
-                          </p>
-                        </div>
-                      ))}
+                      <div className="flex items-center">
+                        <p>
+                          {selection.material} - {selection.color}
+                        </p>
+                      </div>
                     </div>
                   </div>
                 );
