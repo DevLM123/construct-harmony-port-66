@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
-import { Check, ChevronDown, ChevronUp } from 'lucide-react';
+import { Check, ChevronDown } from 'lucide-react';
 import { cn } from "@/lib/utils";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 
@@ -32,7 +32,7 @@ export const BuildOptionCategory = ({
   onSelect,
 }: BuildOptionCategoryProps) => {
   return (
-    <div className="grid grid-cols-1 gap-6">
+    <div className="grid grid-cols-1 gap-4">
       {options.materials.map((material) => {
         const isSelected = selectedOptions[category]?.material === material.name;
         const selectedSubtypes = selectedOptions[category]?.selections || {};
@@ -41,12 +41,12 @@ export const BuildOptionCategory = ({
           <Card 
             key={material.name} 
             className={cn(
-              "transition-all hover:shadow-lg",
+              "transition-all hover:shadow-md",
               isSelected ? "ring-2 ring-primary bg-primary/5" : ""
             )}
           >
             <Collapsible>
-              <CardContent className="p-4">
+              <CardContent className="p-5">
                 <CollapsibleTrigger className="flex justify-between items-center w-full">
                   <div>
                     <div className="flex items-center gap-2">
@@ -57,16 +57,15 @@ export const BuildOptionCategory = ({
                     </div>
                     <p className="text-sm text-muted-foreground mt-1">{material.description}</p>
                   </div>
-                  {/* Toggle icon */}
                   <div className="flex items-center">
-                    <ChevronDown className="h-5 w-5 text-muted-foreground collapsible-icon" />
+                    <ChevronDown className="h-5 w-5 text-muted-foreground transition-transform duration-200 group-data-[state=open]:rotate-180" />
                   </div>
                 </CollapsibleTrigger>
                 
-                <CollapsibleContent>
-                  <div className="mt-6">
+                <CollapsibleContent className="pt-4">
+                  <div className="mt-2">
                     <p className="text-sm font-medium mb-3">Select Colors:</p>
-                    <div className="grid grid-cols-2 gap-3">
+                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
                       {material.colors.map((color) => {
                         const isColorSelected = isSelected && 
                           selectedSubtypes['color'] === color.name;
@@ -88,6 +87,7 @@ export const BuildOptionCategory = ({
                               style={{ backgroundColor: color.hex }}
                               aria-label={color.name}
                             />
+                            <span className="text-sm">{color.name}</span>
                           </div>
                         );
                       })}

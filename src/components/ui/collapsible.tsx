@@ -26,12 +26,15 @@ const CollapsibleContent = forwardRef<
   <CollapsiblePrimitive.CollapsibleContent
     ref={ref}
     className={cn(
-      "data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down overflow-hidden text-sm transition-all",
+      "overflow-hidden text-sm transition-all duration-200 ease-in-out",
+      "data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down",
       className
     )}
     {...props}
   >
-    {children}
+    <div className="pt-2">
+      {children}
+    </div>
   </CollapsiblePrimitive.CollapsibleContent>
 ))
 CollapsibleContent.displayName = CollapsiblePrimitive.CollapsibleContent.displayName

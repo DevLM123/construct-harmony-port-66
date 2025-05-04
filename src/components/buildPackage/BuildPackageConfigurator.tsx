@@ -61,7 +61,7 @@ export const BuildPackageConfigurator = () => {
     // Scroll to the category section with offset for the sticky header
     const element = sectionRefs.current[category];
     if (element) {
-      const headerOffset = 120; // Increased offset for the sticky header
+      const headerOffset = 100; // Adjusted offset for the sticky header
       const elementPosition = element.getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
       
@@ -76,7 +76,7 @@ export const BuildPackageConfigurator = () => {
   useEffect(() => {
     const options = {
       root: null,
-      rootMargin: "-120px 0px -40% 0px", // Increased top margin to account for header height
+      rootMargin: "-100px 0px -40% 0px", // Adjusted top margin
       threshold: [0.1]
     };
 
@@ -157,15 +157,15 @@ export const BuildPackageConfigurator = () => {
             onCategoryChange={handleCategoryChange}
           />
 
-          <div className="space-y-32 mt-16 pt-4">
+          <div className="space-y-20 mt-12 pt-4">
             {Object.entries(buildPackageOptions).map(([category, options]) => (
               <div
                 key={category}
                 id={category}
                 ref={(el) => (sectionRefs.current[category] = el)}
-                className="scroll-mt-48 min-h-[70vh] py-8"
+                className="scroll-mt-32 py-6"
               >
-                <h2 className="text-2xl font-semibold mb-6">{options.title}</h2>
+                <h2 className="text-2xl font-semibold mb-5">{options.title}</h2>
                 <BuildOptionCategory
                   category={category}
                   options={options}
@@ -177,7 +177,7 @@ export const BuildPackageConfigurator = () => {
           </div>
 
           {/* Summary at the bottom of the right column */}
-          <div className="mt-24">
+          <div className="mt-16">
             <BuildSummary 
               selectedOptions={selectedOptions} 
               isVisible={true}

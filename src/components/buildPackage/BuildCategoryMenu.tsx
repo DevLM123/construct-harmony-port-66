@@ -28,18 +28,18 @@ export const BuildCategoryMenu = ({
 
   return (
     <div className="sticky top-0 z-50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b shadow-sm">
-      <div ref={menuRef} className="container mx-auto overflow-x-auto">
+      <div ref={menuRef} className="container mx-auto overflow-x-auto py-2">
         <ScrollArea className="w-full">
-          <div className="flex gap-2 py-4 px-2">
+          <div className="flex gap-3 py-3 px-2">
             {categories.map((category) => (
               <button
                 key={category.id}
                 ref={category.id === activeCategory ? activeItemRef : null}
                 onClick={() => onCategoryChange(category.id)}
                 className={cn(
-                  "px-6 py-3 rounded-lg text-sm font-medium whitespace-nowrap transition-all",
+                  "px-6 py-2.5 rounded-lg text-sm font-medium whitespace-nowrap transition-all",
                   category.id === activeCategory
-                    ? "bg-primary text-primary-foreground shadow-lg"
+                    ? "bg-primary text-primary-foreground shadow-md"
                     : "bg-secondary text-secondary-foreground hover:bg-secondary/80"
                 )}
               >
