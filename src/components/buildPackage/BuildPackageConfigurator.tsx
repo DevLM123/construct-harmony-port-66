@@ -20,6 +20,7 @@ export const BuildPackageConfigurator = () => {
   const [activeCategory, setActiveCategory] = useState("kitchen");
   const [showSummary, setShowSummary] = useState(false);
   const [specialNotes, setSpecialNotes] = useState("");
+  const mainContainerRef = useRef<HTMLDivElement>(null);
 
   // Refs for each category section
   const sectionRefs = useRef<Record<string, HTMLDivElement | null>>({});
@@ -60,7 +61,7 @@ export const BuildPackageConfigurator = () => {
     // Scroll to the category section with offset for the sticky header
     const element = sectionRefs.current[category];
     if (element) {
-      const headerOffset = 80; // Approximate height of the sticky header
+      const headerOffset = 120; // Increased offset for the sticky header
       const elementPosition = element.getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
       
@@ -74,20 +75,26 @@ export const BuildPackageConfigurator = () => {
   // Set up intersection observer to update active category based on scroll position
   useEffect(() => {
     const options = {
-      rootMargin: "-80px 0px -40% 0px", // Adjust top margin to account for header height
-      threshold: [0.1, 0.5]
+      root: null,
+      rootMargin: "-120px 0px -40% 0px", // Increased top margin to account for header height
+      threshold: [0.1]
     };
 
     const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        // Only update if the element is intersecting and has a reasonable visibility
-        if (entry.isIntersecting && entry.intersectionRatio >= 0.1) {
-          const sectionId = entry.target.id;
-          if (sectionId && sectionId !== activeCategory) {
-            setActiveCategory(sectionId);
-          }
+      // Find the most visible section
+      const visibleEntries = entries.filter(entry => entry.isIntersecting);
+      
+      if (visibleEntries.length > 0) {
+        // Sort by intersection ratio to get the most visible section
+        const mostVisible = visibleEntries.reduce((prev, current) => 
+          (prev.intersectionRatio > current.intersectionRatio) ? prev : current
+        );
+        
+        const sectionId = mostVisible.target.id;
+        if (sectionId && sectionId !== activeCategory) {
+          setActiveCategory(sectionId);
         }
-      });
+      }
     }, options);
 
     // Observe all category sections
@@ -102,7 +109,7 @@ export const BuildPackageConfigurator = () => {
         if (element) observer.unobserve(element);
       });
     };
-  }, []);
+  }, [activeCategory]);
 
   // Show summary when scrolled near the bottom
   useEffect(() => {
@@ -123,7 +130,7 @@ export const BuildPackageConfigurator = () => {
   };
 
   return (
-    <div className="container mx-auto px-4 pb-32">
+    <div className="container mx-auto px-4 pb-32" ref={mainContainerRef}>
       <div className="mb-8 text-center">
         <h1 className="text-3xl font-bold mb-2">
           Build Your Custom Home Package
@@ -143,20 +150,20 @@ export const BuildPackageConfigurator = () => {
         </div>
 
         {/* Material Selection Section on the Right */}
-        <div className="order-1 md:order-2">
+        <div className="order-1 md:order-2 relative">
           <BuildCategoryMenu
             categories={categories}
             activeCategory={activeCategory}
             onCategoryChange={handleCategoryChange}
           />
 
-          <div className="space-y-24 mt-6">
+          <div className="space-y-32 mt-16 pt-4">
             {Object.entries(buildPackageOptions).map(([category, options]) => (
               <div
                 key={category}
                 id={category}
                 ref={(el) => (sectionRefs.current[category] = el)}
-                className="scroll-mt-32 py-8"
+                className="scroll-mt-48 min-h-[70vh] py-8"
               >
                 <h2 className="text-2xl font-semibold mb-6">{options.title}</h2>
                 <BuildOptionCategory

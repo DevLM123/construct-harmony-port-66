@@ -31,7 +31,7 @@ const BuildPackage = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar onAuthClick={openAuthModal} />
-      <main className="flex-grow pt-24 pb-16">
+      <main className="flex-grow pt-28 pb-16">
         <BuildPackageConfigurator />
       </main>
       <Footer />
