@@ -65,7 +65,7 @@ export const BuildOptionCategory = ({
                 <CollapsibleContent className="pt-4">
                   <div className="mt-2">
                     <p className="text-sm font-medium mb-3">Select Colors:</p>
-                    <div className="grid grid-cols-2 gap-3">
+                    <div className="grid grid-cols-2 gap-4">
                       {material.colors.map((color) => {
                         const isColorSelected = isSelected && 
                           selectedSubtypes['color'] === color.name;
@@ -75,13 +75,13 @@ export const BuildOptionCategory = ({
                             key={color.name}
                             onClick={() => onSelect(category, material.name, 'color', color.name)}
                             className={cn(
-                              "flex items-center gap-2 p-3 rounded-md cursor-pointer transition-all",
+                              "flex items-center gap-3 p-3 rounded-md cursor-pointer transition-all",
                               isColorSelected ? "bg-primary/10 ring-1 ring-primary" : "hover:bg-accent"
                             )}
                           >
                             <div
                               className={cn(
-                                "h-8 w-8 rounded-full border shadow-sm",
+                                "h-8 w-8 rounded-full border shadow-sm flex-shrink-0",
                                 isColorSelected ? "ring-2 ring-primary ring-offset-2" : ""
                               )}
                               style={{ backgroundColor: color.hex }}
