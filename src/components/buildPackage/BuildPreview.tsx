@@ -4,7 +4,10 @@ import { Card, CardContent } from "@/components/ui/card";
 import { buildPackageOptions } from "@/data/buildPackageOptions";
 
 type BuildPreviewProps = {
-  selectedOptions: Record<string, { material: string; color: string }>;
+  selectedOptions: Record<string, { 
+    material: string; 
+    selections: Record<string, string> 
+  }>;
   activeCategory: string;
 };
 
@@ -29,7 +32,7 @@ export const BuildPreview = ({
           {selection && (
             <img
               src={getPreviewImage(activeCategory, selection.material)}
-              alt={`${selection.material} in ${selection.color}`}
+              alt={`${selection.material}`}
               className="h-full w-full object-cover transition-all"
             />
           )}
@@ -46,8 +49,16 @@ export const BuildPreview = ({
                 }
               </h3>
               <p className="text-muted-foreground">
-                {selection.material} - {selection.color}
+                {selection.material}
               </p>
+              <div className="mt-2">
+                {Object.entries(selection.selections).map(([subtype, value]) => (
+                  <div key={subtype} className="text-sm flex items-center mt-1">
+                    <span className="capitalize">{subtype}:</span> 
+                    <span className="ml-1 font-medium">{value}</span>
+                  </div>
+                ))}
+              </div>
             </div>
 
             <div className="pt-2 border-t">

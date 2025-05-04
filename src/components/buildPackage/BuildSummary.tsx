@@ -16,7 +16,10 @@ import { cn } from "@/lib/utils";
 import { Textarea } from "@/components/ui/textarea";
 
 type BuildSummaryProps = {
-  selectedOptions: Record<string, { material: string; color: string }>;
+  selectedOptions: Record<string, { 
+    material: string; 
+    selections: Record<string, string> 
+  }>;
   isVisible: boolean;
   specialNotes: string;
   onNotesChange: (notes: string) => void;
@@ -71,11 +74,16 @@ export const BuildSummary = ({
                 return (
                   <div key={category} className="border-b pb-3">
                     <h4 className="font-medium capitalize">{categoryData.title}</h4>
-                    <div className="text-sm mt-1 space-y-1">
-                      <div className="flex items-center">
-                        <p>
-                          {selection.material} - {selection.color}
-                        </p>
+                    <div className="text-sm mt-1">
+                      <p className="font-medium">{selection.material}</p>
+                      <div className="mt-2 space-y-1">
+                        {Object.entries(selection.selections).map(([subtype, value]) => (
+                          <div key={subtype} className="flex items-center">
+                            <p className="capitalize">
+                              {subtype}: <span className="font-medium">{value}</span>
+                            </p>
+                          </div>
+                        ))}
                       </div>
                     </div>
                   </div>

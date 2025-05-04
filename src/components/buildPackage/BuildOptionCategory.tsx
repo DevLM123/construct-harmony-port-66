@@ -2,7 +2,6 @@
 import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Check } from 'lucide-react';
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { cn } from "@/lib/utils";
 
 type BuildOptionCategoryProps = {
@@ -10,18 +9,19 @@ type BuildOptionCategoryProps = {
   options: {
     materials: {
       name: string;
-      price: number;
       description: string;
       imageUrl: string;
       colors: {
         name: string;
         hex: string;
-        price: number;
       }[];
     }[];
   };
-  selectedOptions: Record<string, { material: string; color: string }>;
-  onSelect: (category: string, material: string, color: string) => void;
+  selectedOptions: Record<string, { 
+    material: string; 
+    selections: Record<string, string> 
+  }>;
+  onSelect: (category: string, material: string, subtype: string, value: string) => void;
 };
 
 export const BuildOptionCategory = ({
@@ -34,7 +34,7 @@ export const BuildOptionCategory = ({
     <div className="grid grid-cols-1 gap-6">
       {options.materials.map((material) => {
         const isSelected = selectedOptions[category]?.material === material.name;
-        const selectedColor = selectedOptions[category]?.color;
+        const selectedSubtypes = selectedOptions[category]?.selections || {};
         
         return (
           <Card 
@@ -55,45 +55,43 @@ export const BuildOptionCategory = ({
                   </div>
                   <p className="text-sm text-muted-foreground mt-1">{material.description}</p>
                 </div>
+                <div className="flex-shrink-0">
+                  <img 
+                    src={material.imageUrl || '/placeholder.svg'} 
+                    alt={`${material.name} preview`}
+                    className="w-20 h-20 rounded-md object-cover"
+                  />
+                </div>
               </div>
 
               <div className="mt-6">
-                <p className="text-sm font-medium mb-3">Available Options:</p>
-                <RadioGroup 
-                  className="grid grid-cols-2 md:grid-cols-4 gap-3"
-                  value={isSelected && selectedColor ? selectedColor : ""}
-                  onValueChange={(value) => onSelect(category, material.name, value)}
-                >
+                <p className="text-sm font-medium mb-3">Select Colors:</p>
+                <div className="grid grid-cols-2 gap-3">
                   {material.colors.map((color) => {
-                    const isColorSelected = isSelected && selectedColor === color.name;
+                    const isColorSelected = isSelected && 
+                      selectedSubtypes['color'] === color.name;
                     
                     return (
-                      <label
+                      <div
                         key={color.name}
+                        onClick={() => onSelect(category, material.name, 'color', color.name)}
                         className={cn(
-                          "relative flex cursor-pointer items-center rounded-md border p-3 hover:bg-accent focus:outline-none",
-                          isColorSelected ? "bg-primary/5 border-primary" : "border-muted-foreground/20"
+                          "flex items-center gap-2 p-3 rounded-md cursor-pointer transition-all",
+                          isColorSelected ? "bg-primary/10 ring-1 ring-primary" : "hover:bg-accent"
                         )}
                       >
-                        <RadioGroupItem 
-                          value={color.name} 
-                          id={`${material.name}-${color.name}`}
-                          className="sr-only"
+                        <div
+                          className={cn(
+                            "h-8 w-8 rounded-full border shadow-sm",
+                            isColorSelected ? "ring-2 ring-primary ring-offset-2" : ""
+                          )}
+                          style={{ backgroundColor: color.hex }}
+                          aria-label={color.name}
                         />
-                        <div className="flex items-center gap-3">
-                          <div
-                            className="h-6 w-6 rounded-full border"
-                            style={{ backgroundColor: color.hex }}
-                          />
-                          <div className="text-sm font-medium leading-tight">{color.name}</div>
-                        </div>
-                        {isColorSelected && (
-                          <Check className="absolute top-3 right-3 h-4 w-4 text-primary" />
-                        )}
-                      </label>
+                      </div>
                     );
                   })}
-                </RadioGroup>
+                </div>
               </div>
             </CardContent>
           </Card>

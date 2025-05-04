@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef } from "react";
 import { buildPackageOptions } from "@/data/buildPackageOptions";
 import { BuildOptionCategory } from "@/components/buildPackage/BuildOptionCategory";
@@ -13,7 +14,7 @@ export const BuildPackageConfigurator = () => {
   }));
 
   const [selectedOptions, setSelectedOptions] = useState<
-    Record<string, { material: string; color: string }>
+    Record<string, { material: string; selections: Record<string, string> }>
   >({});
 
   const [activeCategory, setActiveCategory] = useState("kitchen");
@@ -26,14 +27,29 @@ export const BuildPackageConfigurator = () => {
   const handleOptionSelect = (
     category: string,
     material: string,
-    color: string,
+    subtype: string,
+    value: string,
   ) => {
     setSelectedOptions((prev) => {
       // Create a copy of the previous state
       const newState = { ...prev };
       
-      // Update the selection for this category
-      newState[category] = { material, color };
+      // If this category doesn't exist or has a different material, initialize it
+      if (!newState[category] || newState[category].material !== material) {
+        newState[category] = { 
+          material, 
+          selections: { [subtype]: value } 
+        };
+      } else {
+        // Update just the specific subtype selection
+        newState[category] = {
+          ...newState[category],
+          selections: {
+            ...newState[category].selections,
+            [subtype]: value
+          }
+        };
+      }
       
       return newState;
     });
