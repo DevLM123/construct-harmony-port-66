@@ -65,7 +65,7 @@ export const BuildOptionCategory = ({
                 <CollapsibleContent className="pt-4">
                   <div className="mt-2">
                     <p className="text-sm font-medium mb-3">Select Colors:</p>
-                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+                    <div className="grid grid-cols-2 gap-3">
                       {material.colors.map((color) => {
                         const isColorSelected = isSelected && 
                           selectedSubtypes['color'] === color.name;
