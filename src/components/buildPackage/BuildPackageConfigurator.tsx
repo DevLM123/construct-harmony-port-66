@@ -13,8 +13,9 @@ export const BuildPackageConfigurator = () => {
     title: data.title,
   }));
 
+  // Modified structure to store selections by material name
   const [selectedOptions, setSelectedOptions] = useState<
-    Record<string, { material: string; selections: Record<string, string> }>
+    Record<string, Record<string, { material: string; selections: Record<string, string> }>>
   >({});
 
   const [activeCategory, setActiveCategory] = useState("kitchen");
@@ -35,22 +36,21 @@ export const BuildPackageConfigurator = () => {
       // Create a copy of the previous state
       const newState = { ...prev };
       
-      // If this category doesn't exist or has a different material, initialize it
-      if (!newState[category] || newState[category].material !== material) {
-        newState[category] = { 
+      // Initialize the category if it doesn't exist
+      if (!newState[category]) {
+        newState[category] = {};
+      }
+      
+      // Initialize this material selection if it doesn't exist
+      if (!newState[category][material]) {
+        newState[category][material] = { 
           material, 
-          selections: { [subtype]: value } 
-        };
-      } else {
-        // Update just the specific subtype selection
-        newState[category] = {
-          ...newState[category],
-          selections: {
-            ...newState[category].selections,
-            [subtype]: value
-          }
+          selections: {} 
         };
       }
+      
+      // Update the specific selection
+      newState[category][material].selections[subtype] = value;
       
       return newState;
     });
@@ -129,6 +129,33 @@ export const BuildPackageConfigurator = () => {
     setSpecialNotes(notes);
   };
 
+  // Convert the new selection structure to the format expected by child components
+  const getFormattedSelectedOptions = () => {
+    const formatted: Record<string, { material: string; selections: Record<string, string> }> = {};
+    
+    Object.entries(selectedOptions).forEach(([category, materials]) => {
+      // For each material in this category
+      Object.values(materials).forEach(materialData => {
+        // If no entry for this category yet, create one
+        if (!formatted[category]) {
+          formatted[category] = {
+            material: materialData.material,
+            selections: { ...materialData.selections }
+          };
+        } else {
+          // If this is a different material type in the same category,
+          // add its selections under different keys
+          formatted[category].selections = {
+            ...formatted[category].selections,
+            ...materialData.selections
+          };
+        }
+      });
+    });
+    
+    return formatted;
+  };
+
   return (
     <div className="container mx-auto px-4 pb-32" ref={mainContainerRef}>
       <div className="mb-8 text-center">
@@ -144,7 +171,7 @@ export const BuildPackageConfigurator = () => {
         {/* Preview Section on the Left */}
         <div className="order-2 md:order-1">
           <BuildPreview
-            selectedOptions={selectedOptions}
+            selectedOptions={getFormattedSelectedOptions()}
             activeCategory={activeCategory}
           />
         </div>
@@ -169,7 +196,7 @@ export const BuildPackageConfigurator = () => {
                 <BuildOptionCategory
                   category={category}
                   options={options}
-                  selectedOptions={selectedOptions}
+                  selectedOptions={getFormattedSelectedOptions()}
                   onSelect={handleOptionSelect}
                 />
               </div>
@@ -179,7 +206,7 @@ export const BuildPackageConfigurator = () => {
           {/* Summary at the bottom of the right column */}
           <div className="mt-16">
             <BuildSummary 
-              selectedOptions={selectedOptions} 
+              selectedOptions={getFormattedSelectedOptions()} 
               isVisible={true}
               specialNotes={specialNotes}
               onNotesChange={handleNotesChange}

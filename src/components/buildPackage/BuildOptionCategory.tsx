@@ -34,8 +34,15 @@ export const BuildOptionCategory = ({
   return (
     <div className="grid grid-cols-1 gap-4">
       {options.materials.map((material) => {
-        const isSelected = selectedOptions[category]?.material === material.name;
-        const selectedSubtypes = selectedOptions[category]?.selections || {};
+        // Check if this specific material has been selected
+        const materialSelection = Object.values(selectedOptions).find(
+          selection => selection.material === material.name
+        );
+        
+        const isSelected = !!materialSelection;
+        
+        // Get selections for this material if it exists
+        const selectedSubtypes = materialSelection?.selections || {};
         
         return (
           <Card 

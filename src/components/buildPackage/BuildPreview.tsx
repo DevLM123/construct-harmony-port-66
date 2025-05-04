@@ -23,7 +23,29 @@ export const BuildPreview = ({
     return materialData?.imageUrl || "";
   };
 
+  // Get the active category's selections
   const selection = selectedOptions[activeCategory];
+
+  // Group selections by material type for display purposes
+  const groupSelectionsByMaterialType = (category: string) => {
+    const result: Record<string, string[]> = {};
+    const categoryOptions = selectedOptions[category];
+    
+    if (!categoryOptions) return result;
+    
+    // Extract and group selections by material types
+    Object.entries(categoryOptions.selections).forEach(([key, value]) => {
+      // Create an entry for this selection type if it doesn't exist
+      if (!result[key]) {
+        result[key] = [];
+      }
+      result[key].push(value);
+    });
+    
+    return result;
+  };
+
+  const groupedSelections = groupSelectionsByMaterialType(activeCategory);
 
   return (
     <Card className="sticky top-32">
@@ -51,11 +73,12 @@ export const BuildPreview = ({
               <p className="text-muted-foreground">
                 {selection.material}
               </p>
+              
               <div className="mt-2">
-                {Object.entries(selection.selections).map(([subtype, value]) => (
-                  <div key={subtype} className="text-sm flex items-center mt-1">
+                {Object.entries(groupedSelections).map(([subtype, values]) => (
+                  <div key={subtype} className="text-sm mt-1">
                     <span className="capitalize">{subtype}:</span> 
-                    <span className="ml-1 font-medium">{value}</span>
+                    <span className="ml-1 font-medium">{values.join(', ')}</span>
                   </div>
                 ))}
               </div>
