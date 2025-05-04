@@ -57,28 +57,38 @@ export const BuildPackageConfigurator = () => {
 
   const handleCategoryChange = (category: string) => {
     setActiveCategory(category);
-    // Scroll to the category section
-    sectionRefs.current[category]?.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-    });
+    // Scroll to the category section with offset for the sticky header
+    const element = sectionRefs.current[category];
+    if (element) {
+      const headerOffset = 80; // Approximate height of the sticky header
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+      
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth"
+      });
+    }
   };
 
   // Set up intersection observer to update active category based on scroll position
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting && entry.target.id) {
-            setActiveCategory(entry.target.id);
+    const options = {
+      rootMargin: "-80px 0px -40% 0px", // Adjust top margin to account for header height
+      threshold: [0.1, 0.5]
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        // Only update if the element is intersecting and has a reasonable visibility
+        if (entry.isIntersecting && entry.intersectionRatio >= 0.1) {
+          const sectionId = entry.target.id;
+          if (sectionId && sectionId !== activeCategory) {
+            setActiveCategory(sectionId);
           }
-        });
-      },
-      {
-        rootMargin: "-100px 0px -50% 0px",
-        threshold: 0.1,
-      },
-    );
+        }
+      });
+    }, options);
 
     // Observe all category sections
     Object.keys(buildPackageOptions).forEach((category) => {
@@ -140,15 +150,15 @@ export const BuildPackageConfigurator = () => {
             onCategoryChange={handleCategoryChange}
           />
 
-          <div className="space-y-16 mt-6">
+          <div className="space-y-24 mt-6">
             {Object.entries(buildPackageOptions).map(([category, options]) => (
               <div
                 key={category}
                 id={category}
                 ref={(el) => (sectionRefs.current[category] = el)}
-                className="scroll-mt-32"
+                className="scroll-mt-32 py-8"
               >
-                <h2 className="text-2xl font-semibold mb-4">{options.title}</h2>
+                <h2 className="text-2xl font-semibold mb-6">{options.title}</h2>
                 <BuildOptionCategory
                   category={category}
                   options={options}
@@ -160,7 +170,7 @@ export const BuildPackageConfigurator = () => {
           </div>
 
           {/* Summary at the bottom of the right column */}
-          <div className="mt-16">
+          <div className="mt-24">
             <BuildSummary 
               selectedOptions={selectedOptions} 
               isVisible={true}
