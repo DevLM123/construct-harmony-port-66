@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { buildPackageOptions } from "@/data/buildPackageOptions";
@@ -12,52 +13,14 @@ export const BuildPreview = ({
   activeCategory,
 }: BuildPreviewProps) => {
   const getPreviewImage = (category: string, material: string) => {
-    const images = {
-      roof: {
-        "Timberland Natural":
-          "https://images.thdstatic.com/productImages/b72df383-34bc-42be-a9a5-2a9a69128e4e/svn/pewter-gray-gaf-roof-shingles-0600552-a0_600.jpg",
-        "Inverness Travertine":
-          "https://images.unsplash.com/photo-1605152276897-4f618f831968?q=80&w=2070",
-      },
-      floor: {
-        "Merola Tile":
-          "https://images.unsplash.com/photo-1600121848594-d8644e57abab?q=80&w=2070",
-        "Polyester Carpet":
-          "https://images.unsplash.com/photo-1557177324-56c542165309?q=80&w=2070",
-      },
-      countertop: {
-        Granite:
-          "https://images.unsplash.com/photo-1600607686527-6fb886090705?q=80&w=2070",
-        Laminated:
-          "https://images.unsplash.com/photo-1556909114-44e3563584b2?q=80&w=2070",
-      },
-    };
-    return images[category as keyof typeof images]?.[material] || "";
+    const categoryData = buildPackageOptions[category as keyof typeof buildPackageOptions];
+    if (!categoryData) return "";
+    
+    const materialData = categoryData.materials.find(m => m.name === material);
+    return materialData?.imageUrl || "";
   };
 
   const selection = selectedOptions[activeCategory];
-
-  // Get price information
-  const getMaterialPrice = () => {
-    const catOptions =
-      buildPackageOptions[activeCategory as keyof typeof buildPackageOptions];
-    if (!catOptions) return null;
-
-    const material = catOptions.materials.find(
-      (m) => m.name === selection?.material,
-    );
-    if (!material) return null;
-
-    const colorOption = material.colors.find(
-      (c) => c.name === selection?.color,
-    );
-    return {
-      materialPrice: material.price,
-      colorPrice: colorOption?.price || 0,
-    };
-  };
-
-  const priceInfo = getMaterialPrice();
 
   return (
     <Card className="sticky top-32">
@@ -87,45 +50,17 @@ export const BuildPreview = ({
               </p>
             </div>
 
-            {priceInfo ? (
-              <div className="pt-2 border-t">
-                <div className="flex justify-between items-center">
-                  <span>Base price:</span>
-                  <span className="font-medium">
-                    ${priceInfo.materialPrice.toLocaleString()}
-                  </span>
-                </div>
-
-                {priceInfo.colorPrice > 0 && (
-                  <div className="flex justify-between items-center text-sm text-muted-foreground">
-                    <span>Color upgrade ({selection.color}):</span>
-                    <span>+${priceInfo.colorPrice}</span>
-                  </div>
-                )}
-
-                <div className="flex justify-between items-center mt-2 font-semibold">
-                  <span>
-                    Total for{" "}
-                    {
-                      buildPackageOptions[
-                        activeCategory as keyof typeof buildPackageOptions
-                      ]?.title
-                    }
-                    :
-                  </span>
-                  <span>
-                    $
-                    {(
-                      priceInfo.materialPrice + priceInfo.colorPrice
-                    ).toLocaleString()}
-                  </span>
-                </div>
+            <div className="pt-2 border-t">
+              <div className="flex justify-between items-center mt-2">
+                <p className="text-muted-foreground text-sm">
+                  Selected option for {
+                    buildPackageOptions[
+                      activeCategory as keyof typeof buildPackageOptions
+                    ]?.title.toLowerCase()
+                  }
+                </p>
               </div>
-            ) : (
-              <p className="text-red-500">
-                Unable to retrieve price information.
-              </p> // Fallback message if no price info
-            )}
+            </div>
           </div>
         )}
       </CardContent>

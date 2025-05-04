@@ -2,6 +2,8 @@
 import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Check } from 'lucide-react';
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { cn } from "@/lib/utils";
 
 type BuildOptionCategoryProps = {
   category: string;
@@ -37,10 +39,10 @@ export const BuildOptionCategory = ({
         return (
           <Card 
             key={material.name} 
-            className={`transition-all hover:shadow-lg cursor-pointer ${
+            className={cn(
+              "transition-all hover:shadow-lg",
               isSelected ? "ring-2 ring-primary bg-primary/5" : ""
-            }`}
-            onClick={() => onSelect(category, material.name, material.colors[0].name)}
+            )}
           >
             <CardContent className="p-6">
               <div className="flex justify-between items-start mb-4">
@@ -53,47 +55,45 @@ export const BuildOptionCategory = ({
                   </div>
                   <p className="text-sm text-muted-foreground mt-1">{material.description}</p>
                 </div>
-                <span className="font-semibold">${material.price.toLocaleString()}</span>
               </div>
 
               <div className="mt-6">
-                <p className="text-sm font-medium mb-3">Available Colors:</p>
-                <div className="grid grid-cols-5 gap-2">
+                <p className="text-sm font-medium mb-3">Available Options:</p>
+                <RadioGroup 
+                  className="grid grid-cols-2 md:grid-cols-4 gap-3"
+                  value={selectedColorForMaterial || ""}
+                  onValueChange={(value) => onSelect(category, material.name, value)}
+                >
                   {material.colors.map((color) => {
                     const isColorSelected = isSelected && selectedColorForMaterial === color.name;
                     
                     return (
-                      <button
+                      <label
                         key={color.name}
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          onSelect(category, material.name, color.name);
-                        }}
-                        className="group relative"
+                        className={cn(
+                          "relative flex cursor-pointer items-center rounded-md border p-3 hover:bg-accent focus:outline-none",
+                          isColorSelected ? "bg-primary/5 border-primary" : "border-muted-foreground/20"
+                        )}
                       >
-                        <div className="relative">
+                        <RadioGroupItem 
+                          value={color.name} 
+                          id={`${material.name}-${color.name}`}
+                          className="sr-only"
+                        />
+                        <div className="flex items-center gap-3">
                           <div
-                            className={`w-full aspect-square rounded-md transition-all ${
-                              isColorSelected
-                                ? "ring-2 ring-primary ring-offset-2"
-                                : "hover:ring-2 hover:ring-primary/50 hover:ring-offset-2"
-                            }`}
+                            className="h-6 w-6 rounded-full border"
                             style={{ backgroundColor: color.hex }}
                           />
-                          {isColorSelected && (
-                            <div className="absolute -top-1 -right-1 bg-primary rounded-full p-0.5">
-                              <Check className="h-3 w-3 text-white" />
-                            </div>
-                          )}
+                          <div className="text-sm font-medium leading-tight">{color.name}</div>
                         </div>
-                        <div className="opacity-0 group-hover:opacity-100 absolute -bottom-6 left-1/2 -translate-x-1/2 whitespace-nowrap text-xs bg-popover px-2 py-1 rounded shadow-sm">
-                          {color.name}
-                          {color.price > 0 && ` (+$${color.price})`}
-                        </div>
-                      </button>
+                        {isColorSelected && (
+                          <Check className="absolute top-3 right-3 h-4 w-4 text-primary" />
+                        )}
+                      </label>
                     );
                   })}
-                </div>
+                </RadioGroup>
               </div>
             </CardContent>
           </Card>

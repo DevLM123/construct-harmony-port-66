@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef } from "react";
 import { buildPackageOptions } from "@/data/buildPackageOptions";
 import { BuildOptionCategory } from "@/components/buildPackage/BuildOptionCategory";
@@ -16,8 +17,9 @@ export const BuildPackageConfigurator = () => {
     Record<string, Record<string, { color: string }>>
   >({});
 
-  const [activeCategory, setActiveCategory] = useState("roof");
+  const [activeCategory, setActiveCategory] = useState("kitchen");
   const [showSummary, setShowSummary] = useState(false);
+  const [specialNotes, setSpecialNotes] = useState("");
 
   // Refs for each category section
   const sectionRefs = useRef<Record<string, HTMLDivElement | null>>({});
@@ -27,13 +29,20 @@ export const BuildPackageConfigurator = () => {
     material: string,
     color: string,
   ) => {
-    setSelectedOptions((prev) => ({
-      ...prev,
-      [category]: {
-        ...prev[category],
-        [material]: { color },
-      },
-    }));
+    setSelectedOptions((prev) => {
+      // Create a copy of the previous state
+      const newState = { ...prev };
+      
+      // If this category doesn't exist yet, create it
+      if (!newState[category]) {
+        newState[category] = {};
+      }
+      
+      // Update the selection
+      newState[category][material] = { color };
+      
+      return newState;
+    });
   };
 
   const handleCategoryChange = (category: string) => {
@@ -89,6 +98,10 @@ export const BuildPackageConfigurator = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const handleNotesChange = (notes: string) => {
+    setSpecialNotes(notes);
+  };
+
   return (
     <div className="container mx-auto px-4 pb-32">
       <div className="mb-8 text-center">
@@ -137,9 +150,13 @@ export const BuildPackageConfigurator = () => {
           </div>
 
           {/* Summary at the bottom of the right column */}
-
-          <div className="mt-8">
-            <BuildSummary selectedOptions={selectedOptions} isVisible={true} />
+          <div className="mt-16">
+            <BuildSummary 
+              selectedOptions={selectedOptions} 
+              isVisible={true}
+              specialNotes={specialNotes}
+              onNotesChange={handleNotesChange}
+            />
           </div>
         </div>
       </div>

@@ -1,5 +1,6 @@
+
 import React from "react";
-import { Package, Check } from "lucide-react";
+import { Package } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -12,33 +13,22 @@ import { useNavigate } from "react-router-dom";
 import { buildPackageOptions } from "@/data/buildPackageOptions";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
+import { Textarea } from "@/components/ui/textarea";
 
 type BuildSummaryProps = {
   selectedOptions: Record<string, Record<string, { color: string }>>;
   isVisible: boolean;
+  specialNotes: string;
+  onNotesChange: (notes: string) => void;
 };
 
 export const BuildSummary = ({
   selectedOptions,
   isVisible,
+  specialNotes,
+  onNotesChange,
 }: BuildSummaryProps) => {
   const navigate = useNavigate();
-
-  const calculateTotalPrice = () => {
-    let total = 0;
-    for (const category in selectedOptions) {
-      for (const material in selectedOptions[category]) {
-        const categoryData =
-          buildPackageOptions[category as keyof typeof buildPackageOptions];
-        const mat = categoryData?.materials.find((m) => m.name === material);
-        const colorOption = mat?.colors.find(
-          (c) => c.name === selectedOptions[category][material].color,
-        );
-        total += (mat?.price || 0) + (colorOption?.price || 0);
-      }
-    }
-    return total;
-  };
 
   const getCategoryDetails = (
     category: string,
@@ -46,27 +36,28 @@ export const BuildSummary = ({
   ) => {
     const categoryData =
       buildPackageOptions[category as keyof typeof buildPackageOptions];
-    let totalPrice = 0;
-    const items: { material: string; color: string; price: number }[] = [];
+    const items: { material: string; color: string }[] = [];
+    
     for (const material in selection) {
-      const mat = categoryData?.materials.find((m) => m.name === material);
-      const colorOption = mat?.colors.find(
-        (c) => c.name === selection[material].color,
-      );
-      const price = (mat?.price || 0) + (colorOption?.price || 0);
-      totalPrice += price;
-      items.push({ material, color: selection[material].color, price });
+      items.push({ 
+        material, 
+        color: selection[material].color 
+      });
     }
 
     return {
-      totalPrice,
       items,
       title: categoryData?.title || category,
     };
   };
 
   const handleSubmit = () => {
-    navigate("/customization", { state: { buildPackage: selectedOptions } });
+    navigate("/customization", { 
+      state: { 
+        buildPackage: selectedOptions,
+        specialNotes: specialNotes 
+      } 
+    });
   };
 
   return (
@@ -74,7 +65,7 @@ export const BuildSummary = ({
       className={cn("border-t-2 border-primary/20", !isVisible && "hidden")}
     >
       <CardHeader className="pb-2">
-        <CardTitle className="flex items-center gap-2">
+        <CardTitle className="flex items-center gap-2 text-xl">
           <Package className="h-5 w-5" />
           <span>Your Build Summary</span>
         </CardTitle>
@@ -104,12 +95,9 @@ export const BuildSummary = ({
                     <h4 className="font-medium capitalize">{details.title}</h4>
                     <div className="text-sm mt-1 space-y-1">
                       {details.items.map((item, index) => (
-                        <div key={index} className="flex justify-between">
+                        <div key={index} className="flex items-center">
                           <p>
                             {item.material} - {item.color}
-                          </p>
-                          <p className="font-medium">
-                            ${item.price.toLocaleString()}
                           </p>
                         </div>
                       ))}
@@ -120,10 +108,13 @@ export const BuildSummary = ({
             )}
 
             <div className="pt-2">
-              <div className="flex justify-between font-semibold text-lg">
-                <p>Total</p>
-                <p>${calculateTotalPrice().toLocaleString()}</p>
-              </div>
+              <h4 className="font-medium">Special Additions</h4>
+              <Textarea
+                placeholder="Add any special notes or requests here..."
+                className="mt-2"
+                value={specialNotes}
+                onChange={(e) => onNotesChange(e.target.value)}
+              />
             </div>
           </div>
         </ScrollArea>
