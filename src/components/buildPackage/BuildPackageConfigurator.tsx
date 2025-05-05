@@ -119,33 +119,6 @@ export const BuildPackageConfigurator = () => {
     }
   };
 
-  // Convert the new selection structure to the format expected by child components
-  const getFormattedSelectedOptions = () => {
-    const formatted: Record<string, { material: string; selections: Record<string, string> }> = {};
-    
-    Object.entries(selectedOptions).forEach(([category, materials]) => {
-      // For each material in this category
-      Object.values(materials).forEach(materialData => {
-        // If no entry for this category yet, create one
-        if (!formatted[category]) {
-          formatted[category] = {
-            material: materialData.material,
-            selections: { ...materialData.selections }
-          };
-        } else {
-          // If this is a different material type in the same category,
-          // add its selections under different keys
-          formatted[category].selections = {
-            ...formatted[category].selections,
-            ...materialData.selections
-          };
-        }
-      });
-    });
-    
-    return formatted;
-  };
-
   return (
     <div className="container mx-auto px-4 pb-32">
       <div className="mb-8 text-center">
@@ -158,7 +131,7 @@ export const BuildPackageConfigurator = () => {
       <div className="grid md:grid-cols-[1fr,480px] gap-8">
         <div className="order-2 md:order-1">
           <BuildPreview
-            selectedOptions={getFormattedSelectedOptions()}
+            selectedOptions={selectedOptions}
             activeCategory={activeCategory}
           />
         </div>
@@ -182,7 +155,7 @@ export const BuildPackageConfigurator = () => {
                 <BuildOptionCategory
                   category={category}
                   options={options}
-                  selectedOptions={getFormattedSelectedOptions()}
+                  selectedOptions={selectedOptions}
                   onSelect={handleOptionSelect}
                 />
               </div>
