@@ -25,7 +25,6 @@ serve(async (req) => {
   try {
     // Initialize Supabase client
     const supabase = createClient(supabaseUrl, supabaseServiceKey);
-    
     // Fetch consultation requests
     const { data: consultations, error } = await supabase
       .from('consultation_requests')
