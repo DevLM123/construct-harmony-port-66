@@ -4,3 +4,6 @@ verify_jwt = false
 
 [functions.export-consultations]
 verify_jwt = false
+
+[functions.notify-buildpackage]
+verify_jwt = false
