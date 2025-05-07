@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
 import ServiceCard from '@/components/services/ServiceCard';
-import { Trash, ArrowUp, Home, Lightbulb } from 'lucide-react';
+import { Trash, ArrowUp, Home, Lightbulb, Compass } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 import { AuthModal } from '@/components/auth/AuthModal';
@@ -101,7 +101,8 @@ const Services = () => {
                   onClick={() => setBankResourcesOpen(true)}
                   variant="secondary"
                   className="px-6 py-3">
-                  Resources
+                  <Compass className="h-4 w-4 mr-2" />
+                  Florida Resources
                 </Button>
                 <button 
                   onClick={() => openAuthModal('register')}
