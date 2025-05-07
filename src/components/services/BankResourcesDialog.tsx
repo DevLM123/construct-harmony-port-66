@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { 
   Building, 
@@ -379,7 +378,7 @@ export function BankResourcesDialog({ isOpen, onClose }: BankResourcesDialogProp
                 <AccordionItem value="local-lenders">
                   <AccordionTrigger className="text-lg font-medium">
                     <Building className="h-5 w-5 mr-2 text-primary" />
-                    Local Lenders & Credit Unions
+                    Resources
                   </AccordionTrigger>
                   <AccordionContent>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
