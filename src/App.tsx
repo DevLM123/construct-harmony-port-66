@@ -11,6 +11,7 @@ import Services from "./pages/Services";
 import Lifts from "./pages/Lifts";
 import Customization from "./pages/Customization";
 import BuildPackage from "./pages/BuildPackage";
+import Resources from "./pages/Resources";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -29,6 +30,7 @@ const App = () => (
           <Route path="/lifts" element={<Lifts />} />
           <Route path="/customization" element={<Customization />} />
           <Route path="/build-package" element={<BuildPackage />} />
+          <Route path="/resources" element={<Resources />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

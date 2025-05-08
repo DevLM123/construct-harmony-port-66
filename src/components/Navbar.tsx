@@ -5,7 +5,6 @@ import { cn } from '@/lib/utils';
 import { Building2, Menu, X, Package, Compass } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useIsMobile } from '@/hooks/use-mobile';
-import { BankResourcesDialog } from '@/components/services/BankResourcesDialog';
 
 type NavLink = {
   label: string;
@@ -16,6 +15,7 @@ const links: NavLink[] = [
   { label: 'Home', href: '/' },
   { label: 'Projects', href: '/projects' },
   { label: 'Services', href: '/services' },
+  { label: 'Resources', href: '/resources' },  // Added Resources link
   { label: 'Customization', href: '/customization' },
   { label: 'Build Package', href: '/build-package' },
 ];
@@ -23,7 +23,6 @@ const links: NavLink[] = [
 export function Navbar({ onAuthClick }: { onAuthClick: (tab?: 'login' | 'register') => void }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [bankResourcesOpen, setBankResourcesOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
   const isMobile = useIsMobile();
@@ -51,14 +50,6 @@ export function Navbar({ onAuthClick }: { onAuthClick: (tab?: 'login' | 'registe
       document.body.style.overflow = 'unset';
     };
   }, [mobileMenuOpen]);
-
-  const openBankResources = () => {
-    setBankResourcesOpen(true);
-  };
-
-  const closeBankResources = () => {
-    setBankResourcesOpen(false);
-  };
 
   const handleBuildPackageClick = () => {
     navigate('/build-package');
@@ -135,21 +126,6 @@ export function Navbar({ onAuthClick }: { onAuthClick: (tab?: 'login' | 'registe
             >
               Free Consultation
             </Button>
-
-            <Button 
-              variant="outline" 
-              size="sm"
-              onClick={openBankResources}
-              className={cn(
-                "hidden md:flex items-center gap-2 transition-all duration-300",
-                isScrolled 
-                  ? "border-[#e9e5dc] hover:border-primary/50" 
-                  : "border-[#e9e5dc]/50 hover:border-primary/50"
-              )}
-            >
-              <Compass className="w-4 h-4" />
-              <span>Resources</span>
-            </Button>
             
             <Button 
               variant="ghost" 
@@ -223,11 +199,6 @@ export function Navbar({ onAuthClick }: { onAuthClick: (tab?: 'login' | 'registe
           </div>
         </div>
       </div>
-
-      <BankResourcesDialog 
-        isOpen={bankResourcesOpen} 
-        onClose={closeBankResources} 
-      />
     </>
   );
 }

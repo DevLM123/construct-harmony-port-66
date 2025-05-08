@@ -7,14 +7,12 @@ import { Trash, ArrowUp, Home, Lightbulb, Compass } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 import { AuthModal } from '@/components/auth/AuthModal';
-import { BankResourcesDialog } from '@/components/services/BankResourcesDialog';
 import { Button } from '@/components/ui/button';
 
 const Services = () => {
   const navigate = useNavigate();
   const [authModalOpen, setAuthModalOpen] = useState(false);
   const [authModalTab, setAuthModalTab] = useState<'login' | 'register'>('login');
-  const [bankResourcesOpen, setBankResourcesOpen] = useState(false);
 
   const openAuthModal = (tab: 'login' | 'register' = 'login') => {
     setAuthModalTab(tab);
@@ -59,6 +57,10 @@ const Services = () => {
     }
   };
 
+  const handleResourcesClick = () => {
+    navigate('/resources');
+  };
+
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar onAuthClick={openAuthModal} />
@@ -98,7 +100,7 @@ const Services = () => {
                   Request a Quote
                 </button>
                 <Button 
-                  onClick={() => setBankResourcesOpen(true)}
+                  onClick={handleResourcesClick}
                   variant="secondary"
                   className="px-6 py-3">
                   <Compass className="h-4 w-4 mr-2" />
@@ -116,7 +118,6 @@ const Services = () => {
       </div>
       <Footer />
       <AuthModal isOpen={authModalOpen} onClose={closeAuthModal} defaultTab={authModalTab} />
-      <BankResourcesDialog isOpen={bankResourcesOpen} onClose={() => setBankResourcesOpen(false)} />
     </div>
   );
 };
