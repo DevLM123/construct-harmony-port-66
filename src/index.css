@@ -1,3 +1,4 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
 @tailwind base;
@@ -113,7 +114,7 @@
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply font-medium tracking-tight;
+    @apply tracking-tight;
   }
 
   h1 {
@@ -135,7 +136,7 @@
 
 @layer components {
   .glass-card {
-    @apply bg-white/90 backdrop-blur-md border border-white/20 shadow-lg;
+    @apply bg-white/90 backdrop-blur-md border border-amber-100 shadow-md hover:shadow-lg transition-all duration-300;
   }
   
   .glass-panel {
@@ -190,11 +191,11 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-muted-foreground/30 rounded-full;
+  @apply bg-amber-300/50 rounded-full;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  @apply bg-muted-foreground/50;
+  @apply bg-amber-400/70;
 }
 
 /* Smooth scroll behavior */
@@ -205,5 +206,5 @@ html {
 /* For Firefox */
 * {
   scrollbar-width: thin;
-  scrollbar-color: hsl(215 16% 47% / 0.3) transparent;
+  scrollbar-color: hsl(43 100% 50% / 0.3) transparent;
 }

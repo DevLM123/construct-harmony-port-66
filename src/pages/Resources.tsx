@@ -313,8 +313,8 @@ const Resources = () => {
       <div className="flex-grow pt-20">
         <div className="container mx-auto px-4 py-12">
           <div className="max-w-3xl mx-auto text-center mb-12">
-            <h1 className="text-3xl font-bold leading-tight sm:text-4xl md:text-5xl mb-4">Florida Home Resources</h1>
-            <p className="text-lg text-muted-foreground">
+            <h1 className="text-3xl font-medium leading-tight sm:text-4xl md:text-5xl mb-4 text-gradient">Florida Home Resources</h1>
+            <p className="text-lg">
               Access tools, financial resources, and guidance for your Florida home improvement projects
             </p>
           </div>
@@ -322,19 +322,19 @@ const Resources = () => {
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
             <TabsList className="grid grid-cols-4 mb-8">
               <TabsTrigger value="financing" className="py-3">
-                <DollarSign className="h-4 w-4 mr-2" />
+                <DollarSign className="h-4 w-4 mr-2 text-amber-500" />
                 <span>Financing</span>
               </TabsTrigger>
               <TabsTrigger value="permits" className="py-3">
-                <Gavel className="h-4 w-4 mr-2" />
+                <Gavel className="h-4 w-4 mr-2 text-amber-500" />
                 <span>Permits & Legal</span>
               </TabsTrigger>
               <TabsTrigger value="services" className="py-3">
-                <Users className="h-4 w-4 mr-2" />
+                <Users className="h-4 w-4 mr-2 text-amber-500" />
                 <span>Services</span>
               </TabsTrigger>
               <TabsTrigger value="resources" className="py-3">
-                <BookOpen className="h-4 w-4 mr-2" />
+                <BookOpen className="h-4 w-4 mr-2 text-amber-500" />
                 <span>Resources</span>
               </TabsTrigger>
             </TabsList>
@@ -343,27 +343,27 @@ const Resources = () => {
             <TabsContent value="financing" className="mt-0">
               <Accordion type="multiple" className="w-full">
                 <AccordionItem value="financing-options">
-                  <AccordionTrigger className="text-lg font-medium">
-                    <DollarSign className="h-5 w-5 mr-2 text-primary" />
+                  <AccordionTrigger className="text-lg">
+                    <DollarSign className="h-5 w-5 mr-2 text-amber-500" />
                     Financing Options
                   </AccordionTrigger>
                   <AccordionContent>
                     <div className="grid gap-4">
-                      <p className="text-sm text-muted-foreground">
+                      <p className="text-sm">
                         Overview of home lifting vs. rebuilding costs in Florida, with typical costs ranging from $30,000-$150,000 depending on home size and construction type.
                       </p>
                       {financingOptions.map((option) => (
                         <Collapsible key={option.name}>
-                          <Card>
+                          <Card className="glass-card">
                             <CardHeader className="py-3">
                               <CollapsibleTrigger className="flex items-center justify-between w-full">
                                 <CardTitle className="text-md">{option.name}</CardTitle>
-                                <Info className="h-4 w-4 text-muted-foreground" />
+                                <Info className="h-4 w-4" />
                               </CollapsibleTrigger>
                             </CardHeader>
                             <CollapsibleContent>
                               <CardContent className="pt-0">
-                                <CardDescription className="text-sm">{option.description}</CardDescription>
+                                <p className="text-sm">{option.description}</p>
                                 <p className="mt-2 text-sm">{option.details}</p>
                               </CardContent>
                             </CollapsibleContent>
@@ -375,57 +375,57 @@ const Resources = () => {
                 </AccordionItem>
                 
                 <AccordionItem value="local-lenders">
-                  <AccordionTrigger className="text-lg font-medium">
-                    <Building className="h-5 w-5 mr-2 text-primary" />
+                  <AccordionTrigger className="text-lg">
+                    <Building className="h-5 w-5 mr-2 text-amber-500" />
                     Resources
                   </AccordionTrigger>
                   <AccordionContent>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       {localLenders.map((lender) => (
-                        <Card key={lender.name} className="flex flex-col">
+                        <Card key={lender.name} className="glass-card flex flex-col">
                           <CardHeader className="pb-2">
                             <div className="flex items-center justify-between">
                               <CardTitle className="text-md">{lender.name}</CardTitle>
                             </div>
                           </CardHeader>
                           <CardContent>
-                            <CardDescription>{lender.description}</CardDescription>
-                            <Button variant="outline" size="sm" className="mt-3 w-full">
+                            <p>{lender.description}</p>
+                            <Button variant="outline" size="sm" className="mt-3 w-full border-amber-400 hover:bg-amber-50">
                               Visit Website
                             </Button>
                           </CardContent>
                         </Card>
                       ))}
                     </div>
-                    <div className="mt-4 bg-muted/50 p-4 rounded-md">
-                      <h4 className="font-medium mb-2">Special Programs</h4>
+                    <div className="mt-4 bg-amber-50/50 p-4 rounded-md">
+                      <h4 className="mb-2">Special Programs</h4>
                       <p className="text-sm">MyFloridaMyHome programs via the Florida Housing Finance Corporation offer additional assistance for first-time homebuyers and renovation projects.</p>
-                      <Button variant="link" className="p-0 h-auto mt-1">Learn More</Button>
+                      <Button variant="link" className="p-0 h-auto mt-1 text-amber-600">Learn More</Button>
                     </div>
                   </AccordionContent>
                 </AccordionItem>
                 
                 <AccordionItem value="grant-programs">
-                  <AccordionTrigger className="text-lg font-medium">
-                    <FileText className="h-5 w-5 mr-2 text-primary" />
+                  <AccordionTrigger className="text-lg">
+                    <FileText className="h-5 w-5 mr-2 text-amber-500" />
                     Florida Grant Programs
                   </AccordionTrigger>
                   <AccordionContent>
                     <div className="grid gap-4">
                       {grantPrograms.map((program) => (
                         <Collapsible key={program.name}>
-                          <Card>
+                          <Card className="glass-card">
                             <CardHeader className="py-3">
                               <CollapsibleTrigger className="flex items-center justify-between w-full">
                                 <CardTitle className="text-md">{program.name}</CardTitle>
-                                <Info className="h-4 w-4 text-muted-foreground" />
+                                <Info className="h-4 w-4" />
                               </CollapsibleTrigger>
                             </CardHeader>
                             <CollapsibleContent>
                               <CardContent className="pt-0">
-                                <CardDescription className="text-sm">{program.description}</CardDescription>
+                                <p className="text-sm">{program.description}</p>
                                 <p className="mt-2 text-sm">{program.details}</p>
-                                <Button variant="outline" size="sm" className="mt-3">
+                                <Button variant="outline" size="sm" className="mt-3 border-amber-400 hover:bg-amber-50">
                                   Program Details
                                 </Button>
                               </CardContent>
@@ -438,14 +438,14 @@ const Resources = () => {
                 </AccordionItem>
                 
                 <AccordionItem value="loan-checklist">
-                  <AccordionTrigger className="text-lg font-medium">
-                    <FileText className="h-5 w-5 mr-2 text-primary" />
+                  <AccordionTrigger className="text-lg">
+                    <FileText className="h-5 w-5 mr-2 text-amber-500" />
                     Loan Application Checklist
                   </AccordionTrigger>
                   <AccordionContent>
-                    <Card>
+                    <Card className="glass-card">
                       <CardContent className="pt-6">
-                        <h4 className="font-medium mb-2">Required Documents</h4>
+                        <h4 className="mb-2">Required Documents</h4>
                         <ul className="list-disc pl-5 text-sm space-y-1 mb-4">
                           <li>Property deed and title information</li>
                           <li>Current mortgage statements</li>
@@ -457,7 +457,7 @@ const Resources = () => {
                           <li>Permits or pre-approval documentation</li>
                         </ul>
                         
-                        <h4 className="font-medium mb-2">Credit Score Requirements</h4>
+                        <h4 className="mb-2">Credit Score Requirements</h4>
                         <div className="text-sm mb-4">
                           <p>Typical ranges by lender type:</p>
                           <ul className="list-disc pl-5 space-y-1 mt-1">
@@ -468,7 +468,7 @@ const Resources = () => {
                           </ul>
                         </div>
                         
-                        <h4 className="font-medium mb-2">Timeline Expectations</h4>
+                        <h4 className="mb-2">Timeline Expectations</h4>
                         <div className="text-sm">
                           <ul className="list-disc pl-5 space-y-1">
                             <li>Pre-approval: 3-5 business days</li>
@@ -478,7 +478,7 @@ const Resources = () => {
                           </ul>
                         </div>
                         
-                        <Button variant="outline" size="sm" className="mt-4">
+                        <Button variant="outline" size="sm" className="mt-4 border-amber-400 hover:bg-amber-50">
                           <Download className="h-4 w-4 mr-1" />
                           Download Full Checklist
                         </Button>
@@ -493,37 +493,37 @@ const Resources = () => {
             <TabsContent value="permits" className="mt-0">
               <Accordion type="multiple" className="w-full">
                 <AccordionItem value="permit-requirements">
-                  <AccordionTrigger className="text-lg font-medium">
-                    <FileText className="h-5 w-5 mr-2 text-primary" />
+                  <AccordionTrigger className="text-lg">
+                    <FileText className="h-5 w-5 mr-2 text-amber-500" />
                     Permit Requirements by County
                   </AccordionTrigger>
                   <AccordionContent>
                     <div className="grid gap-4">
                       {permitRequirements.map((county) => (
-                        <Card key={county.county}>
+                        <Card key={county.county} className="glass-card">
                           <CardHeader className="py-3">
                             <div className="flex items-center justify-between">
                               <CardTitle className="text-md">{county.county} County</CardTitle>
                               <Button variant="ghost" size="sm" asChild>
-                                <a href={county.link} target="_blank" rel="noopener noreferrer">
+                                <a href={county.link} target="_blank" rel="noopener noreferrer" className="text-amber-600">
                                   Visit
                                 </a>
                               </Button>
                             </div>
                           </CardHeader>
                           <CardContent className="pt-0">
-                            <CardDescription>{county.description}</CardDescription>
+                            <p>{county.description}</p>
                             <div className="mt-2 grid grid-cols-2 gap-2 text-sm">
-                              <div className="bg-muted p-2 rounded">
-                                <span className="font-medium block">Common Forms:</span>
+                              <div className="bg-amber-50 p-2 rounded">
+                                <span className="block">Common Forms:</span>
                                 <ul className="list-disc list-inside text-xs mt-1">
                                   <li>Elevation Certificate</li>
                                   <li>Building Permit</li>
                                   <li>Zoning Approval</li>
                                 </ul>
                               </div>
-                              <div className="bg-muted p-2 rounded">
-                                <span className="font-medium block">Processing Time:</span>
+                              <div className="bg-amber-50 p-2 rounded">
+                                <span className="block">Processing Time:</span>
                                 <p className="text-xs mt-1">2-8 weeks depending on project scope and location</p>
                               </div>
                             </div>
@@ -535,20 +535,20 @@ const Resources = () => {
                 </AccordionItem>
                 
                 <AccordionItem value="code-guidelines">
-                  <AccordionTrigger className="text-lg font-medium">
-                    <Gavel className="h-5 w-5 mr-2 text-primary" />
+                  <AccordionTrigger className="text-lg">
+                    <Gavel className="h-5 w-5 mr-2 text-amber-500" />
                     Florida Building Code & FEMA Guidelines
                   </AccordionTrigger>
                   <AccordionContent>
                     <div className="grid gap-4">
                       {codeGuidelines.map((code) => (
-                        <Card key={code.name}>
+                        <Card key={code.name} className="glass-card">
                           <CardHeader className="py-3">
                             <CardTitle className="text-md">{code.name}</CardTitle>
                           </CardHeader>
                           <CardContent className="pt-0">
-                            <CardDescription>{code.description}</CardDescription>
-                            <Button variant="outline" size="sm" className="mt-3">
+                            <p>{code.description}</p>
+                            <Button variant="outline" size="sm" className="mt-3 border-amber-400 hover:bg-amber-50">
                               View Guidelines
                             </Button>
                           </CardContent>
@@ -556,8 +556,8 @@ const Resources = () => {
                       ))}
                     </div>
                     
-                    <div className="bg-muted/50 p-4 rounded-md mt-4">
-                      <h4 className="font-medium mb-2">Key Compliance Areas</h4>
+                    <div className="bg-amber-50/50 p-4 rounded-md mt-4">
+                      <h4 className="mb-2">Key Compliance Areas</h4>
                       <ul className="list-disc pl-5 text-sm space-y-1">
                         <li>Base Flood Elevation (BFE) determinations</li>
                         <li>Freeboard requirements (additional height above BFE)</li>
@@ -570,35 +570,35 @@ const Resources = () => {
                 </AccordionItem>
                 
                 <AccordionItem value="insurance-guidance">
-                  <AccordionTrigger className="text-lg font-medium">
-                    <Shield className="h-5 w-5 mr-2 text-primary" />
+                  <AccordionTrigger className="text-lg">
+                    <Shield className="h-5 w-5 mr-2 text-amber-500" />
                     Insurance Guidance
                   </AccordionTrigger>
                   <AccordionContent>
                     <div className="space-y-4">
-                      <Card>
+                      <Card className="glass-card">
                         <CardHeader>
                           <CardTitle className="text-md">National Flood Insurance Program (NFIP)</CardTitle>
                         </CardHeader>
                         <CardContent>
-                          <CardDescription>
+                          <p>
                             Federal program providing flood insurance to property owners in participating communities.
-                          </CardDescription>
+                          </p>
                           <div className="text-sm mt-2">
-                            <p className="font-medium">Key Points:</p>
+                            <p>Key Points:</p>
                             <ul className="list-disc pl-5 space-y-1 mt-1">
                               <li>Coverage limits up to $250,000 for structure</li>
                               <li>Additional coverage available for contents</li>
                               <li>30-day waiting period in most cases</li>
                             </ul>
                           </div>
-                          <Button variant="outline" size="sm" className="mt-3">
+                          <Button variant="outline" size="sm" className="mt-3 border-amber-400 hover:bg-amber-50">
                             NFIP Details
                           </Button>
                         </CardContent>
                       </Card>
                       
-                      <Card>
+                      <Card className="glass-card">
                         <CardHeader>
                           <CardTitle className="text-md">How Home Elevation Affects Premiums</CardTitle>
                         </CardHeader>
@@ -606,22 +606,22 @@ const Resources = () => {
                           <div className="text-sm">
                             <p>Elevating your home above the Base Flood Elevation (BFE) can significantly reduce flood insurance premiums:</p>
                             <table className="w-full text-xs mt-2 border-collapse">
-                              <thead className="bg-muted">
+                              <thead className="bg-amber-50">
                                 <tr>
                                   <th className="p-2 text-left">Height Above BFE</th>
                                   <th className="p-2 text-left">Premium Reduction</th>
                                 </tr>
                               </thead>
                               <tbody>
-                                <tr className="border-b border-muted">
+                                <tr className="border-b border-amber-100">
                                   <td className="p-2">At BFE</td>
                                   <td className="p-2">Standard rate</td>
                                 </tr>
-                                <tr className="border-b border-muted">
+                                <tr className="border-b border-amber-100">
                                   <td className="p-2">1 foot above</td>
                                   <td className="p-2">Up to 30% reduction</td>
                                 </tr>
-                                <tr className="border-b border-muted">
+                                <tr className="border-b border-amber-100">
                                   <td className="p-2">2 feet above</td>
                                   <td className="p-2">Up to 40% reduction</td>
                                 </tr>
@@ -635,14 +635,14 @@ const Resources = () => {
                         </CardContent>
                       </Card>
                       
-                      <Card>
+                      <Card className="glass-card">
                         <CardHeader>
                           <CardTitle className="text-md">Private Flood Insurance Options</CardTitle>
                         </CardHeader>
                         <CardContent>
-                          <CardDescription>
+                          <p>
                             Florida's growing private flood insurance market offers alternatives to NFIP policies.
-                          </CardDescription>
+                          </p>
                           <div className="mt-2 text-sm space-y-2">
                             <p>Leading Florida private flood insurers:</p>
                             <ul className="list-disc pl-5 space-y-1">
@@ -651,7 +651,7 @@ const Resources = () => {
                               <li>Florida Peninsula Insurance</li>
                               <li>Security First Flood</li>
                             </ul>
-                            <p className="text-xs text-muted-foreground mt-2">
+                            <p className="text-xs mt-2">
                               Private policies may offer higher coverage limits, shorter waiting periods, and coverage for additional living expenses.
                             </p>
                           </div>
@@ -667,103 +667,103 @@ const Resources = () => {
             <TabsContent value="services" className="mt-0">
               <Accordion type="multiple" className="w-full">
                 <AccordionItem value="verified-contractors">
-                  <AccordionTrigger className="text-lg font-medium">
-                    <Users className="h-5 w-5 mr-2 text-primary" />
+                  <AccordionTrigger className="text-lg">
+                    <Users className="h-5 w-5 mr-2 text-amber-500" />
                     Verified Contractors by Region
                   </AccordionTrigger>
                   <AccordionContent>
                     <div className="mb-4 flex items-center">
                       <div className="relative flex-1 mr-2">
-                        <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
+                        <Search className="absolute left-2 top-2.5 h-4 w-4" />
                         <input 
                           type="text"
                           placeholder="Search by zip code or county"
                           className="pl-8 h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background"
                         />
                       </div>
-                      <Button variant="outline" size="sm">
+                      <Button variant="outline" size="sm" className="border-amber-400 hover:bg-amber-50">
                         Filter
                       </Button>
                     </div>
                     
                     <div className="grid gap-4">
-                      <Card>
+                      <Card className="glass-card">
                         <CardHeader className="pb-2">
                           <div className="flex justify-between">
                             <CardTitle className="text-md">Coastal Elevation Experts</CardTitle>
                             <span className="text-xs bg-green-100 text-green-800 px-2 py-0.5 rounded">Verified</span>
                           </div>
-                          <CardDescription className="text-xs">Home Elevation | Miami-Dade, Broward</CardDescription>
+                          <p className="text-xs">Home Elevation | Miami-Dade, Broward</p>
                         </CardHeader>
                         <CardContent className="pt-0">
                           <div className="grid grid-cols-2 gap-2 text-sm">
                             <div>
-                              <span className="font-medium block text-xs">License Status:</span>
+                              <span className="block text-xs">License Status:</span>
                               <span className="text-xs text-green-600">Active & Insured</span>
                             </div>
                             <div>
-                              <span className="font-medium block text-xs">Experience:</span>
+                              <span className="block text-xs">Experience:</span>
                               <span className="text-xs">15+ years</span>
                             </div>
                           </div>
-                          <Button variant="outline" size="sm" className="mt-3 w-full">
+                          <Button variant="outline" size="sm" className="mt-3 w-full border-amber-400 hover:bg-amber-50">
                             View Profile
                           </Button>
                         </CardContent>
                       </Card>
                       
-                      <Card>
+                      <Card className="glass-card">
                         <CardHeader className="pb-2">
                           <div className="flex justify-between">
                             <CardTitle className="text-md">Gulf Coast Lifters</CardTitle>
                             <span className="text-xs bg-green-100 text-green-800 px-2 py-0.5 rounded">Verified</span>
                           </div>
-                          <CardDescription className="text-xs">Home Elevation | Pinellas, Lee, Charlotte</CardDescription>
+                          <p className="text-xs">Home Elevation | Pinellas, Lee, Charlotte</p>
                         </CardHeader>
                         <CardContent className="pt-0">
                           <div className="grid grid-cols-2 gap-2 text-sm">
                             <div>
-                              <span className="font-medium block text-xs">License Status:</span>
+                              <span className="block text-xs">License Status:</span>
                               <span className="text-xs text-green-600">Active & Insured</span>
                             </div>
                             <div>
-                              <span className="font-medium block text-xs">Experience:</span>
+                              <span className="block text-xs">Experience:</span>
                               <span className="text-xs">20+ years</span>
                             </div>
                           </div>
-                          <Button variant="outline" size="sm" className="mt-3 w-full">
+                          <Button variant="outline" size="sm" className="mt-3 w-full border-amber-400 hover:bg-amber-50">
                             View Profile
                           </Button>
                         </CardContent>
                       </Card>
                       
-                      <Card>
+                      <Card className="glass-card">
                         <CardHeader className="pb-2">
                           <div className="flex justify-between">
                             <CardTitle className="text-md">Northeast Florida Builders</CardTitle>
                             <span className="text-xs bg-green-100 text-green-800 px-2 py-0.5 rounded">Verified</span>
                           </div>
-                          <CardDescription className="text-xs">New Construction, Elevation | Duval, St. Johns</CardDescription>
+                          <p className="text-xs">New Construction, Elevation | Duval, St. Johns</p>
                         </CardHeader>
                         <CardContent className="pt-0">
                           <div className="grid grid-cols-2 gap-2 text-sm">
                             <div>
-                              <span className="font-medium block text-xs">License Status:</span>
+                              <span className="block text-xs">License Status:</span>
                               <span className="text-xs text-green-600">Active & Insured</span>
                             </div>
                             <div>
-                              <span className="font-medium block text-xs">Experience:</span>
+                              <span className="block text-xs">Experience:</span>
                               <span className="text-xs">12+ years</span>
                             </div>
                           </div>
-                          <Button variant="outline" size="sm" className="mt-3 w-full">
+                          <Button variant="outline" size="sm" className="mt-3 w-full border-amber-400 hover:bg-amber-50">
                             View Profile
                           </Button>
                         </CardContent>
                       </Card>
                       
                       <div className="text-center">
-                        <Button variant="link">
+                        <Button variant="link" className="text-amber-600">
                           Load More Results
                         </Button>
                       </div>
@@ -772,14 +772,14 @@ const Resources = () => {
                 </AccordionItem>
                 
                 <AccordionItem value="specialty-services">
-                  <AccordionTrigger className="text-lg font-medium">
-                    <Compass className="h-5 w-5 mr-2 text-primary" />
+                  <AccordionTrigger className="text-lg">
+                    <Compass className="h-5 w-5 mr-2 text-amber-500" />
                     Specialty Services
                   </AccordionTrigger>
                   <AccordionContent>
                     <div className="grid gap-4">
                       {specialtyServices.map((service) => (
-                        <Card key={service.name}>
+                        <Card key={service.name} className="glass-card">
                           <CardHeader className="pb-2">
                             <div className="flex justify-between">
                               <CardTitle className="text-md">{service.name}</CardTitle>
@@ -787,8 +787,8 @@ const Resources = () => {
                             </div>
                           </CardHeader>
                           <CardContent className="pt-2">
-                            <CardDescription>{service.description}</CardDescription>
-                            <Button variant="outline" size="sm" className="mt-3 w-full">
+                            <p>{service.description}</p>
+                            <Button variant="outline" size="sm" className="mt-3 w-full border-amber-400 hover:bg-amber-50">
                               Find Providers
                             </Button>
                           </CardContent>
@@ -804,20 +804,20 @@ const Resources = () => {
             <TabsContent value="resources" className="mt-0">
               <Accordion type="multiple" className="w-full">
                 <AccordionItem value="guides">
-                  <AccordionTrigger className="text-lg font-medium">
-                    <BookOpen className="h-5 w-5 mr-2 text-primary" />
+                  <AccordionTrigger className="text-lg">
+                    <BookOpen className="h-5 w-5 mr-2 text-amber-500" />
                     Step-by-Step Guides
                   </AccordionTrigger>
                   <AccordionContent>
                     <div className="grid gap-4">
                       {guides.map((guide) => (
-                        <Card key={guide.title}>
+                        <Card key={guide.title} className="glass-card">
                           <CardHeader className="pb-2">
                             <CardTitle className="text-md">{guide.title}</CardTitle>
                           </CardHeader>
                           <CardContent className="pt-0">
-                            <CardDescription>{guide.description}</CardDescription>
-                            <Button variant="outline" size="sm" className="mt-3">
+                            <p>{guide.description}</p>
+                            <Button variant="outline" size="sm" className="mt-3 border-amber-400 hover:bg-amber-50">
                               Read Guide
                             </Button>
                           </CardContent>
@@ -828,17 +828,17 @@ const Resources = () => {
                 </AccordionItem>
                 
                 <AccordionItem value="videos">
-                  <AccordionTrigger className="text-lg font-medium">
-                    <Video className="h-5 w-5 mr-2 text-primary" />
+                  <AccordionTrigger className="text-lg">
+                    <Video className="h-5 w-5 mr-2 text-amber-500" />
                     Video Tutorials & Webinars
                   </AccordionTrigger>
                   <AccordionContent>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       {videos.map((video) => (
-                        <Card key={video.title} className="flex flex-col">
-                          <div className="bg-muted h-32 relative">
+                        <Card key={video.title} className="glass-card flex flex-col">
+                          <div className="bg-amber-50 h-32 relative">
                             <div className="absolute inset-0 flex items-center justify-center">
-                              <div className="h-12 w-12 rounded-full bg-primary/90 flex items-center justify-center">
+                              <div className="h-12 w-12 rounded-full bg-amber-500/90 flex items-center justify-center">
                                 <div className="w-0 h-0 border-y-8 border-y-transparent border-l-12 border-l-white ml-1" />
                               </div>
                             </div>
@@ -858,7 +858,7 @@ const Resources = () => {
                       ))}
                     </div>
                     <div className="text-center mt-4">
-                      <Button variant="outline">
+                      <Button variant="outline" className="border-amber-400 hover:bg-amber-50">
                         View All Videos
                       </Button>
                     </div>
@@ -866,28 +866,28 @@ const Resources = () => {
                 </AccordionItem>
                 
                 <AccordionItem value="downloads">
-                  <AccordionTrigger className="text-lg font-medium">
-                    <Download className="h-5 w-5 mr-2 text-primary" />
+                  <AccordionTrigger className="text-lg">
+                    <Download className="h-5 w-5 mr-2 text-amber-500" />
                     Downloadable Templates
                   </AccordionTrigger>
                   <AccordionContent>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       {downloadables.map((item) => (
-                        <Card key={item.title} className="flex items-center p-4">
+                        <Card key={item.title} className="glass-card flex items-center p-4">
                           <div className={cn(
                             "h-10 w-10 rounded-md flex items-center justify-center mr-3",
                             item.format === "Excel" ? "bg-green-100" : "bg-red-100"
                           )}>
                             <span className={cn(
-                              "font-medium text-sm",
+                              "text-sm",
                               item.format === "Excel" ? "text-green-700" : "text-red-700"
                             )}>
                               {item.format}
                             </span>
                           </div>
                           <div className="flex-1">
-                            <h4 className="text-sm font-medium">{item.title}</h4>
-                            <p className="text-xs text-muted-foreground">{item.type}</p>
+                            <h4 className="text-sm">{item.title}</h4>
+                            <p className="text-xs">{item.type}</p>
                           </div>
                           <Button variant="ghost" size="sm">
                             <Download className="h-4 w-4" />
@@ -899,49 +899,49 @@ const Resources = () => {
                 </AccordionItem>
                 
                 <AccordionItem value="tools">
-                  <AccordionTrigger className="text-lg font-medium">
-                    <Calculator className="h-5 w-5 mr-2 text-primary" />
+                  <AccordionTrigger className="text-lg">
+                    <Calculator className="h-5 w-5 mr-2 text-amber-500" />
                     Tools & Calculators
                   </AccordionTrigger>
                   <AccordionContent>
                     <div className="grid gap-4">
-                      <Card>
+                      <Card className="glass-card">
                         <CardHeader>
                           <CardTitle className="text-md">Loan Affordability Calculator</CardTitle>
                         </CardHeader>
                         <CardContent>
-                          <CardDescription>
+                          <p>
                             Estimate monthly payments and total costs based on loan amount, term, and interest rate.
-                          </CardDescription>
-                          <Button className="mt-3 w-full">
+                          </p>
+                          <Button className="mt-3 w-full bg-amber-500 hover:bg-amber-600">
                             Open Calculator
                           </Button>
                         </CardContent>
                       </Card>
                       
-                      <Card>
+                      <Card className="glass-card">
                         <CardHeader>
                           <CardTitle className="text-md">Flood Risk Visualizer</CardTitle>
                         </CardHeader>
                         <CardContent>
-                          <CardDescription>
+                          <p>
                             GIS-powered tool showing property risk zones and historical flood data.
-                          </CardDescription>
-                          <Button className="mt-3 w-full">
+                          </p>
+                          <Button className="mt-3 w-full bg-amber-500 hover:bg-amber-600">
                             View Flood Map
                           </Button>
                         </CardContent>
                       </Card>
                       
-                      <Card>
+                      <Card className="glass-card">
                         <CardHeader>
                           <CardTitle className="text-md">Cost Estimator</CardTitle>
                         </CardHeader>
                         <CardContent>
-                          <CardDescription>
+                          <p>
                             Compare lifting vs. rebuilding costs based on square footage and zip code.
-                          </CardDescription>
-                          <Button className="mt-3 w-full">
+                          </p>
+                          <Button className="mt-3 w-full bg-amber-500 hover:bg-amber-600">
                             Start Estimate
                           </Button>
                         </CardContent>
@@ -951,19 +951,19 @@ const Resources = () => {
                 </AccordionItem>
                 
                 <AccordionItem value="events">
-                  <AccordionTrigger className="text-lg font-medium">
-                    <Calendar className="h-5 w-5 mr-2 text-primary" />
+                  <AccordionTrigger className="text-lg">
+                    <Calendar className="h-5 w-5 mr-2 text-amber-500" />
                     Local Events & Support
                   </AccordionTrigger>
                   <AccordionContent>
                     <div className="space-y-4">
                       <div>
-                        <h4 className="font-medium mb-2 text-md">Upcoming Workshops & Events</h4>
+                        <h4 className="mb-2 text-md">Upcoming Workshops & Events</h4>
                         <div className="grid gap-3">
                           {events.map((event) => (
-                            <Card key={event.title} className="p-4">
+                            <Card key={event.title} className="glass-card p-4">
                               <div className="flex gap-3">
-                                <div className="bg-primary/10 text-primary font-medium p-2 rounded text-center min-w-14">
+                                <div className="bg-amber-100 text-amber-800 p-2 rounded text-center min-w-14">
                                   <div className="text-xs">
                                     {event.date.split(" ")[0]}
                                   </div>
@@ -972,15 +972,15 @@ const Resources = () => {
                                   </div>
                                 </div>
                                 <div>
-                                  <h5 className="font-medium">{event.title}</h5>
-                                  <p className="text-xs text-muted-foreground">{event.location}</p>
+                                  <h5>{event.title}</h5>
+                                  <p className="text-xs">{event.location}</p>
                                 </div>
                               </div>
                               <div className="mt-2 flex gap-2">
-                                <Button size="sm" variant="outline" className="text-xs">
+                                <Button size="sm" variant="outline" className="text-xs border-amber-400 hover:bg-amber-50">
                                   Details
                                 </Button>
-                                <Button size="sm" className="text-xs">
+                                <Button size="sm" className="text-xs bg-amber-500 hover:bg-amber-600">
                                   Register
                                 </Button>
                               </div>
@@ -992,18 +992,18 @@ const Resources = () => {
                       <Separator />
                       
                       <div>
-                        <h4 className="font-medium mb-2 text-md">Community Partners</h4>
+                        <h4 className="mb-2 text-md">Community Partners</h4>
                         <div className="grid gap-3">
                           {communityPartners.map((partner) => (
-                            <Card key={partner.name} className="p-4">
+                            <Card key={partner.name} className="glass-card p-4">
                               <div className="flex justify-between">
-                                <h5 className="font-medium">{partner.name}</h5>
+                                <h5>{partner.name}</h5>
                                 <span className="text-xs bg-blue-100 text-blue-800 px-2 py-0.5 rounded">
                                   {partner.type}
                                 </span>
                               </div>
                               <p className="text-sm mt-1">{partner.description}</p>
-                              <Button size="sm" variant="link" className="mt-1 p-0 h-auto">
+                              <Button size="sm" variant="link" className="mt-1 p-0 h-auto text-amber-600">
                                 Visit Website
                               </Button>
                             </Card>
@@ -1015,8 +1015,8 @@ const Resources = () => {
                 </AccordionItem>
                 
                 <AccordionItem value="faqs">
-                  <AccordionTrigger className="text-lg font-medium">
-                    <MessageSquare className="h-5 w-5 mr-2 text-primary" />
+                  <AccordionTrigger className="text-lg">
+                    <MessageSquare className="h-5 w-5 mr-2 text-amber-500" />
                     FAQs & Live Help
                   </AccordionTrigger>
                   <AccordionContent>
@@ -1033,13 +1033,13 @@ const Resources = () => {
                       ))}
                     </Accordion>
                     
-                    <div className="bg-muted/50 p-4 rounded-md mt-6">
+                    <div className="bg-amber-50/50 p-4 rounded-md mt-6">
                       <div className="flex items-center justify-between">
                         <div>
-                          <h4 className="font-medium">Need more help?</h4>
-                          <p className="text-sm text-muted-foreground">Our experts are available to answer your questions.</p>
+                          <h4>Need more help?</h4>
+                          <p className="text-sm">Our experts are available to answer your questions.</p>
                         </div>
-                        <Button>
+                        <Button className="bg-amber-500 hover:bg-amber-600">
                           <MessageSquare className="h-4 w-4 mr-1" />
                           Live Chat
                         </Button>
